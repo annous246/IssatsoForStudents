@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body><style>
+        *{
+            padding:0;
+            margin:0;
+            box-sizing: border-box;
+        }
+        body{
+            text-align: center;
+            margin:2em;
+        }
+        h1{
+            border:0.01em solid black ;
+            padding:1em;
+            transition: 0.5s;;
+        }
+        h1:hover{
+            border:0.01em solid ;
+            padding:1em;
+            color:white;
+            background-color: black;
+            border:0.01em solid white;
+            transition: 0.5s;;
+        }
+        form{
+            display: flex;
+            flex-direction:column;
+            margin:2em;
+
+            padding:1em;
+        }
+        input{
+            padding:1em;
+            margin:2em;
+
+        }
+        button{
+            padding: 1em;
+            background-color: rgb(83, 125, 189,1);
+            border:none;
+            border-radius: 0.2em;
+            transition: 0.5s;;
+        }
+        button:hover{
+            padding: 1em;
+            background-color: rgb(83, 125, 189,0.8);
+            border:none;
+            border-radius: 0.2em;
+            transition: 0.5s;;
+        }
+        a{
+            margin-top:2em;
+            text-decoration: none;
+            color:black;
+        }
+    </style>
+    
+    <a href="home.ejs"><h1>Login page</h1></a>
+    <form action="login.ejs" method="post">
+        <label for="email">Email</label>
+        <input name ="email" type="email" placeholder="Email" required>
+        <label for="password">Password</label>
+        <input name ="password"  type="password" placeholder="*********" required>
+        <button type="submit">Log In</button>
+    </form>
+    <p><%=message.wpm%></p>
+    <a href="register.ejs">Sign Up</a></div>
+    
+</body>
+</html>

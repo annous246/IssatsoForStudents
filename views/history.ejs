@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        padding:0;
+        margin:0;
+        box-sizing: border-box;
+
+    }
+    body{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        
+        user-select: none;
+
+    }
+    section{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 2em;
+        width: 40%;
+        z-index: 1;
+
+
+
+    }
+    #history{
+        background-color: rgba(227, 0, 0, 0.729);
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-radius: 1em;
+        width: 100%;
+        border:0.1em solid black;
+        margin: 1em;
+        margin-top: 0;
+        z-index: 1;
+    }
+    #result{
+        margin:1.2em;
+        padding:1em;
+        border:0.08em solid black;
+        border-radius:0.2em;
+        z-index: 1;
+    }
+    #date{
+        padding:0.5em;
+        width: 100%;
+        border-top:0.08em solid black;
+        z-index: 1;
+        border-radius: 0 0 1em 1em;
+        transition: 0.2s;
+
+    }
+    #score{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border:0.08em solid black;
+        border-top:none;
+        width: 30%;
+        padding: 0.3em;
+        border-radius: 0 0 0.5em 0.5em;
+        background-color: rgb(255, 255, 255);
+        opacity: 0;
+        z-index: 1;
+        transition: 1s;
+    }
+    #title{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border:0.08em solid black;
+        width: 30%;
+        padding: 0.38em;
+        font-weight: bold;
+        border-radius: 0 0  0.5em 0.5em ;
+        background-color: rgba(203, 47, 47, 0.221);
+            transition: 0.5s;
+            transform: translateY(1.87em);
+            z-index: 2;
+
+    }
+    #title:hover{
+            transform: translateY(0);
+        border-top:0.08em solid black;
+        transition: 1s;
+
+    }
+    #title:hover + #history #score{
+        opacity: 1 !important;
+        transition: 1s;
+
+
+    }
+    #date:hover{
+        background-color: rgb(250, 247, 246);
+
+        transition: 0.2s;
+
+
+    }
+
+    @media screen and (max-width:600px){
+        #title{
+            transform: translateY(2.9em);
+        }
+    }
+    @media screen and (max-width:400px){
+        #title{
+            font-size: 0.8em;
+        }
+        #score{
+            font-size: 0.8em;
+        }
+    }
+</style>
+<body>
+    <section class="container">
+        <%
+        user.history.forEach((e)=>{
+         if(e.status==-1){%>
+            <div id="title">
+                    <h5>The Score</h5>
+            </div>
+            <div id="history" >
+                <div id="score" class="score">
+                    <div id="count"><%=e.score%>:<%=(100-e.score)%></div>
+                </div>
+                    <div id="result"><%=e.opponent%> won with <%=(100-e.score)%> points Exceeding you</div>
+
+                <div id="date"><%=e.date%></div>
+    
+            </div>
+
+        <% }
+        else if(e.status==0){%>
+
+
+
+            <div id="title">
+                <h5>The Score</h5>
+        </div>
+            
+        <div id="history" style="background-color: rgba(8, 130, 236, 0.662);" >
+            <div id="score" class="score">
+                <div id="count"><%=e.score%>:<%=(100-e.score)%></div>
+            </div> 
+                <div id="result" >A Draw game with <%=e.opponent%></div>
+                
+
+            <div id="date"><%=e.date%></div>
+
+        </div>
+
+        <%}
+        else{ %>
+
+
+            <div id="title">
+                <h5>The Score</h5>
+        </div>
+            
+        <div id="history" style="background-color: rgba(17, 238, 17, 0.536);">
+            <div id="score" class="score">
+                <div id="count"><%=e.score%>:<%=(100-e.score)%></div>
+            </div>
+                <div id="result" >you won with <%=(100-e.score)%> points Exceeding <%=e.opponent%> </div>
+                
+            <div id="date"><%=e.date%></div>
+
+        </div>
+
+        <%}
+
+
+       })
+        
+        %>
+    </section>
+    
+</body>
+</html>

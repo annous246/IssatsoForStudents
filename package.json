@@ -1,0 +1,33 @@
+{
+  "name": "first_project",
+  "version": "1.0.0",
+  "description": "user interface",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  }
+  ,
+  "keywords": [
+    "user",
+    "user_interface"
+  ],
+  "author": "anas",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cordova": "^12.0.0",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "http": "^0.0.1-security",
+    "jquery": "^3.7.1",
+    "mongoose": "^7.4.4",
+    "multer": "^1.4.5-lts.1",
+    "nocache": "^4.0.0",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.0.1",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2"
+  }
+}

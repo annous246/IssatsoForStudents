@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+body{
+    display: inline;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#container{
+    display: block;
+    border:0.08em solid black;
+    
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color: rgba(170, 0, 0, 0.61);
+    width: 100%;
+    height: 100%;
+}
+.game-screen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 1em;
+    padding: 0.1em;
+    border: 0.08em solid black;
+}
+.p2{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: start;
+    text-align: start;
+    width: 50%;
+    height: 100%;
+    align-self: start;
+    background-color: rgba(255, 255, 0, 0.567);
+    margin-right: 0.1em;
+    padding: 1em;
+    border-radius:1em 0.5em 0.5em 5em;
+    transition: all 0.2s linear;
+}
+.p1{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: end;
+    text-align: end;
+    width: 50%;
+    height: 100%;
+    align-self: end;
+    background-color: rgba(0, 0, 255, 0.523);
+    margin-right: 0.1em;
+    padding: 1em;
+    border-radius:0.5em 5em 1em 0.5em;
+    transition: all 0.2s linear;
+}
+img{
+    width:4.2rem;
+    height: 5rem;
+    object-fit: cover;
+    opacity: 1;
+    transition: 0.2s;
+}
+#p1-control , #p2-control{
+    height: 10em;
+    border-radius:1em ;
+    margin: 1em ;
+    width:100%; 
+    display: block;
+    align-items: center;
+    text-align: center;
+
+}
+button{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(55, 50, 193, 0.612);
+    border-radius: 1em;
+    font-weight: bold;
+    font-size: 2em;
+    border:none;
+    box-shadow: 0.1em 0.1em 0.1em black , -0.1em -0.1em 0.1em white ;
+    
+
+
+}
+#controls{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+form{display: flex;
+    width: 100%;
+
+}
+button:active{
+    font-weight:normal;
+    box-shadow:  -0.1em -0.1em 0.1em black ,0.1em 0.1em 0.1em white ;
+    
+}
+#rule{
+    border-radius: 0.5em;;
+    border: 0.08em solid black;
+    margin:0 1em;
+    padding:0.5em ;
+}
+.monster2{
+    opacity:0 !important;
+    transition: 0.2s;
+}
+#time{
+    opacity: 1;
+    font-size: 0.5em;
+    transition: 0.2s;
+}
+.hide{
+    opacity: 0 !important;
+    transition: 0.2s ;
+
+}
+#abscontainer{
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    font-size: 5em;
+    border:0.08em solid black;
+    border-radius: 1em;
+    padding: 0.2em;
+    background-color: rgb(234, 196, 196);
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    transition: all 0.2s linear;
+
+}
+.absdestroy{
+    top:0% !important;
+    width: 50% !important;
+    font-size: 1.5em !important;
+    padding: 0 !important;
+    position: relative !important;
+    margin-left:25% ;
+    transition: all 0.2s linear !important;
+
+}
+</style>
+<body>
+    <% let cond=(room.player2!='')%>
+    <section id="container">
+    <div id="abscontainer">
+        <div id="timeName">Clock</div>
+        <div id="time"></div>
+    </div>
+        <h5>The Score</h5>
+        <div id="score"><%=room.score%></div>
+        <div id="vs"><h1>VS</h1></div>
+    <div class="game-screen">
+        <div class="p1" id="pw1"><%=player1.username%><img src="m1.png"></div>
+  <% if(cond==true){%><!--first time join or reload-->
+    <div class="p2" id="pw2"><img src="m2.png"><p id="waiting"><%=player2.username%></p></div>
+
+  <%}
+  else{%>
+    
+        <div class="p2" id="pw2"><img src="m2.png" class="monster2"><p id="waiting">Waiting for an opponent</p></div>
+  <%}%>
+    
+    </div>
+    </section>
+    <div id="controls" class="game-screen">
+        
+          <div id="p1-control" class="p1"><button type="" id="player1-btn" >CLICK!</button> </div>
+          <div id="p2-control" class="p2"><button type="" id="player2-btn" >CLICK!</button></div>
+        
+    </div>
+    <div id="rule"><h4>The Rule :</h4>Who Clicks The Most Wins!<%if(room.start_status==false){%><form method="post" action="/play" id="exitform"><button type="submit" id="exit-btn">Exit</button></form><%}%></div>
+</body>
+<script id="ejs" type="application/json"  idd='<%=roomid%>' player1username='<%=player1username%>' player2username='<%=player2username%>' player2email='<%=player2email%>' player1email='<%=player1email%>'  score='<%=score%>' status='<%=status%>' end='<%=end%>'></script>
+<script src="/socket.io/socket.io.js"></script>
+<script >
+ let ejsdata=document.getElementById('ejs');
+ let p1un=ejsdata.getAttribute('player1username')
+ let p2un=ejsdata.getAttribute('player2username')
+ let p1email=ejsdata.getAttribute('player1email')
+ let p2email=ejsdata.getAttribute('player2email')
+ let id=ejsdata.getAttribute('idd')
+ console.log("id check",id)
+ let p1={username:p1un,email:p1email}
+ let p2={username:p2un,email:p2email}
+ let status=ejsdata.getAttribute('status');
+ let end=ejsdata.getAttribute('end');
+ let rmscore=ejsdata.getAttribute('score');
+ let room={id:id,start_status:status,ending_date:end,score:rmscore,player1:p1,player2:p2};
+ let pw1=document.getElementById('pw1')
+ let pw2=document.getElementById('pw2')
+ let score=document.getElementById('score')
+ let p1b=document.getElementById('player1-btn')
+ let p2b=document.getElementById('player2-btn')
+ let abscontainer=document.getElementById('abscontainer');
+ let socket=io();
+ let exitform=document.getElementById('exitform')
+ let exitbtn=document.getElementById('exit-btn')
+ let scr=parseInt(room.score);
+            console.log("end"+room.ending_date)
+            console.log("start"+room.start_status)
+            console.log("score"+room.score)
+            console.log("p1"+p1.username)
+            console.log("p1"+p1.email)
+            console.log("p2"+p2.username)
+            console.log("p2"+p2.email)
+    let timeclock=document.getElementById('timeName');
+    let time=document.getElementById('time');
+    socket.on('start',(data)=>{
+        if(data.player1==room.player1.email)
+        location.reload();
+    })
+            socket.on('players safe',()=>{location.reload();})
+     console.log(p1b.type)
+
+
+    if(p2.email!=''&&room.start_status=='false'){//checkup for player 2 when joins first time
+        console.log("first emisson")
+        socket.emit('gameStarted',room);//game start emission
+        location.reload();
+    }
+    else if(p2email!=''){
+        console.log("go");
+        let nowtime=parseInt((new Date()).getTime()/1000);
+        let countdown=parseInt(room.ending_date)-nowtime-60;
+             scr=parseInt(score.textContent);
+        let timeleft=countdown+60;
+
+        if(countdown<=0){
+          abscontainer.className='absdestroy'
+            if(timeleft>=0){
+           let intid=setInterval(()=>{console.log("still time"); if(scr>0&&scr<100){p1b.type="button"
+            p2b.type="button";
+            p2b.disabled=false
+            p1b.disabled=false
+            timeclock.textContent='Timeleft';
+            setTimeout(()=>{
+            time.textContent=timeleft,time.className=''},200)}
+            //animation
+            //******************
+            timeleft--;
+            if(timeleft<0||scr<=0||scr>=100){//desactivate buttons
+                p1b.type='';
+                p2b.type='';
+            p2b.disabled=true
+            p1b.disabled=true
+                ///***********//finish intervall loop
+                clearInterval(intid)
+                setTimeout(()=>{socket.emit('end_game',room)
+                
+            },4000)
+            timeclock.textContent='Game Ended';
+                if(scr>50){
+                time.textContent=p1.username+"  Won!"
+
+                }
+                else if(scr==50){
+                time.textContent='Draw'
+
+                }
+                else{
+                time.textContent=p2.username+"  Won!"
+
+                }
+                
+
+            }
+           },1000)
+
+           
+            }
+            else{
+
+                p1b.type='';
+                p2b.type='';
+            p2b.disabled=true
+            p1b.disabled=true
+                ///***********
+                setTimeout(()=>{
+                    socket.emit('end_game',room)
+
+                
+            },4000)
+            timeclock.innerHTML='Game Ended';
+                if(room.score>50){
+                time.textContent=p1.username+"  Won!"
+
+                }
+                else if(room.score==50){
+                time.textContent='Draw'
+
+                }
+                else{
+                time.textContent=p2.username+"  Won!"
+
+                }
+            }
+
+
+        }
+        else{
+           let intid=setInterval(()=>{
+             scr=parseInt(score.textContent);
+            if(countdown>0){
+            timeclock.textContent='CountDown';
+            //animation
+            time.className='hide'
+            setTimeout(()=>{
+            time.textContent=timeleft-60,time.className=''},200)
+            //******************
+            
+            countdown--;
+                p1b.type='';
+                p2b.type='';
+            p2b.disabled=true
+            p1b.disabled=true
+                console.log(p1b.type)
+
+            }
+           else if(countdown<=0){
+          abscontainer.className='absdestroy'
+           if(scr>0&&scr<100&&timeleft>0){timeclock.textContent='Timeleft';
+            time.className='hide'
+      //animation part
+            setTimeout(()=>{
+            time.textContent=timeleft,time.className=''},200);
+            p1b.type="button"
+            p2b.type="button"
+            p2b.disabled=false
+            p1b.disabled=false
+        
+        }
+
+                //desactivate buttons
+                ///***********
+                
+
+            }
+            timeleft--;
+            console.log(scr)
+            if(timeleft<0||scr<=0||scr>=100){//desactivate buttons
+                p1b.type='';
+                p2b.type='';
+            p2b.disabled=true
+            p1b.disabled=true
+                ///***********
+                //finish intervall loop
+                clearInterval(intid)
+                setTimeout(()=>{
+                    socket.emit('end_game',room)
+            },4000)
+            timeclock.textContent='Game Ended';
+                if(scr>50){
+                time.textContent=p1.username+"  Won!"
+
+                }
+                else if(scr==50){
+                time.textContent='Draw'
+
+                }
+                else{
+                time.textContent=p2.username+"  Won!"
+
+                }
+                
+
+            }
+           },1000)
+
+
+        }
+
+
+
+    }
+    //action part
+ 
+    p1b.addEventListener('click',(e)=>{
+    e.preventDefault()
+    console.log(p1b.type);
+    if(p1b.type=='button'){
+        socket.emit('shot',{player1:p1})
+
+    }
+ })
+        socket.on('scored',(data)=>{
+            if(data.id==room.id)
+            score.textContent=data.score;
+        })
+ p2b.addEventListener('click',(e)=>{
+    e.preventDefault()
+    if(p2b.type=='button'){
+
+        socket.emit('shot',{player2:p2})
+
+    }
+ })
+        socket.on('scored',(data)=>{
+            if(data.id==room.id){
+                pw1.style.width=data.score+'%';
+                pw2.style.width=JSON.stringify(100-parseInt(data.score))+'%';
+            score.textContent=data.score;
+            }
+            
+        })
+
+
+        //multiple request prevention
+        exitform.addEventListener('submit',(e)=>{
+            exitbtn.disabled=true;
+            exitbtn.type='button';
+        })
+        //***************************
+
+</script>
+</html>

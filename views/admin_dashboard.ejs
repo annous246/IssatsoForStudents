@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #p{
+        white-space: pre-wrap;
+    }
+body{display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+}
+.pt{
+    padding: 1em;;
+    margin: 1em;;
+    border: black solid 0.08em;
+    border-radius:0.5em;
+}
+.prime,.roman,#ul{
+    background-color: rgb(101, 136, 232);
+    color:white;
+    padding:1em;
+    margin: 1em;
+    border: 0.1em rgb(88, 92, 115) solid;
+    border-radius:0.8em;
+    font-size: 1.2em;
+    font-weight: bold;
+   text-decoration: none;
+}
+.roman a{
+    text-decoration: none;
+color:white;
+
+}
+.prime p{
+    font-size: 0.5em;
+
+}
+#p{
+    background-color: rgb(198, 240, 114);
+    color: rgb(0, 0, 0);
+}
+button{
+    background-color: rgb(101, 136, 232);
+    color:white;
+    padding:1em;
+    margin: 1em;
+    border: 0.1em rgb(88, 92, 115) solid;
+    border-radius:0.8em;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+}
+</style>
+<body>
+    <h1>Welcome Admin !</h1>
+    <a href="logout.ejs">Logout</a>
+</div>
+    <a id="ul" href="users_panel.ejs">Users Panel</a>
+    <a id="ul" href="users_ranking.ejs">Users Ranking</a>
+    <a id="ul" href="posting_admin.ejs">Posting and Feeds Panel</a>
+
+    
+    <script>
+        window.addEventListener('unload', function() {
+  // Send a logout request to the server
+  fetch('/offline', {
+    method: 'GET',
+  });
+});
+    </script>
+</body>
+</html>

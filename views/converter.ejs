@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #p{
+        white-space: pre-wrap;
+    }
+body{display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+}
+.pt{
+    padding: 1em;;
+    margin: 1em;;
+    border: black solid 0.08em;
+    border-radius:0.5em;
+}
+.prime{
+    background-color: rgb(101, 136, 232);
+    color:white;
+    padding:1em;
+    margin: 1em;
+    border: 0.1em rgb(88, 92, 115) solid;
+    border-radius:0.8em;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.prime p{
+    font-size: 0.5em;
+
+}
+#p{
+    background-color: rgb(198, 240, 114);
+    color: rgb(0, 0, 0);
+}
+button{
+    background-color: rgb(101, 136, 232);
+    color:white;
+    padding:1em;
+    margin: 1em;
+    border: 0.1em rgb(88, 92, 115) solid;
+    border-radius:0.8em;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
+.pt{
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    text-align: center;
+    object-fit: cover;
+    height: 50%;
+    width: 50%;
+    background-color: rgb(109, 168, 219);
+}
+form{
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    text-align: center;
+    object-fit: cover;
+}
+form img{
+    position: relative;
+
+}
+
+input{
+    background-color: transparent;
+    border: solid black 0.1em;
+    border-radius: 1em;
+    margin:2em;
+    padding:1em;
+    text-align: center;
+    transition-duration: 0.5s;
+}
+input:hover{
+    background-color: rgba(170, 236, 237, 0.463);
+    border: solid black 0.1em;
+    border-radius: 1em;
+    margin:2em;
+    padding:1em;
+    box-shadow: 0.1em 0.1em 0.1em 0.05em;
+    transition-duration: 0.5s;
+    text-decoration: none;
+}
+button:hover{
+    background-color: rgba(170, 236, 237, 0.463);
+    border: solid black 0.1em;
+    border-radius: 1em;
+    margin:2em;
+    padding:1em;
+    box-shadow: 0.1em 0.1em 0.1em 0.05em;
+    transition-duration: 0.5s;
+    text-decoration: none;
+}
+input::-webkit-inner-spin-button{
+    display: none;
+}
+input::-webkit-outer-spin-button{
+    display: none;
+    
+}
+    form img{
+        position: relative;
+        width:50%;
+        height:50%;
+    }
+    form div img{
+        position: relative;
+        width:60%;
+        height:60%;
+        margin:1em;
+
+    }
+    .msg{
+        background-color: rgb(237, 117, 117);
+        padding:1em;
+        margin:1em;
+
+        border:0.07em solid black;
+        border-radius: 1em;
+    }
+    .res{
+        position: relative;
+        background-color: white;
+        padding:1em;
+        margin:1em;
+        border:solid transparent;
+        border-radius: 1em;
+    }
+</style>
+<body>
+    <h1>Roman Number Converter LXIX !</h1>
+    <div class="pt">
+        <h2>IIIIIIIIIIIIIIIIII</h2>
+        <form action="/convert" method="post">
+            <label>Input</label>
+            <input name="number" type="number" required placeholder="69">
+            <div><img src="shit.png"></div>
+            <% if (message.Roman_number){%>
+               <span class="res"><%=message.Roman_number%></span> 
+            <%}%>
+            <button type="submit"><img src="generate.png"></button>
+            <% if(message.msg){%>
+        <span class="msg"><p><%=message.msg%></p></span>
+        <%}%>
+        </form>
+    </div>
+
+
+
+</body>
+</html>

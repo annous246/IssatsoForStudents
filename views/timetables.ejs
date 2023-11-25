@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+    }
+    .seance{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 1em;
+        align-items: center;
+        filter: blur(0%);
+        opacity: 1;
+        transition: all 0.3s;
+        transition-duration: all 0.3s;
+
+
+    }
+    .day{
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 1em;
+        border: 0.08em solid black;
+        border-radius: 0.2em;
+
+
+    }
+     h3{
+        border: 0.08em solid black;
+        border-radius: 0.2em;
+        padding: 0.7em 0.5em;
+        background-color: rgba(20, 255, 137, 0.816);
+        color: white;
+        font-weight: bold;
+        font-size: 1.4em;
+        width: 100%;
+       
+    }
+    input{
+        width: 10%;
+        padding: 0.8em;
+        margin-left: 0.4em;
+        margin-right: 0.4em;
+    }
+    select{
+        width: 10%;
+        padding: 0.8em;
+        margin-left: 0.4em;
+        margin-right: 0.4em;
+    }
+    label{
+        width: 10%;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 1em;
+
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+    button{
+        padding: 1em;
+        width: 50%;
+        margin: 1em;
+        background-color: rgba(4, 92, 233, 0.593);
+        border:0.05em solid black;
+        color: white;
+        font-size: 1em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    button:hover{
+        background-color: white;
+        border:0.05em solid rgba(4, 92, 233, 0.593);;
+        color: rgba(4, 92, 233, 0.593);
+        transition: all 0.2s;
+    }
+    .adder{
+        width: 100%;
+        margin: 0;
+    }
+
+    .hide{
+        opacity: 0 !important;
+        transition: all 0.3s !important;
+    }
+    span{
+        border:0.05em solid black;
+        border-radius: 0.2em;
+        padding: 0.8em;
+        margin-right: 0.5em;
+        background-color: rgba(19, 170, 122, 0.399);
+        
+    }
+    .rm-btn{
+        background-color: rgba(235, 103, 15, 0.658);
+        transition: all 0.2s;
+    }
+    .rm-btn:hover{
+        background-color: rgba(235, 103, 15, 0.8);
+        color: black;
+        border-color: black;
+        transition: all 0.2s;
+    }
+    .db-btn{
+        opacity: 1;
+        background-color: rgba(235, 15, 15, 0.658);
+        transition: all 0.2s;
+    }
+    .db-btn:hover{
+        background-color: rgba(230, 101, 101, 0.658);
+        color: rgba(235, 15, 15, 0.658);;
+        border-color: rgba(235, 15, 15, 0.658);;
+        transition: all 0.2s;
+    }
+    .hide{
+        opacity:0 ip !important;
+        transition: all 0.2s !important;
+    }
+    .smother{
+        opacity:0.5  !important;
+        filter:blur(0.1em) !important;
+        transition: all 0.2s !important;
+    }
+    .dbclass{
+        opacity: 1;
+        background-color: rgba(15, 147, 235, 0.8);
+        transition: all 0.2s;
+    }
+    .dbclass:hover{
+        background-color: rgba(15, 147, 235, 0.658);
+        color: white;
+        border-color: white;
+        transition: all 0.2s;
+    }
+    .container{
+        background-color: rgba(226, 97, 11, 0.493);
+        margin-top:2em ;
+        margin-bottom:2em ;
+      border : 0.08em solid black;
+      border-radius: 0.2em;
+    }
+
+</style>
+<body>
+    <form method="post" action="/mtimetable" id="Monday">
+        <div class="container">
+                <h3>Monday</h3>
+            <div class="day">
+                <% let tableod=table["monday"]
+                for(let k in tableod){
+                   let v=parseInt(k)+1
+                   let element=tableod[k]
+                   let sn=element.seanceName
+                   let st=element.type
+                   let sc=element.class
+                   let sw=element.period
+                   let sp=element.prof
+                   let ss=element.status
+                   let dropdown=['H (Weekly)','QA (Biweekly)','QB (Biweekly)','Z3 (Biweekly)','Z4 (Biweekly)']
+                   let req='required'
+                    let val=1;
+                    let sclass=''
+                    let dbclass=''
+                    let dbp='disable'
+                   if(ss==false){
+                    sclass='smother'
+                    req=''
+                     dbclass='dbclass'
+                    dbp='enable'
+                    val=0
+                   }
+
+                   %>
+                   <span>S<%=parseInt(v)%></span>
+                   <div class="mseance seance <%=sclass%>">
+                       <input type="hidden" value="<%=val%>" name="mss<%=parseInt(v)%>">
+                       <label>Seance Name</label>
+                       <input value="<%=sn%>" type="text" name="msn<%=parseInt(v)%>" placeholder="Web Dev" <%=req%> >
+                       <label>Seance Type</label>
+                       <input value="<%=st%>" type="text" name="mst<%=parseInt(v)%>" placeholder="lecture" <%=req%>>
+                       <label>Seance Classroom</label>
+                       <input value="<%=sc%>" type="text" name="msc<%=parseInt(v)%>" placeholder="A04" <%=req%>>
+                       <label>Seance Cadence</label>
+                       <select  name="msw<%=parseInt(v)%>">
+                           
+                           <option value="<%=parseInt(sw)%>"><%=dropdown[parseInt(sw)-1]%></option>
+                           <%
+                           let picker=parseInt(sw);
+                           for(let z=1;z<6;z++){
+                            if(z==picker)continue;
+                            %>
+                           <option value="<%=z%>"><%=dropdown[z-1]%></option>
+                           <%}
+                           %>
+                       </select>
+                       <label>Seance Professor</label>
+                       <input value="<%=sp%>" type="text" name="msp<%=parseInt(v)%>" placeholder="John Doe" <%=req%>>
+                       <button class="rm-btn mrm-btn " id="mrm-btn-<%=parseInt(v)%>">x</button>
+                       <button class="db-btn mdb-btn <%=dbclass%>" id="mdb-btn-<%=parseInt(v)%>"><%=dbp%></button>
+                   </div> <%}%>
+                   <button id="Monday-adder-btn" class="adder">+</button>
+               
+
+            </div>
+        </div>
+
+        <!--tuesday***************************************************************************-->
+          
+      <div class="container">
+            <h3>Tuesday</h3>
+        <div class="day">
+            <%  tableod=table["tuesday"]
+            for( k in tableod){
+                v=parseInt(k)+1
+                element=tableod[k]
+                sn=element.seanceName
+                st=element.type
+                sc=element.class
+                sw=element.period
+                sp=element.prof
+                ss=element.status
+                dropdown=['H (Weekly)','QA (Biweekly)','QB (Biweekly)','Z3 (Biweekly)','Z4 (Biweekly)']
+                req='required'
+                 val=1;
+                 sclass=''
+                 dbclass=''
+                 dbp='disable'
+               if(ss==false){
+                sclass='smother'
+                req=''
+                 dbclass='dbclass'
+                dbp='enable'
+                val=0
+               }
+
+               %>
+               <span>S<%=parseInt(v)%></span>
+               <div class="tseance seance <%=sclass%>">
+                   <input type="hidden" value="<%=val%>" name="tss<%=parseInt(v)%>">
+                   <label>Seance Name</label>
+                   <input value="<%=sn%>" type="text" name="tsn<%=parseInt(v)%>" placeholder="Web Dev" <%=req%> >
+                   <label>Seance Type</label>
+                   <input value="<%=st%>" type="text" name="tst<%=parseInt(v)%>" placeholder="lecture" <%=req%>>
+                   <label>Seance Classroom</label>
+                   <input value="<%=sc%>" type="text" name="tsc<%=parseInt(v)%>" placeholder="A04" <%=req%>>
+                   <label>Seance Cadence</label>
+                   <select  name="tsw<%=parseInt(v)%>">
+                       
+                       <option value="<%=parseInt(sw)%>"><%=dropdown[parseInt(sw)-1]%></option>
+                       <%
+                       let picker=parseInt(sw);
+                       for(let z=1;z<6;z++){
+                        if(z==picker)continue;
+                        %>
+                       <option value="<%=z%>"><%=dropdown[z-1]%></option>
+                       <%}
+                       %>
+                   </select>
+                   <label>Seance Professor</label>
+                   <input value="<%=sp%>" type="text" name="tsp<%=parseInt(v)%>" placeholder="John Doe" <%=req%>>
+                   <button class="rm-btn trm-btn " id="trm-btn-<%=parseInt(v)%>">x</button>
+                   <button class="db-btn tdb-btn <%=dbclass%>" id="tdb-btn-<%=parseInt(v)%>"><%=dbp%></button>
+               </div> <%}%>
+               <button id="Tuesday-adder-btn" class="adder">+</button>
+           
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    
+        <!--wednesday***************************************************************************-->
+          
+        <div class="container">
+            <h3>Wednesday</h3>
+        <div class="day">
+            <%  tableod=table["wednesday"]
+            for( k in tableod){
+                v=parseInt(k)+1
+                element=tableod[k]
+                sn=element.seanceName
+                st=element.type
+                sc=element.class
+                sw=element.period
+                sp=element.prof
+                ss=element.status
+                dropdown=['H (Weekly)','QA (Biweekly)','QB (Biweekly)','Z3 (Biweekly)','Z4 (Biweekly)']
+                req='required'
+                 val=1;
+                 sclass=''
+                 dbclass=''
+                 dbp='disable'
+               if(ss==false){
+                sclass='smother'
+                req=''
+                 dbclass='dbclass'
+                dbp='enable'
+                val=0
+               }
+
+               %>
+               <span>S<%=parseInt(v)%></span>
+               <div class="wseance seance <%=sclass%>">
+                   <input type="hidden" value="<%=val%>" name="wss<%=parseInt(v)%>">
+                   <label>Seance Name</label>
+                   <input value="<%=sn%>" type="text" name="wsn<%=parseInt(v)%>" placeholder="Web Dev" <%=req%> >
+                   <label>Seance Type</label>
+                   <input value="<%=st%>" type="text" name="wst<%=parseInt(v)%>" placeholder="lecture" <%=req%>>
+                   <label>Seance Classroom</label>
+                   <input value="<%=sc%>" type="text" name="wsc<%=parseInt(v)%>" placeholder="A04" <%=req%>>
+                   <label>Seance Cadence</label>
+                   <select  name="wsw<%=parseInt(v)%>">
+                       
+                       <option value="<%=parseInt(sw)%>"><%=dropdown[parseInt(sw)-1]%></option>
+                       <%
+                       let picker=parseInt(sw);
+                       for(let z=1;z<6;z++){
+                        if(z==picker)continue;
+                        %>
+                       <option value="<%=z%>"><%=dropdown[z-1]%></option>
+                       <%}
+                       %>
+                   </select>
+                   <label>Seance Professor</label>
+                   <input value="<%=sp%>" type="text" name="wsp<%=parseInt(v)%>" placeholder="John Doe" <%=req%>>
+                   <button class="rm-btn wrm-btn " id="wrm-btn-<%=parseInt(v)%>">x</button>
+                   <button class="db-btn wdb-btn <%=dbclass%>" id="wdb-btn-<%=parseInt(v)%>"><%=dbp%></button>
+               </div> <%}%>
+               <button id="Wednesday-adder-btn" class="adder">+</button>
+           
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <button type="submit">Save</button>
+        <button  type="reset">Reset</button>
+    </form>
+
+
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+
+        let socket=io()
+        monday()
+        tuesday()
+        wednesday()
+
+
+
+function monday(){
+    
+    let mfrm=document.getElementById('Monday');
+        let madder=document.getElementById('Monday-adder-btn');
+        let mseances=document.getElementsByClassName('mseance')
+
+        
+        madder.addEventListener('click',(e)=>{
+            e.preventDefault();
+            madder.disabled=true
+            let container=madder.parentElement
+            let seancecounter=container.children[container.children.length-3]
+            console.log(seancecounter)
+            let count
+            if(seancecounter==undefined){
+                count=0;
+                count++;
+        
+            }
+            else{
+            let content=seancecounter.textContent
+             count=parseInt(content.substring(1))+1;
+
+            }
+            let seance=document.createElement('div')
+            seance.className="mseance seance"
+
+            let seancecount=document.createElement('span')
+            seancecount.textContent="S"+count;
+
+
+            let seancename=document.createElement('label')
+            seancename.textContent="Seance Name"
+            
+
+            let seancetype=document.createElement('label')
+            seancetype.textContent="Seance Type"
+            
+
+            let seanceclass=document.createElement('label')
+            seanceclass.textContent="Seance Classroom"
+            
+
+            let seancecadence=document.createElement('label')
+            seancecadence.textContent="Seance Cadence"
+            
+
+            let seanceprof=document.createElement('label')
+            seanceprof.textContent="Seance Professor"
+
+
+            let seancenamein=document.createElement('input')
+            seancenamein.type="text"
+            seancenamein.placeholder="Web Dev"
+            seancenamein.required=true
+            seancenamein.name="msn"+count
+
+            let seancetypein=document.createElement('input')
+            seancetypein.type="text"
+            seancetypein.placeholder="Lecture"
+            seancetypein.required=true
+            seancetypein.name="mst"+count
+
+            let seancestatus=document.createElement('input')
+            seancestatus.type="hidden"
+            seancestatus.value="1"
+            seancestatus.name="mss"+count
+
+            let seanceclassin=document.createElement('input')
+            seanceclassin.type="text"
+            seanceclassin.placeholder="A04"
+            seanceclassin.required=true
+            seanceclassin.name="msc"+count
+
+            let seancecadencein=document.createElement('select')
+            seancecadencein.name="msw"+count
+
+
+            let seanceprofin=document.createElement('input')
+            seanceprofin.type="text"
+            seanceprofin.placeholder="John Doe"
+            seanceprofin.required=true
+            seanceprofin.name="msp"+count
+
+            let qa=document.createElement('option')
+            qa.value='2'
+            qa.textContent='QA'
+
+            let qb=document.createElement('option')
+            qb.value='3'
+            qb.textContent='QB'
+
+            let z3=document.createElement('option')
+            z3.value='4'
+            z3.textContent='Z3'
+
+            let z4=document.createElement('option')
+            z4.value='5'
+            z4.textContent='Z4'
+
+            let h=document.createElement('option')
+            h.value='1'
+            h.textContent='H (Weekly)'
+
+            let mrmbtn=document.createElement('button');
+            mrmbtn.className='mrm-btn rm-btn'
+            mrmbtn.id='mrm-btn-'+count
+            mrmbtn.textContent="x"
+
+            let mdbbtn=document.createElement('button');
+            mdbbtn.className='mdb-btn db-btn'
+            mdbbtn.id='mdb-btn-'+count
+            mdbbtn.textContent="Disable"
+
+
+            seancecadencein.appendChild(h)
+            seancecadencein.appendChild(qa)
+            seancecadencein.appendChild(qb)
+            seancecadencein.appendChild(z3)
+            seancecadencein.appendChild(z4)
+
+
+            seance.appendChild(seancestatus)
+
+            seance.appendChild(seancename)
+            seance.appendChild(seancenamein)
+            
+            seance.appendChild(seancetype)
+            seance.appendChild(seancetypein)
+            
+            seance.appendChild(seanceclass)
+            seance.appendChild(seanceclassin)
+            
+            seance.appendChild(seancecadence)
+            seance.appendChild(seancecadencein)
+            
+            seance.appendChild(seanceprof)
+            seance.appendChild(seanceprofin)
+
+            seance.appendChild(mrmbtn)
+            seance.appendChild(mdbbtn)
+            mrmbtn.addEventListener('click',(e)=>{
+                e.preventDefault()
+                let id=mrmbtn.id
+                let v=parseInt(id.split('-')[2])
+                   /*<span>SparseInt(v)</span>
+                   <div class="seance">*/
+                    let cnt=(mrmbtn.parentElement).parentElement
+                    let cnter=0
+                    let ok=false
+                    for(let el of mseances){
+                        
+                       cnter++;
+                       if(cnter==v){ok=true;continue;}
+
+                       if(ok){
+                        let spn=cnt.children[(cnter-1)*2]
+                        spn.textContent='S'+JSON.stringify(cnter-1)
+                        for(let ce of el.children){
+                            
+                          if(ce.name){
+                            let s=ce.name
+                            //console.log(s)
+                            //console.log(ce)
+                            ce.name=s.substring(0,3)+JSON.stringify(cnter-1);
+                            console.log(ce.name+" name")
+                          }
+                          if(ce.id){
+                            let s=ce.id
+                            ce.id=s.substring(0,8)+JSON.stringify(cnter-1);
+                            console.log(ce.id+" id")
+                          }
+                        }
+                       }console.log(el)
+
+                    }cnt.removeChild(cnt.children[(v-1)*2])
+                    cnt.removeChild(cnt.children[(v-1)*2])
+
+            })
+
+            
+            mdbbtn.addEventListener('click',(e)=>{
+                e.preventDefault()
+                let id=mdbbtn.id
+                let v=parseInt(id.split('-')[2])
+                let snc=mdbbtn.parentElement
+                let ch=snc.children
+                if(snc.classList.contains("smother")){
+                    mdbbtn.textContent="disable"
+                    mdbbtn.classList.remove('dbclass')
+                    snc.classList.remove("smother")
+                }
+            else{
+                    mdbbtn.textContent="enable"
+                    mdbbtn.classList.add('dbclass')
+                    snc.classList.add("smother")
+            }
+                for(let p of ch){
+                    if(p.tagName=='INPUT'&& p.type!="hidden"){
+                        p.required=!(p.required)
+                        
+                    }
+                    else if(p.tagName=='INPUT'&& p.type=="hidden"){
+                      let val=parseInt(p.value)
+                      p.value=1-(val)
+                    }
+                }
+
+
+            })
+
+
+
+
+                container.classList.add('hide')
+            setTimeout(()=>{
+            container.removeChild(madder)
+            container.appendChild(seancecount)
+            container.appendChild(seance)
+            container.appendChild(madder)
+            },300)
+            setTimeout(()=>{
+                container.classList.remove('hide')
+            madder.disabled=false
+            },600)
+            
+
+            
+
+
+
+        })
+
+        let mrmbuttons=document.getElementsByClassName('mrm-btn')
+        let mdbbuttons=document.getElementsByClassName('mdb-btn')
+        for(let el of mdbbuttons){
+
+            el.addEventListener('click',(e)=>{
+                e.preventDefault()
+                let id=el.id
+                let v=parseInt(id.split('-')[2])
+                //request to server
+                socket.emit("mdbeb",v)
+                // console.log(el)
+                //response from server
+                socket.on("mdbebo",()=>{ok=false;console.log(ok)
+
+                    socket.off("mdbebo")
+            
+                let snc=el.parentElement
+                let ch=snc.children
+                if(snc.classList.contains("smother")){
+                    el.textContent="disable"
+                    el.classList.remove('dbclass')
+                    snc.classList.remove("smother")
+                }
+            else{
+                    el.textContent="enable"
+                    el.classList.add('dbclass')
+                    snc.classList.add("smother")
+            }
+                 //console.log(el)
+                for(let p of ch){
+                    if(p.tagName=='INPUT'&&p.type!='hidden'){console.log(p.required)
+                        p.required=!(p.required)
+                    }
+                    else if(p.tagName=='INPUT'&& p.type=="hidden"){console.log(" "+p.value)
+                      let val=parseInt(p.value)
+                      p.value=1-val
+                    }
+                }})
+            
+            })
+                
+
+        }
+
+        for(let k of mrmbuttons){
+            let mrmelement=k
+            k.addEventListener('click',(e)=>{
+                e.preventDefault()
+                let id=k.id
+                let v=parseInt(id.split('-')[2])
+                    let cnt=(k.parentElement).parentElement
+                    let cnter=0
+                    let ok=false
+                    for(let el of mseances){
+                        
+                       cnter++;
+                       if(cnter==v){ok=true;continue;}
+
+                       if(ok){
+                        let spn=cnt.children[(cnter-1)*2]
+                        spn.textContent='S'+JSON.stringify(cnter-1)
+                        for(let ce of el.children){
+                            
+                          if(ce.name){
+                            let s=ce.name
+                            //console.log(s)
+                            //console.log(ce)
+                            ce.name=s.substring(0,3)+JSON.stringify(cnter-1);
+                          }
+                          if(ce.id){
+                            let s=ce.id
+                            ce.id=s.substring(0,8)+JSON.stringify(cnter-1);
+                            console.log(ce.id)
+                          }
+                        }
+                       }console.log(el)
+
+                    }cnt.removeChild(cnt.children[(v-1)*2])//seance header removal
+                    cnt.removeChild(cnt.children[(v-1)*2])//seance content removal
+
+            })
+            //console.log(k);
+        }
+}
+    
+function tuesday(){
+    
+    let tfrm=document.getElementById('Tuesday');
+    let tadder=document.getElementById('Tuesday-adder-btn');
+    let tseances=document.getElementsByClassName('tseance')
+
+
+
+    
+    tadder.addEventListener('click',(e)=>{
+        e.preventDefault();
+        tadder.disabled=true
+        let container=tadder.parentElement
+        let seancecounter=container.children[container.children.length-3]
+        console.log(seancecounter)
+        let count
+        if(seancecounter==undefined){
+            count=0;
+            count++;
+    
+        }
+        else{
+        let content=seancecounter.textContent
+         count=parseInt(content.substring(1))+1;
+
+        }
+        let seance=document.createElement('div')
+        seance.className="tseance seance"
+
+        let seancecount=document.createElement('span')
+        seancecount.textContent="S"+count;
+
+
+        let seancename=document.createElement('label')
+        seancename.textContent="Seance Name"
+        
+
+        let seancetype=document.createElement('label')
+        seancetype.textContent="Seance Type"
+        
+
+        let seanceclass=document.createElement('label')
+        seanceclass.textContent="Seance Classroom"
+        
+
+        let seancecadence=document.createElement('label')
+        seancecadence.textContent="Seance Cadence"
+        
+
+        let seanceprof=document.createElement('label')
+        seanceprof.textContent="Seance Professor"
+
+
+        let seancenamein=document.createElement('input')
+        seancenamein.type="text"
+        seancenamein.placeholder="Web Dev"
+        seancenamein.required=true
+        seancenamein.name="tsn"+count
+
+        let seancetypein=document.createElement('input')
+        seancetypein.type="text"
+        seancetypein.placeholder="Lecture"
+        seancetypein.required=true
+        seancetypein.name="tst"+count
+
+        let seancestatus=document.createElement('input')
+        seancestatus.type="hidden"
+        seancestatus.value="1"
+        seancestatus.name="tss"+count
+
+        let seanceclassin=document.createElement('input')
+        seanceclassin.type="text"
+        seanceclassin.placeholder="A04"
+        seanceclassin.required=true
+        seanceclassin.name="tsc"+count
+
+        let seancecadencein=document.createElement('select')
+        seancecadencein.name="tsw"+count
+
+
+        let seanceprofin=document.createElement('input')
+        seanceprofin.type="text"
+        seanceprofin.placeholder="John Doe"
+        seanceprofin.required=true
+        seanceprofin.name="tsp"+count
+
+        let qa=document.createElement('option')
+        qa.value='2'
+        qa.textContent='QA'
+
+        let qb=document.createElement('option')
+        qb.value='3'
+        qb.textContent='QB'
+
+        let z3=document.createElement('option')
+        z3.value='4'
+        z3.textContent='Z3'
+
+        let z4=document.createElement('option')
+        z4.value='5'
+        z4.textContent='Z4'
+
+        let h=document.createElement('option')
+        h.value='1'
+        h.textContent='H (Weekly)'
+
+        let trmbtn=document.createElement('button');
+        trmbtn.className='trm-btn rm-btn'
+        trmbtn.id='trm-btn-'+count
+        trmbtn.textContent="x"
+
+        let tdbbtn=document.createElement('button');
+        tdbbtn.className='tdb-btn db-btn'
+        tdbbtn.id='tdb-btn-'+count
+        tdbbtn.textContent="Disable"
+
+
+        seancecadencein.appendChild(h)
+        seancecadencein.appendChild(qa)
+        seancecadencein.appendChild(qb)
+        seancecadencein.appendChild(z3)
+        seancecadencein.appendChild(z4)
+
+
+        seance.appendChild(seancestatus)
+
+        seance.appendChild(seancename)
+        seance.appendChild(seancenamein)
+        
+        seance.appendChild(seancetype)
+        seance.appendChild(seancetypein)
+        
+        seance.appendChild(seanceclass)
+        seance.appendChild(seanceclassin)
+        
+        seance.appendChild(seancecadence)
+        seance.appendChild(seancecadencein)
+        
+        seance.appendChild(seanceprof)
+        seance.appendChild(seanceprofin)
+
+        seance.appendChild(trmbtn)
+        seance.appendChild(tdbbtn)
+        trmbtn.addEventListener('click',(e)=>{
+            e.preventDefault()
+            let id=trmbtn.id
+            let v=parseInt(id.split('-')[2])
+               /*<span>SparseInt(v)</span>
+               <div class="seance">*/
+                let cnt=(trmbtn.parentElement).parentElement
+                let cnter=0
+                let ok=false
+                for(let el of tseances){
+                    
+                   cnter++;
+                   if(cnter==v){ok=true;continue;}
+
+                   if(ok){
+                    let spn=cnt.children[(cnter-1)*2]
+                    spn.textContent='S'+JSON.stringify(cnter-1)
+                    for(let ce of el.children){
+                        
+                      if(ce.name){
+                        let s=ce.name
+                        //console.log(s)
+                        //console.log(ce)
+                        ce.name=s.substring(0,3)+JSON.stringify(cnter-1);
+                        console.log(ce.name+" name")
+                      }
+                      if(ce.id){
+                        let s=ce.id
+                        ce.id=s.substring(0,8)+JSON.stringify(cnter-1);
+                        console.log(ce.id+" id")
+                      }
+                    }
+                   }console.log(el)
+
+                }cnt.removeChild(cnt.children[(v-1)*2])
+                cnt.removeChild(cnt.children[(v-1)*2])
+
+        })
+
+        
+        tdbbtn.addEventListener('click',(e)=>{
+            e.preventDefault()
+            let id=tdbbtn.id
+            let v=parseInt(id.split('-')[2])
+            let snc=tdbbtn.parentElement
+            let ch=snc.children
+            if(snc.classList.contains("smother")){
+                tdbbtn.textContent="disable"
+                tdbbtn.classList.remove('dbclass')
+                snc.classList.remove("smother")
+            }
+        else{
+                tdbbtn.textContent="enable"
+                tdbbtn.classList.add('dbclass')
+                snc.classList.add("smother")
+        }
+            for(let p of ch){
+                if(p.tagName=='INPUT'&& p.type!="hidden"){
+                    p.required=!(p.required)
+                    
+                }
+                else if(p.tagName=='INPUT'&& p.type=="hidden"){
+                  let val=parseInt(p.value)
+                  p.value=1-(val)
+                }
+            }
+
+
+        })
+
+
+
+
+            container.classList.add('hide')
+        setTimeout(()=>{
+        container.removeChild(tadder)
+        container.appendChild(seancecount)
+        container.appendChild(seance)
+        container.appendChild(tadder)
+        },300)
+        setTimeout(()=>{
+            container.classList.remove('hide')
+        tadder.disabled=false
+        },600)
+        
+
+        
+
+
+
+    })
+
+    let trmbuttons=document.getElementsByClassName('trm-btn')
+    let tdbbuttons=document.getElementsByClassName('tdb-btn')
+    for(let el of tdbbuttons){
+
+        el.addEventListener('click',(e)=>{
+            e.preventDefault()
+            let id=el.id
+            let v=parseInt(id.split('-')[2])
+            //request to server
+            socket.emit("tdbeb",v)
+            // console.log(el)
+            //response from server
+            socket.on("tdbebo",()=>{ok=false;console.log(ok)
+
+                socket.off("tdbebo")
+        
+            let snc=el.parentElement
+            let ch=snc.children
+            if(snc.classList.contains("smother")){
+                el.textContent="disable"
+                el.classList.remove('dbclass')
+                snc.classList.remove("smother")
+            }
+        else{
+                el.textContent="enable"
+                el.classList.add('dbclass')
+                snc.classList.add("smother")
+        }
+             //console.log(el)
+            for(let p of ch){
+                if(p.tagName=='INPUT'&&p.type!='hidden'){console.log(p.required)
+                    p.required=!(p.required)
+                }
+                else if(p.tagName=='INPUT'&& p.type=="hidden"){console.log(" "+p.value)
+                  let val=parseInt(p.value)
+                  p.value=1-val
+                }
+            }})
+        
+        })
+            
+
+    }
+
+    for(let k of trmbuttons){
+        let trmelement=k
+        k.addEventListener('click',(e)=>{
+            e.preventDefault()
+            let id=k.id
+            let v=parseInt(id.split('-')[2])
+                let cnt=(k.parentElement).parentElement
+                let cnter=0
+                let ok=false
+                for(let el of tseances){
+                    
+                   cnter++;
+                   if(cnter==v){ok=true;continue;}
+
+                   if(ok){
+                    let spn=cnt.children[(cnter-1)*2]
+                    spn.textContent='S'+JSON.stringify(cnter-1)
+                    for(let ce of el.children){
+                        
+                      if(ce.name){
+                        let s=ce.name
+                        //console.log(s)
+                        //console.log(ce)
+                        ce.name=s.substring(0,3)+JSON.stringify(cnter-1);
+                      }
+                      if(ce.id){
+                        let s=ce.id
+                        ce.id=s.substring(0,8)+JSON.stringify(cnter-1);
+                        console.log(ce.id)
+                      }
+                    }
+                   }console.log(el)
+
+                }cnt.removeChild(cnt.children[(v-1)*2])//seance header removal
+                cnt.removeChild(cnt.children[(v-1)*2])//seance content removal
+
+        })
+        //console.log(k);
+    }
+}
+
+
+
+
+
+    
+function wednesday(){
+    
+    let wfrm=document.getElementById('Wednesday');
+    let wadder=document.getElementById('Wednesday-adder-btn');
+    let wseances=document.getElementsByClassName('wseance')
+
+
+
+    
+    wadder.addEventListener('click',(e)=>{
+        e.preventDefault();
+        wadder.disabled=true
+        let container=wadder.parentElement
+        let seancecounter=container.children[container.children.length-3]
+        console.log(seancecounter)
+        let count
+        if(seancecounter==undefined){
+            count=0;
+            count++;
+    
+        }
+        else{
+        let content=seancecounter.textContent
+         count=parseInt(content.substring(1))+1;
+
+        }
+        let seance=document.createElement('div')
+        seance.className="wseance seance"
+
+        let seancecount=document.createElement('span')
+        seancecount.textContent="S"+count;
+
+
+        let seancename=document.createElement('label')
+        seancename.textContent="Seance Name"
+        
+
+        let seancetype=document.createElement('label')
+        seancetype.textContent="Seance Type"
+        
+
+        let seanceclass=document.createElement('label')
+        seanceclass.textContent="Seance Classroom"
+        
+
+        let seancecadence=document.createElement('label')
+        seancecadence.textContent="Seance Cadence"
+        
+
+        let seanceprof=document.createElement('label')
+        seanceprof.textContent="Seance Professor"
+
+
+        let seancenamein=document.createElement('input')
+        seancenamein.type="text"
+        seancenamein.placeholder="Web Dev"
+        seancenamein.required=true
+        seancenamein.name="wsn"+count
+
+        let seancetypein=document.createElement('input')
+        seancetypein.type="text"
+        seancetypein.placeholder="Lecture"
+        seancetypein.required=true
+        seancetypein.name="wst"+count
+
+        let seancestatus=document.createElement('input')
+        seancestatus.type="hidden"
+        seancestatus.value="1"
+        seancestatus.name="wss"+count
+
+        let seanceclassin=document.createElement('input')
+        seanceclassin.type="text"
+        seanceclassin.placeholder="A04"
+        seanceclassin.required=true
+        seanceclassin.name="wsc"+count
+
+        let seancecadencein=document.createElement('select')
+        seancecadencein.name="wsw"+count
+
+
+        let seanceprofin=document.createElement('input')
+        seanceprofin.type="text"
+        seanceprofin.placeholder="John Doe"
+        seanceprofin.required=true
+        seanceprofin.name="wsp"+count
+
+        let qa=document.createElement('option')
+        qa.value='2'
+        qa.textContent='QA'
+
+        let qb=document.createElement('option')
+        qb.value='3'
+        qb.textContent='QB'
+
+        let z3=document.createElement('option')
+        z3.value='4'
+        z3.textContent='Z3'
+
+        let z4=document.createElement('option')
+        z4.value='5'
+        z4.textContent='Z4'
+
+        let h=document.createElement('option')
+        h.value='1'
+        h.textContent='H (Weekly)'
+
+        let wrmbtn=document.createElement('button');
+        wrmbtn.className='wrm-btn rm-btn'
+        wrmbtn.id='wrm-btn-'+count
+        wrmbtn.textContent="x"
+
+        let wdbbtn=document.createElement('button');
+        wdbbtn.className='wdb-btn db-btn'
+        wdbbtn.id='wdb-btn-'+count
+        wdbbtn.textContent="Disable"
+
+
+        seancecadencein.appendChild(h)
+        seancecadencein.appendChild(qa)
+        seancecadencein.appendChild(qb)
+        seancecadencein.appendChild(z3)
+        seancecadencein.appendChild(z4)
+
+
+        seance.appendChild(seancestatus)
+
+        seance.appendChild(seancename)
+        seance.appendChild(seancenamein)
+        
+        seance.appendChild(seancetype)
+        seance.appendChild(seancetypein)
+        
+        seance.appendChild(seanceclass)
+        seance.appendChild(seanceclassin)
+        
+        seance.appendChild(seancecadence)
+        seance.appendChild(seancecadencein)
+        
+        seance.appendChild(seanceprof)
+        seance.appendChild(seanceprofin)
+
+        seance.appendChild(wrmbtn)
+        seance.appendChild(wdbbtn)
+        wrmbtn.addEventListener('click',(e)=>{
+            e.preventDefault()
+            let id=wrmbtn.id
+            let v=parseInt(id.split('-')[2])
+               /*<span>SparseInt(v)</span>
+               <div class="seance">*/
+                let cnt=(wrmbtn.parentElement).parentElement
+                let cnter=0
+                let ok=false
+                for(let el of wseances){
+                    
+                   cnter++;
+                   if(cnter==v){ok=true;continue;}
+
+                   if(ok){
+                    let spn=cnt.children[(cnter-1)*2]
+                    spn.textContent='S'+JSON.stringify(cnter-1)
+                    for(let ce of el.children){
+                        
+                      if(ce.name){
+                        let s=ce.name
+                        //console.log(s)
+                        //console.log(ce)
+                        ce.name=s.substring(0,3)+JSON.stringify(cnter-1);
+                        console.log(ce.name+" name")
+                      }
+                      if(ce.id){
+                        let s=ce.id
+                        ce.id=s.substring(0,8)+JSON.stringify(cnter-1);
+                        console.log(ce.id+" id")
+                      }
+                    }
+                   }console.log(el)
+
+                }cnt.removeChild(cnt.children[(v-1)*2])
+                cnt.removeChild(cnt.children[(v-1)*2])
+
+        })
+
+        
+        wdbbtn.addEventListener('click',(e)=>{
+            e.preventDefault()
+            let id=wdbbtn.id
+            let v=parseInt(id.split('-')[2])
+            let snc=wdbbtn.parentElement
+            let ch=snc.children
+            if(snc.classList.contains("smother")){
+                wdbbtn.textContent="disable"
+                wdbbtn.classList.remove('dbclass')
+                snc.classList.remove("smother")
+            }
+        else{
+                wdbbtn.textContent="enable"
+                wdbbtn.classList.add('dbclass')
+                snc.classList.add("smother")
+        }
+            for(let p of ch){
+                if(p.tagName=='INPUT'&& p.type!="hidden"){
+                    p.required=!(p.required)
+                    
+                }
+                else if(p.tagName=='INPUT'&& p.type=="hidden"){
+                  let val=parseInt(p.value)
+                  p.value=1-(val)
+                }
+            }
+
+
+        })
+
+
+
+
+            container.classList.add('hide')
+        setTimeout(()=>{
+        container.removeChild(wadder)
+        container.appendChild(seancecount)
+        container.appendChild(seance)
+        container.appendChild(wadder)
+        },300)
+        setTimeout(()=>{
+            container.classList.remove('hide')
+        wadder.disabled=false
+        },600)
+        
+
+        
+
+
+
+    })
+
+    let wrmbuttons=document.getElementsByClassName('wrm-btn')
+    let wdbbuttons=document.getElementsByClassName('wdb-btn')
+    for(let el of wdbbuttons){
+
+        el.addEventListener('click',(e)=>{
+            e.preventDefault()
+            let id=el.id
+            let v=parseInt(id.split('-')[2])
+            //request to server
+            socket.emit("wdbeb",v)
+            // console.log(el)
+            //response from server
+            socket.on("wdbebo",()=>{ok=false;console.log(ok)
+
+                socket.off("wdbebo")
+        
+            let snc=el.parentElement
+            let ch=snc.children
+            if(snc.classList.contains("smother")){
+                el.textContent="disable"
+                el.classList.remove('dbclass')
+                snc.classList.remove("smother")
+            }
+        else{
+                el.textContent="enable"
+                el.classList.add('dbclass')
+                snc.classList.add("smother")
+        }
+             //console.log(el)
+            for(let p of ch){
+                if(p.tagName=='INPUT'&&p.type!='hidden'){console.log(p.required)
+                    p.required=!(p.required)
+                }
+                else if(p.tagName=='INPUT'&& p.type=="hidden"){console.log(" "+p.value)
+                  let val=parseInt(p.value)
+                  p.value=1-val
+                }
+            }})
+        
+        })
+            
+
+    }
+
+    for(let k of wrmbuttons){
+        let wrmelement=k
+        k.addEventListener('click',(e)=>{
+            e.preventDefault()
+            let id=k.id
+            let v=parseInt(id.split('-')[2])
+                let cnt=(k.parentElement).parentElement
+                let cnter=0
+                let ok=false
+                for(let el of wseances){
+                    
+                   cnter++;
+                   if(cnter==v){ok=true;continue;}
+
+                   if(ok){
+                    let spn=cnt.children[(cnter-1)*2]
+                    spn.textContent='S'+JSON.stringify(cnter-1)
+                    for(let ce of el.children){
+                        
+                      if(ce.name){
+                        let s=ce.name
+                        //console.log(s)
+                        //console.log(ce)
+                        ce.name=s.substring(0,3)+JSON.stringify(cnter-1);
+                      }
+                      if(ce.id){
+                        let s=ce.id
+                        ce.id=s.substring(0,8)+JSON.stringify(cnter-1);
+                        console.log(ce.id)
+                      }
+                    }
+                   }console.log(el)
+
+                }cnt.removeChild(cnt.children[(v-1)*2])//seance header removal
+                cnt.removeChild(cnt.children[(v-1)*2])//seance content removal
+
+        })
+        //console.log(k);
+    }
+}
+
+
+
+
+
+
+</script>
+    
+</body>
+</html>

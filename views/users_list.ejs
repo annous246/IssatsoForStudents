@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+body{
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    align-content: center;
+    align-self: center;
+}
+    #list{
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        border:black solid 0.08em;
+        border-radius:0.5em;
+        padding:4em;
+        transition: 0.3s;
+        margin:5em;
+
+    }
+    #list:hover{
+        border:black solid 0.08em;
+        border-radius:0.5em;
+        padding:5em;
+        transition: 0.3s;
+
+    }
+    li div{
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    text-align: center;
+    }
+    #info{
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    text-align: center;
+    border-left:solid 0.1em;
+    margin:auto 1em auto 5em;
+    padding-left:3em ;
+    padding-right:3em ;
+
+    }
+    li {
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    text-align: center;
+    width:100%;
+    margin:1em;
+    border: 0.1em solid black;
+    }
+    #prm:hover{
+background-color: rgba(228, 205, 79, 0.858);;transition: 0.3s;
+    }
+    #me:hover{
+background-color: rgb(85, 126, 227);;transition: 0.3s;
+    }
+    li:hover #pdp{
+        background-color: white;
+        transition: 0.3s;
+        font-size: 1.1em;
+    }
+    #info span{
+    align-items: center;
+    text-align: center; 
+    margin:0.5em;
+    padding:0.5em;
+
+    }
+    ul{
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    text-align: center;
+
+    }
+    #prm{
+        background-color: rgba(238, 221, 123, 0.788);
+         transition: 0.3s;
+    }
+    #me{
+        background-color: rgb(127, 156, 230);
+    }
+    #pdp{
+        display: flex;
+        padding:1em;
+        margin:1em;
+        border: 0.1em solid black;
+        border-radius: 0.2em;
+        width:5em;
+        height: 5em;
+        text-align: center;
+        align-items: center;
+        justify-content:center;
+        transition: 0.3s;
+    }
+    .container{
+        display: flex;
+        padding:0.5em;
+        flex-direction: row;
+        align-items: center;
+        text-align: center;
+
+    }
+    .age,.points{
+        font-size:0.7em;
+    }
+    .name{
+        font-size:1.2em;
+
+    }
+    .status{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+    .status p{
+        background-color: green;
+        color: green;
+        width:1.2em;
+        border-radius: 3em;
+
+    }
+    .disc{
+        background-color: red !important;
+        color: red !important;
+    }
+    .relations button{
+        padding:0.5em;
+        background-color: rgba(78, 238, 144, 0.695);
+        border: 0.08em solid black;
+        border-radius: 0.3em;
+        color: white;
+        font-weight: bold;
+        transition: all 0.2s;
+    }
+    .relations button:hover{
+        padding:0.5em;
+        background-color: rgba(255, 255, 255, 0.966);
+        border: 0.08em solid black;
+        border-radius: 0.3em;
+        color: rgba(78, 238, 144, 0.75);;
+        font-weight: bold;
+        transition: all 0.2s;
+    }
+</style>
+<body>
+    <h1>All Users On The Plateform</h1>
+    <div id="list">
+        <ul>
+           <% all_users.forEach((el)=>{
+            let isfriend=el.friendsList.hasOwnProperty(user.email)
+            let isblocked=el.blocksList.hasOwnProperty(user.email)
+            let isdeclined=el.declinesList.hasOwnProperty(user.email)
+            let ispending=el.pendingsList.hasOwnProperty(user.email)
+            if(el.email==message.email){%>
+                <li id="me">
+                    <div class="container">
+                        <div id="pdp">Me</div>
+                        <div id="info">
+                            <span class="name"><%=el.username%></span>
+                            <span class="age">Age <%=el.age%></span>
+                            <span class="points">Points <%=el.points%></span>
+                            <!--<span class="status">Status <% if(el.status>0){%>
+                                <p>.</p>
+                                <%}else{%>
+                                    <p class="disc">.</p><%}%></span>-->
+                                   </div>
+                    </div>
+                </li>
+    
+
+           <%  }
+            else if(el.prime){%>
+            <li id="prm">
+                <div class="container">
+                    <div id="pdp">Prime</div>
+                    <div id="info">
+                        <span class="name"><%=el.username%></span>
+                        <span class="age">Age <%=el.age%></span>
+                        <span class="points">Points <%=el.points%></span>
+                        <!--<span class="status">Status <% if(el.status>0){%>
+                            <p>.</p>
+                            <%}else{%>
+                                <p class="disc">.</p><%}%></span>-->
+
+                                <%
+                                if(isblocked){%>
+                                 <span class="relations"><%=el.username%> blocked you</span>
+                             
+
+                                <%} 
+                                else if(isdeclined){%>
+                                 <span class="relations"><%=el.username%> Declined your Request</span>
+                             
+
+
+                               <% }
+                                else if(ispending){%>
+                         <span class="relations">Friends Request Pending</span>
+                    
+
+                               <% }
+                               
+                                else if(!isfriend&&!user.blocksList.hasOwnProperty(el.email)){%>
+                                 
+                         <span class="relations"><button class="request-btn" id="<%=el.email%>">Send Friends Request</button></span>
+                    
+                                <%}
+                                
+                                else if(user.blocksList.hasOwnProperty(el.email)){%>
+                                    <span class="relations">You blocked this User</span>
+
+                                <%}
+                                
+                                %>
+                    </div>
+                </div>
+            </li>
+
+           <% }
+            else{%>
+                <li id="normal">
+                    <div class="container">
+                        <div id="pdp">Normal</div>
+                        <div id="info">
+                            <span class="name"><%=el.username%></span>
+                            <span class="age">Age <%=el.age%></span>
+                            <span class="points">Points <%=el.points%></span>
+                            <!--<span class="status">Status 
+                                <% if(el.status>0){%>
+                                <p>.</p>
+                                <%}else{%>
+                                  <p class="disc">.</p><%}%>  
+
+                                </span>-->
+                                
+                                <%
+                                if(isblocked){%>
+                                 <span class="relations"><%=el.username%> blocked you</span>
+                             
+
+                                <%} 
+                                else if(isblocked){%>
+                                 <span class="relations"><%=el.username%> Declined your Request</span>
+                             
+
+
+                               <% }
+                                else if(ispending){%>
+                         <span class="relations">Friends Request Pending</span>
+                    
+
+                               <% }
+                                else if(!isfriend){%>
+                                 
+                         <span class="relations"><button class="request-btn" id="<%=el.email%>">Send Friends Request</button></span>
+                    
+                                <%}
+                                
+                                %>
+                        </div>
+                    </div>
+                </li>
+                
+           <% }
+            })%>
+
+        </ul>
+
+    </div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script id="ejs" type="application/json" user="<%=user.email%>"></script>
+<script>
+    let socket=io();
+    let ejs=document.getElementById('ejs')
+    let user=ejs.getAttribute('user');
+    let reqbtn=document.getElementsByClassName("request-btn");
+    let parent;
+    for(let k in reqbtn){
+       let element=reqbtn[k];
+       element.addEventListener('click',(e)=>{
+        e.preventDefault();
+        element.disabled=true;
+        let rec=element.id
+        let tempel=element
+         parent=tempel.parentElement
+        socket.emit("request send",({rec:rec,user:user}));
+        socket.on("request sent",(tempel)=>{
+        parent.innerHTML='';
+        parent.textContent="Friends Request pending"
+        element.disabled=false;
+        parent=null
+        })
+       })
+    }
+
+</script>
+</html>

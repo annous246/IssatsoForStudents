@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin:0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        display: flex;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        flex-wrap: nowrap;
+        background-image: url('tasks bg.png');
+    }
+    #f{
+        padding:1em;
+        margin:1em;
+        border:0.08em solid black;
+        border-radius: 1em;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        position: relative;
+    }
+    #u{
+        position: relative;
+        padding:1em;
+        margin:1em;
+        border:0.08em solid black;
+        border-radius: 1em;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        transition: all 0.2s linear;
+      
+    }
+    button{
+        position: relative;
+        text-align: center;
+        align-items: center;
+        text-decoration: none;
+        background-color: rgba(16, 113, 137, 0.4);
+        border:0.08em solid black;
+        border-radius: 1em;
+        padding:1em;
+        margin:1em;
+        cursor: pointer;
+    }
+    #add-btn{
+        font-size:1.2em;
+        color: white;
+        transition: 0.3s;
+        margin:2em;
+    }
+    
+    #add-btn span{
+        border:0.08em solid white;
+        border-radius: 10em;
+        padding:0.1em;
+        padding-left:0.3em ;
+        padding-right:0.3em ;
+        transition: 0.3s;
+
+    }
+    
+    #add-btn:hover span{
+        background-color: white;
+        transition: 0.3s;
+        color:rgba(16, 113, 137, 0.4); ;
+    }
+    #add-btn:hover{
+        border:0.08em solid white;
+        transition: 0.3s;
+
+    }
+    #task-input{position: relative;
+        border:0.08em solid black;
+        border-radius: 1em;
+        padding:1em;
+        margin: 2em;
+
+    }
+    #adder-form{position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        position: relative;
+    }
+    #adder-form input{
+    }
+    #finish{position: relative;
+        color: white;
+        transition: 0.4s;
+        font-weight:bold;
+    }
+    #finish:hover{
+        color: white;
+        border:0.08em solid white;
+        background-color: rgba(11, 231, 44, 0.629);
+        transition: 0.4s;
+    }
+    form{position: relative;
+        display: block;
+        align-items: center;
+        text-align:center ;
+        
+
+    }
+    li{display: flex;
+        padding:1em;
+        margin:1em;
+        border:0.08em solid black;
+        border-radius: 1em;
+        list-style: none;
+        text-decoration: none;
+        position: relative;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        background-color: rgb(0, 0, 0,0.2);/*to be automated*/
+        opacity: 0;
+        width: 100%;
+        align-items: center;
+        
+        transition: 0.2s;
+
+
+
+    }
+    .animate{
+        opacity: 1;
+        transition: 0.2s;
+    }
+    li span{
+        padding: 1em;
+        margin-left: 3em;
+    }
+    li input{
+        -webkit-appearance:none ;
+        cursor: pointer;
+        background-color: transparent;
+        text-decoration: none;
+        border:0.08em solid black;
+        margin: 1em;
+        border-radius: 2em;
+        transition: 0.4s;
+        width:1.5em;
+        height:1.5em;
+        
+    }
+    li input:checked{
+        -webkit-appearance:none ;
+        cursor: pointer;
+        padding: 1em;
+        background-color: rgba(11, 231, 44, 0.629);;
+        text-decoration: none;
+        border:0.08em solid transparent;
+        
+        margin: 1em;
+        border-radius: 1em;
+        transition: 0.4s;
+        
+    }
+    li:hover{
+        border:0.08em solid transparent;
+        background-color: alpha 1em;
+        transition: 0.2s;
+
+    }
+    #task-check{
+    }
+    #task_box{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+    }
+    .listanimate{
+        opacity: 0;
+        transition: all 0.2s linear;
+    }
+    #progress{
+        background-color: rgba(13, 231, 17, 0.499);
+        padding: 0.5em;
+        width: 0%;
+        border-radius: 0.5em;
+        opacity: 1 ;
+        transition: 0.2s;
+
+    }
+    #progress-container{
+        border:0.08em solid black;
+        border-radius: 0.5em;
+        width: 40%;
+    }
+    .fadeout{
+        opacity: 0 !important;
+        transition: 0.2s;
+    }
+</style>
+<body>
+    <input id="userid" type="hidden" value="<%=user.email%>">
+    <div id="task_box">
+            <div id="add">
+                <form id="adder-form">
+                    <input id="task-input"  type="text" placeholder="Add Task Here">
+                    <button id="add-btn" type="submit"><span>+</span></button>
+                </form>
+            </div>
+        <form id="f">
+        <ul id="u">
+            <% 
+
+           
+            user.tasks.forEach((e)=>{%>
+                <li class="animate"><input type="checkbox" class="task-check"><span><%=e%></span></li>
+            <%}) %>
+        </ul>
+        <button id="finish" type="submit">Done<img src=""></button>
+
+        </form>
+    </div>
+    <div id="progress-container"><div id="progress" val="">
+        %
+    </div>
+</div>
+    
+<script src="/socket.io/socket.io.js"></script>
+<script id="ejs" type="application/json" progress="<%=progress%>"></script>
+<script>
+    function empty(s){
+        let n=s.length
+        for(let i=0;i<n;i++){
+            if(s[i]!=' ')return false;
+        }return true;
+    }
+//empty check
+let ul=document.getElementById('u');
+let frm2=document.getElementById('f');
+let frm1=document.getElementById('adder-form');
+let task_toAdd=document.getElementById('task-input');
+let socket=io();
+let email=document.getElementById('userid').value
+let progress=document.getElementById('progress');
+let ejs=document.getElementById('ejs');
+let uprogress=parseInt(ejs.getAttribute('progress'));
+progress.value=uprogress;
+progress.textContent=uprogress+'%';
+progress.style.width=uprogress+'%'
+
+frm1.addEventListener('submit',(e)=>{
+    e.preventDefault();
+if(!empty(task_toAdd.value)&&task_toAdd.value.length<=60){
+let inp=document.createElement('input');
+let li=document.createElement('li');
+let span=document.createElement('span');
+span.innerText=task_toAdd.value;
+inp.type="checkbox";
+inp.className="task-check";
+li.appendChild(inp);
+li.appendChild(span);
+console.log(email);
+socket.emit("/add_task",{task:task_toAdd.value,email:email});
+task_toAdd.value='';
+ul.className='listanimate';
+setTimeout(()=>
+ul.appendChild(li),200)
+setTimeout(()=>{ul.className=''},300);
+
+        setTimeout(() => {li.classList.add('animate');
+            
+        }, 500);
+}
+else if(task_toAdd.value.length>60){
+    let container=document.getElementById("add");
+    let message=document.createElement('div');
+    message.innerText="Tasks Cannot Exceed 60 caracters in Total";
+    container.appendChild(message);
+
+}
+task_toAdd.value='';
+})
+        let toberemoved=[]
+frm2.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    let checked= document.getElementsByClassName('task-check');
+        console.log(checked.length);
+        let el=0;
+    while(el<checked.length){
+        let element= checked[el];
+        if(element.checked){
+             toberemoved.push(el);
+        let listitem= element.parentElement
+       setTimeout(async() => {
+         listitem.classList.remove('animate')
+       
+       }, 100);
+       setTimeout(async() => {
+           listitem.remove()
+       
+       }, 500);  
+            
+        }
+           checked[el].checked= false;
+            el++;
+    }console.log(toberemoved);
+
+  socket.emit('/remove_task',{tasks:toberemoved,email:email})
+toberemoved= []
+socket.on('progress',(data)=>{
+    if(data>=100){
+        progress.className='fadeout';
+        setTimeout(()=>{progress.textContent='Congratulations';
+        progress.style.width='100%';},200);
+        setTimeout(()=>{progress.className=''},300);
+
+        setTimeout(()=>{
+        progress.className='fadeout';},2000)
+
+        setTimeout(()=>{progress.textContent='0%';progress.style.width='0%';
+        progress.value=0;},2200);
+        setTimeout(()=>{progress.className=''},2300);
+        
+
+    }
+    else{
+        let total=data
+        progress.style.width=total+'%';
+        progress.textContent=total+'%'
+        progress.value=total
+
+    }
+
+})
+})
+</script>
+</body>
+</html>
