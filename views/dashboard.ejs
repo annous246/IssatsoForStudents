@@ -43,10 +43,16 @@ transition: 0.2s;
     padding:1em;
     margin: 1em;
     border: 0.1em rgb(88, 92, 115) solid;
-    border-radius:0.8em;
     font-size: 1.2em;
     font-weight: bold;
    text-decoration: none;
+   width:50%;
+    transition: 0.2s all;
+}
+#ul:hover{
+    background-color: transparent;
+    color: rgb(101, 136, 232);
+    transition: 0.2s all;
 }
 .roman a{
     text-decoration: none;
@@ -532,440 +538,103 @@ button{
         opacity: 0 !important;
         transition: all 0.2s;
     }
+    #tl-cnt{
+        margin: 1em;
+        padding: 0.5em;
+        background-image: url("tl.png");
+        border: 0.02em solid black;
+        border-radius: 1em;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 7em;
+        width: 7em;
+        box-shadow: 0.5em 0.5em 0.5em black ;
+        transition: 0.1s ease-in all;
+
+    }
+    #tl-cnt:hover #tl{
+        color: rgba(0, 0, 255, 0.562);
+        transition: 0.2s ease-in all;
+
+    }
+    #tl-cnt:hover {
+        background-color: rgb(255, 238, 0);
+        transition: 0.2s ease-in all;
+        box-shadow: none ;
+    transform:translateX(2%)translateY(1%);
+        transition: 0.2s ease-in all;
+    
+
+
+    }
+
+    #tl{display: block;
+        text-decoration: none;
+        font-weight: bold;
+        color: transparent;
+        text-align: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.2s ease-in all;
+        
+    }
+    #tl-cnt:hover p{
+        color: rgba(0, 0, 255, 0.562);
+        opacity: 1;
+        transition: 0.2s ease-in all;
+
+    }
+    #tl-cnt p{font-size: 0.8em;
+        font-weight: bold;
+        opacity: 0;
+        transform: rotate(-12deg) translateY(10%);
+        transition: 0.2s ease-in all;
+    }
+    #logout{
+
+        background-color: rgba(245, 61, 61, 0.733);
+        padding: 0.5em;
+        color: white;
+        text-decoration: none;
+        border: black solid 0.08em;
+        border-radius: 0.1em;
+        margin: 1em;
+        transition: 0.2s ease-in all;
+    }
+    #logout:hover{
+        background-color: white;
+        color: rgba(245, 61, 61, 0.733);
+        border: transparent solid 0.08em;
+        transition: 0.2s ease-in all;
+
+    }
 
 </style>
 <body>
-    <div id="badge-check">
-        <div id="title"><h2>Choose A Badge</h2> <button  id="exit">X</button></div>
-       
-        <form id="check-form" method="post" action='/testing'>
-       <% let mybadges=user.badges;
-       let allbadgenames=[]
-       for(let v in allbadges){
-        allbadgenames.push(v);
-       }
-
-         for(let k in mybadges){
-            if(mybadges[k].status==2||mybadges[k].status==-1){
-                for(let v in allbadgenames){
-                    if(allbadgenames[v]==k)allbadgenames[v]='';
-                   
-                }
-            }
-         }
-         for(let v in allbadgenames){
-             if(allbadgenames[v]!=''){%>
-                
-        <div class="badge-element"><%=allbadgenames[v]%><input name="badge" type='radio'  class="try" value="<%=allbadgenames[v]%>" ></div>
-            <% }
-         }%>
-
-            <button type="submit">Proceed To Test</button>
-        </form>
-
-
-    </div>
     <div id="main-container">
-    <h1>Welcome <%= message.username%> !</h1>
-    <div class="pt">
-        <h2>Your Wallet</h2>
-        <img src="coin.jpg" >
-        <h3><%=message.points%></h3>
-        <% if(!message.prime){%>
-            <form method="post" action="/prime">
-               <button type="submit">
-            <div class="prime">Go Prime!<p>(10 Coins)</p></div>
-              </button> 
-            </form>
-        <%}
-        else{%>
-            <div class="prime" id="p">Prime User</div>
-
-            <%}%>
-
-    </div>
-    <div id="fl-container">
-        <h3>Friends List</h3>
-        <div id="friends">
-
-        <%
-        for(let element in friendslist){%>
-            <div class="friend" id='<%=friendslist[element]["email"]%>'>
-                <span class="friend-name"  ><%=friendslist[element]["name"]%></span>
-                    <button class="block-btn">Block</button>
-                    <button class="message-btn">Messages</button>
-                 
-            </div>
-            
-            
-        <%}
-         for(let element in pendingslist){
-            %>
-            <div class="friend pending" id='<%=pendingslist[element]["email"]%>'>
-                <span class="friend-name" ><%=pendingslist[element]["name"]%></span>
-                    <button class="block-btn accept-btn">Accept</button>
-                    <button class="block-btn decline-btn">Decline</button>
-                 
-            </div>
-        <%}
-        for(let element in declineslist){%>
-           <div class="friend pending" id='<%=declineslist[element]["email"]%>'>
-               <span class="friend-name" ><%=declineslist[element]["name"]%></span>
-                   <button class="block-btn accept-btn">Accept</button>
-                
-           </div>
-       <%}
-         for(let element in blockslist){%>
-            <div class="friend blocked" id='<%=blockslist[element]["email"]%>'>
-                <span class="friend-name" ><%=blockslist[element]["name"]%></span>
-                    <button class="block-btn unblock-btn">Unblock</button>
-                 
-            </div>
-            
-        <%}%>
-        </div>
+    <h1>Welcome <%=user.username%> !</h1>
     </div>
 </div>
     <div>
-    <a href="logout.ejs">Logout</a>
-
-   <div class="roman"> <% if(message.prime){%><a href="converter.ejs">Roman Number Converter</a>
-<%}
-    else{%>
-        <a href="">Roman Number Converter (Prime Users Only)</a>
-    <%}%>
-
+    <a href="logout" id="logout">Logout</a>
 
 </div>
-</div>
-    <a id="ul" href="users_list.ejs">Users List</a>
-    <a id="ul" href="users_ranking.ejs">Users Ranking</a>
-    <a id="ul" href="live_stream.ejs">Live Stream</a>
-    <a id="ul" href="posting.ejs">Posting and Feeds</a>
-    <a id="ul" href="productivity_app.ejs">Broductivity App (Prime Users Only)</a>
-    <a id="ul" href="history.ejs">Game History</a>
-    <a id="ul" href="general_chat.ejs" >General chat
-        <% if(gcm-um>99){%><span id="notifications">+99</span><%} else{%><span id="notifications"><%=gcm-um%></span><%}%> </a>
-    
-    <a id="ul" href="watch_together.ejs">Watch Together(Prime Users Only)</a>
-    <form method="post" action='/play' id="playform">
-    <button id="ul" class="play-btn" type="submit">Play</button></form>
-    <% if(message!=''){%>
-        <div><h2><%=message.msg%></h2></div>
-    <%}%>
-    <div id="badges">
-        <h1>Badges</h1>
-        <div id="badges-array">
-            <form id="add-badge">
-                <button type="submit" class="add-btn"><span>+</span></button>
-            </form>
-            <% for(let k in mybadges){
-                if(mybadges[k].status==2){%>
-                    <div class="badge-element"><%=k%></div>
+<a id="tl" href="productivity_app">
+<div id="tl-cnt">
+    <p>Todo List</p> 
+</div></a>
+    <a id="ul" href="customtimetablemon">Custom Monday Timetable</a>
+    <a id="ul" href="#" style="filter:blur(0.5em);">Custom Tuesday Timetable</a>
+    <a id="ul" href="#" style="filter:blur(0.5em);">Custom Wednesday Timetable</a>
+    <a id="ul" href="#" style="filter:blur(0.5em);">Custom Thursday Timetable</a>
+    <a id="ul" href="#" style="filter:blur(0.5em);">Custom Friday Timetable</a>
+    <a id="ul" href="#" style="filter:blur(0.5em);">Custom Saturday Timetable</a>
 
-                <%}
-            }%>
-        </div>
-    </div>
-
-
-    
-    <div id="classrooms">
-        <h1>Classrooms</h1>
-        <div id="classrooms-array">
-            <form id="add-classroom" method="post" action="/add_classroom">
-                <button type="submit" class="add-btn" id="classrooms-add-btn"><span>+</span></button>
-            </form><% for(let k in user.classrooms){let element=user.classrooms[k];if(element.domain=='')continue;%>
-                    <div class="classroom-element">
-                    
-
-                    
-                        
-                        <div id='screen'><%=element.domain%></div>
-                        <div id='title'><%=element.classroomtitle%></div>
-                        <div id='line'><br></div>
-                        <div id='id'>Room ID<br>1596189d</div> <div id="room-utilities">
-                            <button id="settings">S</button>
-                            <button id="enter">Enter</button>
-                            <button id="delete">Delete</button>
-                        </div>
-
-                  </div> <% }%>
-        </div>
-    </div>
+    <!---->
 
     <script src="/socket.io/socket.io.js"></script>
-    <script id="ejs" type="application/json" gcm="<%=gcm%>" um="<%=um%>" email="<%=user.email%>"></script>
-    <script>
-        let classroomform=document.getElementById('add-classroom')
-        let badgeform=document.getElementById('add-badge');
-        let exitbtn=document.getElementById('exit');
-        let checkform=document.getElementById('check-form');
-        let play=(document.getElementsByClassName('play-btn'))[0]
-        let playform=(document.getElementById('playform'))
-        let clicks=0;
-        let notif=document.getElementById('notifications');
-        let ejs=document.getElementById('ejs');
-        let gcm=ejs.getAttribute('gcm');
-        let um=ejs.getAttribute('um');
-        let em=ejs.getAttribute('email');
-        let socket=io()
-        badgeform.addEventListener('submit',(e)=>{
-            e.preventDefault();
-            let bd=document.querySelector('body');
-            let badgecheck=document.getElementById('badge-check');
-            bd.className='blackout';
-            badgecheck.classList.add('appear');
-
-
-
-        })
-        exitbtn.addEventListener('click',(e)=>{
-            e.preventDefault();
-            let bd=document.querySelector('body');
-            let badgecheck=document.getElementById('badge-check');
-            bd.className='';
-            badgecheck.classList.remove('appear')
-
-        })
-        checkform.addEventListener('submit',(e)=>{
-            let badges=document.getElementsByClassName('try');
-            let ind=0,element=null;
-            for(ind=0;ind<badges.length;ind++){
-             if(badges[ind].checked){
-                element=badges[ind];break;
-             }
-            }
-            console.log(element);
-            if(!element){
-                e.preventDefault();
-                console.log('zab');
-            }
-
-        })
-        playform.addEventListener('submit',(e)=>{
-           play.type='button';
-           play.disabled=true;
-        })
-        socket.on('new messages',(data)=>{
-            console.log('new ms'+data);
-            if(data-parseInt(um)>99)
-         notif.textContent='+99';
-        else 
-         notif.textContent=JSON.stringify(data-parseInt(um));
-
-        })
-        //friends list pending
-        //friends accepting
-         accept();
-            //friends declining
-        decline();
-        
-            //friends blocking
-            block()
-            socket.on('friend blocked you',(data)=>{
-           if(em==data.user){
-            let allfriends=document.getElementsByClassName('friend')
-            for(let k =0;k<allfriends.length;k++){
-                if(allfriends[k].classList.length>1)continue;
-                if(allfriends[k].id==data.other){
-                    allfriends[k].innerHTML="";
-                    break;
-                }
-            }
-           }
-            })
-            
-
-          //friend unblocking
-          unblock()
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        function decline(){
-        let declinelistbtn=document.getElementsByClassName('decline-btn');
-        for(let k=0;k<declinelistbtn.length;k++){
-            let element=declinelistbtn[k];
-            element.addEventListener('click',(e)=>{
-                e.preventDefault();
-            let parent=element.parentElement;
-            let email=parent.id
-            socket.emit("friend decline",({email:email,user:em}));
-            socket.on("friend declined",()=>{
     
-    let pt=parent
-    let bbtn=pt.children[1];
-    console.log(bbtn);
-    let spn=pt.firstElementChild
-    setTimeout(()=>{
-        pt.classList.add("hide");
-    },200)
-    setTimeout(()=>{
-    pt.innerHTML=""
-    pt.className="friend";
-    pt.appendChild(spn);
-    pt.appendChild(bbtn)
-        pt.classList.remove("hide");
-   accept()//accept linker
-    },450)
-                
-            })
-            })
-        }
-
-        }
-
-        function accept(){
-
-            let acceptlistbtn=document.getElementsByClassName('accept-btn');
-
-for(let k=0;k<acceptlistbtn.length;k++){
-    let element=acceptlistbtn[k];console.log(k);
-    element.addEventListener('click',(e)=>{
-        e.preventDefault();
-    let parent=element.parentElement;
-    console.log(parent)
-    let email=parent.id
-    socket.emit("friend accept",({email:email,user:em}));
-    socket.on("friend accepted",()=>{
-    
-        let pt=parent
-        let bbtn=document.createElement('button');
-        bbtn.className='block-btn'
-        bbtn.textContent="Block"
-        let mbtn=document.createElement('button');
-        mbtn.className='message-btn'
-        mbtn.textContent="Messages"
-        let spn=pt.firstElementChild
-        console.log(spn);
-        setTimeout(()=>{
-            pt.classList.add("hide");
-        },200)
-        setTimeout(()=>{
-        pt.innerHTML=""
-        pt.className="friend";
-        pt.appendChild(spn);
-        pt.appendChild(bbtn)
-        pt.appendChild(mbtn)
-            pt.classList.remove("hide");
-       block()//block linker
-        },450)
-        
-    })
-    })}
-
-}
-
-function block(){
-       
-    let blocklistbtn=document.getElementsByClassName('block-btn');
-           
-            
-        
-    for(let k=0 ;k<blocklistbtn.length;k++){
-   
-        let element=blocklistbtn[k];
-        if(element.classList.length>1)continue;
-        element.addEventListener('click',(e)=>{
-            e.preventDefault();
-        let parent=element.parentElement;
-        
-        let email=parent.id
-        socket.emit("friend block",({email:email,user:em}));
-        socket.on("friend blocked",()=>{
-            let pt=parent
-            let bbtn=document.createElement('button');
-            bbtn.classList.add('block-btn')
-            bbtn.classList.add('unblock-btn')
-            bbtn.textContent="Unblock"
-            let spn=pt.firstElementChild
-            setTimeout(()=>{
-                pt.classList.add("hide");
-            },200)
-            setTimeout(()=>{
-            pt.innerHTML=""
-            pt.classList.add('blocked');
-            pt.appendChild(spn);
-            pt.appendChild(bbtn)
-                pt.classList.remove("hide");
-              unblock()//unblock linker
-            },450)
-        })
-        })
-    }
-
-}
-
-function unblock(){
-    
-
-    let unblocklistbtn=document.getElementsByClassName('unblock-btn');
-            
-
-
-
-
-
-
-    if(unblocklistbtn.length>0){
-for(let k =0;k<unblocklistbtn.length;k++){
-    let element=unblocklistbtn[k];
-    element.addEventListener('click',(e)=>{
-        e.preventDefault();
-    let parent=element.parentElement;
-    let email=parent.id
-    socket.emit("friend unblock",({email:email,user:em}));
-    socket.on("friend unblocked",()=>{
-        let pt=parent
-        let bbtn=document.createElement('button');
-        bbtn.className='block-btn'
-        bbtn.textContent="Block"
-        let mbtn=document.createElement('button');
-        mbtn.className='message-btn'
-        mbtn.textContent="Messages"
-        let spn=pt.firstElementChild
-        setTimeout(()=>{
-            pt.classList.add("hide");
-        },200)
-        setTimeout(()=>{
-        pt.innerHTML=""
-        pt.classList.remove('blocked');
-        pt.appendChild(spn);
-        pt.appendChild(bbtn)
-        pt.appendChild(mbtn)
-            pt.classList.remove("hide");
-            block()//block linker
-
-
-        },450)
-    })
-    })
-}}
-
-
-
-}
-    </script>
+<script src="/javascript/DashboardDOM.js" type="text/javascript"></script>
 </body>
 </html>

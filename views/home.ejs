@@ -130,41 +130,13 @@
             width: 20%;
         }
     </style>
-    <h1>Welcome to Home<div id="time">elwa9t se7pi<img src="heart.png"></div><div id="clock"><span id="hour"></span>:<span id="minute"></span>:<span id="second"></div></h1>
+    <h1>Home<div id="time">ISSATso++<img src="heart.png"></div><div id="clock"><span id="hour"></span>:<span id="minute"></span>:<span id="second"></div></h1>
     <div>
-    <a href="login.ejs">Login</a>
-    <a href="register.ejs">Sign Up</a></div>
+    <a href="login">Login</a>
+    <a href="register">Sign Up</a></div>
    
-<script>
-    function clock(){
-    let hourspan=document.getElementById('hour')
-    let minutespan=document.getElementById('minute')
-    let secondspan=document.getElementById('second')
-    let date=new Date();
-    let hour=date.getHours();
-    let minute=date.getMinutes();
-    let second=date.getSeconds();
-    if(hour<10){
-    hourspan.innerText="0"+hour;
 
-    }
-    else
-    hourspan.innerText=hour;
-    if(minute<10){
-    minutespan.innerText="0"+minute;
 
-    }
-    else
-    minutespan.innerText=minute;
-    if(second<10){
-    secondspan.innerText="0"+second;
-
-    }
-    else
-    secondspan.innerText=second;
-
-    }
-    setInterval(clock,500);
-</script>
+<script src="/javascript/HomeDOM.js" type="text/javascript"></script>
 </body>
 </html>

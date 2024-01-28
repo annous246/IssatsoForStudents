@@ -299,7 +299,7 @@ background-color: rgb(85, 126, 227);;transition: 0.3s;
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script id="ejs" type="application/json" user="<%=user.email%>"></script>
-<script>
+<script src="test.js">
     let socket=io();
     let ejs=document.getElementById('ejs')
     let user=ejs.getAttribute('user');

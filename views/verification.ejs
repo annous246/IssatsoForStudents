@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        padding:0;
+        margin:0;
+        box-sizing: border-box;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+
+    }
+    body{
+        display: block;
+        text-align: center;
+        align-items: center;
+    }
+    h1{
+        margin: 1em;
+        padding: 1em;
+        border:black solid 0.08em
+
+    }
+    h4{
+        font-size: 1.5em;
+        margin: 1em;
+        padding: 1em;
+
+    }
+    .container{
+        background-color: rgba(0, 255, 157, 0.192);
+        padding: 2em;
+        margin: 1em;
+        border:black solid 0.08em;
+        border-radius:0.5em ;
+        transition:0.2s all;
+
+    }
+    .container:hover{
+        background-color:white;
+        border-radius:0 ;
+        transition:0.2s all;
+
+    }
+    a,button{
+        text-decoration: none;
+        border:black solid 0.08em;
+        padding: 0.5em;
+        border-radius:0.5em ;
+        cursor: pointer;
+        color:black;
+        transition: 0.2s all;
+
+
+    }
+    a{
+        background-color: rgba(235, 73, 73, 0.7) !important;
+        color: white;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+    button:hover{
+        background-color: rgba(0, 255, 157, 0.192);
+        text-decoration: none;
+        border-radius:0 ;
+        transition: 0.2s all;
+
+
+    }
+    a:hover{
+        background-color: white  !important;
+        color: rgba(235, 73, 73, 0.7);
+        transition: 0.2s all;
+
+    }
+    button{
+        filter:blur(0) ;
+        padding: 2em;
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+    .smother{
+        filter:blur(0.1em) ;
+        cursor:default;
+    }
+</style>
+<body id="bd">
+
+    <h1>You Need Yo Verify Your Account</h1>
+    <div class="container">
+    <h4 id="h4">Click on send to verify</h4>
+    <form id="form" action="/verify" method="post">
+        <button id="btn" type="submit" id="verify">Send</button>
+    </form>
+    <h3 id="h3"></h3>
+    <h5 id="h5"></h5>
+    </div>
+    <a href="logout">Logout</a>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script id="ejs" type="application/json"  email=<%=email%> time=<%=time%>></script>
+<script>
+    let socket=io()
+let ejs=document.getElementById('ejs')
+let em=ejs.getAttribute('email')
+let time=ejs.getAttribute('time')
+let form=document.getElementById('form')
+let btn=document.getElementById('btn')
+let body=document.getElementById('bd')
+form.addEventListener('submit',(e)=>{
+    e.preventDefault()
+let notif=document.getElementById('h3')
+let reminder=document.getElementById('h5')
+notif.textContent="An email has been sent to "+em
+reminder.textContent="You can Send A verification request every 60 seconds"
+if(parseInt(((new Date()).getTime()/1000))-parseInt(time)>60){
+    btn.disabled=true
+   btn.className='smother'
+    
+socket.emit('verify',(em))
+socket.on('delay_updated',()=>{btn.disabled=false;
+   btn.className=''})
+    
+}
+else
+ notif.textContent="Your request have just been sent in the last 60 seconds"
+
+
+
+})
+
+</script>
+</html>

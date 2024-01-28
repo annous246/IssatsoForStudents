@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+    }
+    .seance{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 1em;
+        align-items: center;
+        filter: blur(0%);
+        opacity: 1;
+        transition: all 0.3s;
+        transition-duration: all 0.3s;
+
+
+    }
+    .day{
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 1em;
+        border: 0.08em solid black;
+        border-radius: 0.2em;
+
+
+    }
+     h3{
+        border: 0.08em solid black;
+        border-radius: 0.2em;
+        padding: 0.7em 0.5em;
+        background-color: rgba(20, 255, 137, 0.816);
+        color: white;
+        font-weight: bold;
+        font-size: 1.4em;
+        width: 100%;
+       
+    }
+    input{
+        width: 10%;
+        padding: 0.8em;
+        margin-left: 0.4em;
+        margin-right: 0.4em;
+    }
+    select{
+        width: 20%;
+        padding: 1em;
+        margin-left: 0.2em;
+        margin-right: 0.2em;
+    }
+    label{
+        width: 10%;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 1em;
+
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+    button{
+        padding: 1em;
+        width: 50%;
+        margin: 1em;
+        background-color: rgba(4, 92, 233, 0.593);
+        border:0.05em solid black;
+        color: white;
+        font-size: 1em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    button:hover{
+        background-color: white;
+        border:0.05em solid rgba(4, 92, 233, 0.593);;
+        color: rgba(4, 92, 233, 0.593);
+        transition: all 0.2s;
+    }
+    .adder{
+        width: 100%;
+        margin: 0;
+    }
+
+    .hide{
+        opacity: 0 !important;
+        transition: all 0.3s !important;
+    }
+    span{
+        border:0.05em solid black;
+        border-radius: 0.2em;
+        padding: 0.8em;
+        margin-right: 0.5em;
+        background-color: rgba(19, 170, 122, 0.399);
+        
+    }
+    .rm-btn{
+        background-color: rgba(235, 103, 15, 0.658);
+        transition: all 0.2s;
+    }
+    .rm-btn:hover{
+        background-color: rgba(235, 103, 15, 0.8);
+        color: black;
+        border-color: black;
+        transition: all 0.2s;
+    }
+    .db-btn{
+        opacity: 1;
+        background-color: rgba(235, 15, 15, 0.658);
+        transition: all 0.2s;
+    }
+    .db-btn:hover{
+        background-color: rgba(230, 101, 101, 0.658);
+        color: rgba(235, 15, 15, 0.658);;
+        border-color: rgba(235, 15, 15, 0.658);;
+        transition: all 0.2s;
+    }
+    .hide{
+        opacity:0 ip !important;
+        transition: all 0.2s !important;
+    }
+    .smother{
+        opacity:0.5  !important;
+        filter:blur(0.1em) !important;
+        transition: all 0.2s !important;
+    }
+    .dbclass{
+        opacity: 1;
+        background-color: rgba(15, 147, 235, 0.8);
+        transition: all 0.2s;
+    }
+    .dbclass:hover{
+        background-color: rgba(15, 147, 235, 0.658);
+        color: white;
+        border-color: white;
+        transition: all 0.2s;
+    }
+    .container{
+        background-color: rgba(226, 97, 11, 0.493);
+        margin-top:2em ;
+        margin-bottom:2em ;
+      border : 0.08em solid black;
+      border-radius: 0.2em;
+    }
+
+    nav{
+    position: relative;
+
+    display: block;
+    align-items: center;
+    text-align: center;
+    border: black solid 0.1em;
+    padding: 1em 0 1em 0;
+    transition: 0.2s all;
+}
+nav:hover{
+    background-color: rgba(3, 252, 198, 0.415);
+    transition: 0.2s all;
+}
+#na{
+    position: relative;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding:0.5em 0.8em;
+    margin: 0 0.5em 0 0.5em;
+    border: black solid 0.1em;
+    background-color: rgba(3, 252, 198, 0.315);
+    transition: 0.2s all;
+}
+#na:hover{
+    background-color: white;
+    color:rgba(31, 31, 190, 0.473);
+    border-radius: 0.4em;
+    transition: 0.2s all;
+
+}
+    ::-webkit-scrollbar{
+        appearance: none;
+        width: 0.9em;
+    }
+    ::-webkit-scrollbar-thumb{
+        border-radius: 5em;
+        border: 0.08em black solid;
+        background-color: rgb(94, 97, 99);
+        margin: 1em;
+        padding: 1em;
+    }
+    ::-webkit-scrollbar-button{
+        border-radius: 0.4em;
+        border: 0.08em black solid;
+        background-color: rgba(3, 37, 60, 0.301);
+        margin: 1em;
+        padding: 1em;
+
+    }
+    ::-webkit-scrollbar-track-piece{
+        border-radius: 5em;
+        border: 0.08em black solid;
+        background-color: rgba(0, 0, 0, 0.51);
+        padding: 1em;
+    }
+@media screen and (max-width:570px){
+    label{display: none;}
+}
+</style>
+<body>
+    <nav>
+        <a id="na" href="dashboard">Dashboard</a>
+        <a id="na" href="productivity_app">TodoList</a>
+    </nav>
+    <form method="post" action="/customsavemon" id="Monday">
+        <div class="container">
+                <h3>Monday</h3>
+            <div class="day">
+                <% let tableod=table["monday"]
+                for(let k in tableod){
+                   let v=parseInt(k)+1
+                   let element=tableod[k]
+                   let sn=element.seanceName
+                   let st=element.type
+                   let ss=element.status
+                   let stdropdown=['COURS','TD','TP']
+                   let req='required'
+                    let val=1;
+                    let sclass=''
+                    let dbclass=''
+                    let dbp='disable'
+                   if(ss==false){
+                    sclass='smother'
+                    req=''
+                     dbclass='dbclass'
+                    dbp='enable'
+                    val=0
+                   }
+
+                   %>
+                   <span>S<%=parseInt(v)%></span>
+                   <div class="mseance seance <%=sclass%>">
+                    
+                    <input type="hidden" value="<%=val%>" name="mss<%=parseInt(v)%>">
+
+
+                    <label>Seance Subject</label>
+                    <select  name="msn<%=parseInt(v)%>" >
+                        
+                        <option value="<%=parseInt(sn)%>"><%=sndropdown[parseInt(sn)-1]%></option>
+                        <%
+                        let picker=parseInt(sn);
+                        for(let z=1;z<sndropdown.length+1;z++){
+                         if(z==picker)continue;
+                         %>
+                        <option value="<%=z%>"><%=sndropdown[z-1]%></option>
+                        <%}
+                        %>
+                    </select>
+                    
+                 
+                    <label>Seance Type</label>
+                    <select  name="mst<%=parseInt(v)%>">
+                        
+                        <option value="<%=parseInt(st)%>"><%=stdropdown[parseInt(st)-1]%></option>
+                        <%
+                         picker=parseInt(st);
+                        for(let z=1;z<4;z++){
+                         if(z==picker)continue;
+                         %>
+                        <option value="<%=z%>"><%=stdropdown[z-1]%></option>
+                        <%}
+                        %>
+                    </select>
+
+
+
+
+                          <button class="rm-btn mrm-btn " id="mrm-btn-<%=parseInt(v)%>">x</button>
+                       <button class="db-btn mdb-btn <%=dbclass%>" id="mdb-btn-<%=parseInt(v)%>"><%=dbp%></button>
+                   </div> <%}%>
+                   <button id="Monday-adder-btn" class="adder">+</button>
+               
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <button id="Save-btn" type="submit">Save</button>
+        <button  type="reset">Reset (Only For Unsaved Seances)</button>
+    </form>
+    
+<form method="get" action="/generatemon" id="Generate">
+    <select name="cadencyq">
+        <option value="2">Qa</option>
+        <option value="3">Qb</option>
+    </select>
+    <select name="cadencyz">
+        <option value="4">Z3</option>
+        <option value="5">Z4</option>
+    </select>
+    <button id="Generate-btn" type="submit">Generate (Based On Saved Schedule)</button>
+</form>
+
+
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script id="ejs" type="application/json" user="<%=user%>"></script>
+    <script src="/javascript/CTMDOM.js" type="text/javascript"></script>
+    
+</body>
+</html>

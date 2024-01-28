@@ -8,8 +8,6 @@
 
 </head>
 <body>
-
-    <button onclick="disableBackButton()">Click to Disable</button>
     <style>
         *{
             padding:0;
@@ -74,8 +72,8 @@
             
         }
     </style>
-    <a href="home.ejs"><h1>Sign Up Page</h1></a>
-    <form action="register.ejs" method="post">
+    <a href="home"><h1>Sign Up Page</h1></a>
+    <form action="/register" method="post" id="rform">
         <label for="un">Username</label>
         <input value="" name ="username" type="text" placeholder="John Doe" required>
         <label for="email">Age</label>
@@ -88,7 +86,7 @@
         <input name ="picture" id="image"  type="file" value="">-->
         <label for="confirm">Confirm Password</label>
         <input name ="confirm"  type="password" placeholder="*********" required value="">
-        <button type="submit">Sign Up</button>
+        <button type="submit" id="sign">Sign Up</button>
     </form>
     <% if(message.msg){%>
     <div id="message">
@@ -96,7 +94,8 @@
 
     </div>
     <%}%>
-        <a href="login.ejs">Login</a>
+        <a href="login">Login</a>
+        <script src="/javascript/SignDOM.js" type="text/javascript"></script>
 
 </body>
 </html>

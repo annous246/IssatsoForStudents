@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+*{
+    box-sizing: border-box;
+    padding: 1em;
+    margin: 0.5em;
+
+
+}
+body{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+}
+.container{
+    border: 0.08em solid black;
+    border-radius: 0.2em;
+    width:100%
+}
+.day{
+    background-color: rgba(24, 197, 154, 0.397);
+    border-radius: 0.2em;
+    margin-top:1em ;
+    margin-bottom:1em ;
+
+}
+.green{
+    background-color: rgba(0, 255, 76, 0.397);
+    border-radius: 0.2em;
+    margin-top:1em ;
+    margin-bottom:1em ;
+
+}
+.yellow{
+    background-color: rgba(255, 230, 4, 0.397);
+    border-radius: 0.2em;
+    margin-top:1em ;
+    margin-bottom:1em ;
+
+}
+.seance{
+    display: flex;
+    background-color: rgba(15, 83, 161, 0.74);
+    border-radius: 0.2em;
+    padding: 1em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    transition: 0.2s all;
+}
+.seance:hover{
+    background-color: rgba(15, 83, 161, 0.822);
+    border-radius: 0.8em;
+    transition: 0.2s all;
+}
+.seance:hover .spanned{
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    transition: 0.2s all;
+}
+.spanned{
+    position: relative;
+    background-color: white;
+    margin: 1em;
+    border-radius: 0.8em;
+    
+    transition: 0.2s all;
+}
+.dv{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+}
+.resp{
+    display: block;
+}
+@media screen and (max-width:900px){
+.dv{
+    flex-direction: column;
+    flex-wrap:nowrap
+}
+.resp{
+    display: none;
+}}
+p{
+    display: inline-block;
+    text-align: center;
+}
+nav{
+    position: relative;
+
+    display: block;
+    align-items: center;
+    text-align: center;
+    border: black solid 0.1em;
+    padding: 1em 0 1em 0;
+    background-color: rgba(3, 252, 198, 0.315);
+    transition: 0.2s all;
+}
+nav:hover{
+    background-color: rgba(3, 252, 198, 0.415);
+    transition: 0.2s all;
+}
+#na{
+    position: relative;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding:0.5em 0.8em;
+    margin: 0 0.5em 0 0.5em;
+    border: black solid 0.1em;
+    background-color: rgba(3, 252, 198, 0.315);
+    transition: 0.2s all;
+}
+#na:hover{
+    background-color: white;
+    color:rgba(31, 31, 190, 0.473);
+    border-radius: 0.4em;
+    transition: 0.2s all;
+
+}
+
+</style>
+<body>
+    <nav>
+        <a id="na" href="dashboard">Dashboard</a>
+        <a id="na" href="productivity_app">TodoList</a>
+    </nav>
+    <h1>Result</h1>
+
+   <h4 style="color:rgba(255, 0, 0, 0.479)">Warning</h4> <p> TP type Seance can be faulty</p>
+    <div class="container green">
+       <% if(gooday.length==0){%>
+        <h2>There Is No Exact Schedule</h2><%}
+        else{let cn=0;%>
+            <h2>Exact Schedule</h2><%
+
+        
+        
+          for(let seance of gooday){cn++;%>
+            
+            <div class="seance">
+                <div style="color:white">S<%=cn%></div>
+               <% if(seance.status==1){%>
+                <div class="dv">
+                <span class="spanned"> <%=seance.seanceName%></span>
+                <span class="spanned resp"> <%=seance.type%></span>
+                <span class="spanned"> <%=seance.class%></span>
+                <span class="spanned resp"> <%=seance.prof%></span>
+            <span class="spanned resp"> <%=seance.period%></span>
+            <% if(seance.hasOwnProperty("count")){%>
+                <span class="spanned resp">Seance Count (TP):<%=seance.count%></span>
+
+            <%}%>
+                <span class="spanned resp">|<%=timestamps['s'+cn].begin%> - <%=timestamps['s'+cn].end%>|</span></div>
+                
+                
+                <%}
+                else{%>
+                <span class="spanned">Empty</span><%}%>
+            </div>
+    
+               <% }
+            }%>
+    </div>
+    
+    <% if(simgoodays.length>0){%>
+        <h2>Semi Exact Schedules</h2>
+
+    <div class="container yellow"><%let n=0;
+        for(let k of simgoodays){n++;%>
+            <div class="day">
+                <h3>Schedule <%=n%></h3>
+          <%  let cn=0;
+          for(let seance of k){cn++;%>
+            <div class="seance">
+                <div style="color:white">S<%=cn%></div>
+               <% if(seance.status==1){%>
+                <div class="dv">
+                <span class="spanned"> <%=seance.seanceName%></span>
+                <span class="spanned resp"> <%=seance.type%></span>
+                <span class="spanned"> <%=seance.class%></span>
+                <span class="spanned resp"> <%=seance.prof%></span>
+            <span class="spanned resp"> <%=seance.period%></span>
+            <% if(seance.hasOwnProperty("count")){%>
+                <span class="spanned resp">Seance Count (TP):<%=seance.count%></span>
+
+            <%}%>
+                <span class="spanned resp">|<%=timestamps['s'+cn].begin%> - <%=timestamps['s'+cn].end%>|</span></div><%}
+                else{%>
+                <span class="spanned">Empty</span><%}%>
+            </div>
+
+           <% }%>
+        </div>
+
+       <% }%>
+    </div>
+
+       <% }
+        else{%>
+            <h2>Unfortunately there is no Semi Exact Schedules</h2><%}%>
+
+
+
+
+
+
+
+
+
+
+    <% if(result.length>0){%>
+        <h2>Similar Schedules</h2>
+
+    <div class="container"><%let n=0;
+        for(let k of result){n++;%>
+            <div class="day">
+                <h3>Schedule <%=n%></h3>
+          <%  let cn=0;
+          for(let seance of k){cn++;%>
+            <div class="seance">
+                <div style="color:white">S<%=cn%></div>
+               <% if(seance.status==1){%>
+                <div class="dv">
+                <span class="spanned"> <%=seance.seanceName%></span>
+                <span class="spanned resp"> <%=seance.type%></span>
+                <span class="spanned"> <%=seance.class%></span>
+                <span class="spanned resp"> <%=seance.prof%></span>
+                <span class="spanned"> <%=seance.period%></span>
+                <% if(seance.hasOwnProperty("count")){%>
+                    <span class="spanned resp">Seance Count (TP):<%=seance.count%></span>
+
+                <%}%>
+                <span class="spanned resp">|<%=timestamps['s'+cn].begin%> - <%=timestamps['s'+cn].end%>|</span></div><%}
+                else{%>
+                <span class="spanned">Empty</span><%}%>
+            </div>
+
+           <% }%>
+        </div>
+
+       <% }%>
+    </div>
+
+       <% }
+        else{%>
+            <h2>Unfortunately there is no Similar Schedules</h2><%}%>
+</body>
+</html>

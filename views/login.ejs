@@ -61,18 +61,43 @@
             text-decoration: none;
             color:black;
         }
+        .sign{
+            padding: 1em;
+            background-color: rgb(83, 125, 189,1);
+            border:none;
+            border-radius: 0.2em;
+            transition: 0.5s;;
+
+        }
+        .sign:hover{
+            padding: 1em;
+            background-color: rgb(83, 125, 189,0.8);
+            border:none;
+            border-radius: 0.2em;
+            transition: 0.5s;;
+
+        }
+        #filler{
+            padding: 2em;
+            font-size: 0.7em;
+        }
+        #msg{
+            padding: 1em;
+            margin: 1em;
+        }
     </style>
     
-    <a href="home.ejs"><h1>Login page</h1></a>
-    <form action="login.ejs" method="post">
+    <a href="home"><h1>Login page</h1></a>
+    <form action="/login" method="post" id="lform">
         <label for="email">Email</label>
         <input name ="email" type="email" placeholder="Email" required>
         <label for="password">Password</label>
         <input name ="password"  type="password" placeholder="*********" required>
-        <button type="submit">Log In</button>
+        <button id="log" type="submit">Log In</button>
     </form>
-    <p><%=message.wpm%></p>
-    <a href="register.ejs">Sign Up</a></div>
-    
+    <p id="msg"><%=message.msg%></p>
+    <a href="register" class="sign">Sign Up</a></div>
+    <p id="filler">Forgot Password</p>
+    <script src="/javascript/LogDOM.js" type="text/javascript"></script>
 </body>
 </html>

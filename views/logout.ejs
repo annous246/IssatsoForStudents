@@ -64,8 +64,8 @@
         }
     </style>
     <p><%=message.logout%></p>
-    <a href="home.ejs"><h1>Login page</h1></a>
-    <form action="login.ejs" method="post">
+    <a href="home"><h1>Login page</h1></a>
+    <form action="/login" method="post">
         <label for="email">Email</label>
         <input name ="email" type="email" placeholder="Email" required>
         <label for="password">Password</label>
@@ -73,7 +73,7 @@
         <button type="submit">Log In</button>
     </form>
     <p><%=message.wpm%></p>
-    <a href="register.ejs">Sign Up</a></div>
+    <a href="register">Sign Up</a></div>
     
 </body>
 </html>

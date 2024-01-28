@@ -58,20 +58,24 @@ button{
 </style>
 <body>
     <h1>Welcome Admin !</h1>
-    <a href="logout.ejs">Logout</a>
+    <a href="logout">Logout</a>
 </div>
-    <a id="ul" href="users_panel.ejs">Users Panel</a>
-    <a id="ul" href="users_ranking.ejs">Users Ranking</a>
-    <a id="ul" href="posting_admin.ejs">Posting and Feeds Panel</a>
-
+    <a id="ul" href="users_panel">Users Panel</a>
+    <a id="ul" href="timetablesA01G1">timetablesA01G1</a>
+    <a id="ul" href="timetablesA01G2">timetablesA01G2</a>
     
+    <a id="ul" href="timetablesA02G1">timetablesA02G1</a>
+    <a id="ul" href="timetablesA02G2">timetablesA02G2</a>
+    
+    <a id="ul" href="timetablesA03G1">timetablesA03G1</a>
+    <a id="ul" href="timetablesA03G2">timetablesA03G2</a>
+    
+    <a id="ul" href="timetablesA04G1">timetablesA04G1</a>
+    <a id="ul" href="timetablesA04G2">timetablesA04G2</a>
     <script>
-        window.addEventListener('unload', function() {
-  // Send a logout request to the server
-  fetch('/offline', {
-    method: 'GET',
-  });
-});
+        
     </script>
+    
+    <script src="/javascript/AdminDOM.js" type="text/javascript"></script>
 </body>
 </html>
