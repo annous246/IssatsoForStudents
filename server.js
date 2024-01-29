@@ -719,16 +719,29 @@ linker=linker.replace(/slash/g, "/");
   console.log(req.session.user)
   
   if(req.session.user && req.session.user!='admin@admin.admin'){
+  console.log(req.session.user)
           
 let cmp=await bc.compare(linker,req.session.user)
+  console.log(req.session.user)
 if(cmp){
+  console.log(req.session.user)
   await people.findOneAndUpdate({email:req.session.user},{verification:true})
   .then((d)=>{console.log("updated");return d;})
   .catch((e)=>console.log("error linking to verification"))
+  console.log(req.session.user)
   
   res.redirect('/dashboard')
 
-}}
+}
+    else{
+  console.log(req.session.user+" 2")
+      req.session.destroy()
+      res.redirect('/home')
+
+      
+    }
+  
+  }
 else{
 res.redirect('/home')
 }
