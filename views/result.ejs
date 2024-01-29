@@ -100,15 +100,17 @@ p{
     display: inline-block;
     text-align: center;
 }
-nav{
+    nav{
     position: relative;
 
-    display: block;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
     align-items: center;
     text-align: center;
     border: black solid 0.1em;
     padding: 1em 0 1em 0;
-    background-color: rgba(3, 252, 198, 0.315);
     transition: 0.2s all;
 }
 nav:hover{
@@ -122,7 +124,7 @@ nav:hover{
     font-weight: bold;
     font-size: 1.2em;
     padding:0.5em 0.8em;
-    margin: 0 0.5em 0 0.5em;
+    margin: 0.5em 1em 0.5em 1em;
     border: black solid 0.1em;
     background-color: rgba(3, 252, 198, 0.315);
     transition: 0.2s all;
@@ -134,7 +136,6 @@ nav:hover{
     transition: 0.2s all;
 
 }
-
 </style>
 <body>
     <nav>
