@@ -722,6 +722,8 @@ linker=linker.replace(/slash/g, "/");
   console.log(req.session.user)
           
 let cmp=await bc.compare(req.session.user,linker)
+    .then((dt)=>{console.log("verified succ");return dt;})
+    .catch(()=>console.log("error verifying"))
   console.log(req.session.user)
   console.log(cmp)
 if(cmp){
