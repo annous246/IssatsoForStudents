@@ -726,11 +726,11 @@ if(cmp){
   
   res.redirect('/dashboard')
 
-}
+}}
 else{
 res.redirect('/home')
 }
-  }
+  
 
 })
 
