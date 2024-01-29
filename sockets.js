@@ -438,10 +438,11 @@ let sockets=(io,people,customttmodel,bc,pass)=>{
     .catch((e)=>console.log("error emitting verification"))
           socket.emit("delay_updated")
         let encryption=await bc.hash(d,10)
+        console.log(encryption)
          encryption=encryption.replace(/\//g, "slash");//backend error and security reasons
         let link="https://issatso.onrender.com/verified/"+encryption
         let lnkprep='<a src='+link+'>Verification Link</a>'
-       // console.log(lnkprep)
+        console.log(encryption)
         let html="<h2>Welcome To Issatso++</h2><p>Click the following link to verify your email: <br> <a href=" + link +">Verify My Account</a></p>"
 
         //console.log(html)
