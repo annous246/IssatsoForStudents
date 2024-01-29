@@ -710,14 +710,15 @@ app.get('/verification',async(req,res)=>{
 
 app.get('/verified/:linker',async(req,res)=>{  
   console.log("hi")
-  console.log(req.params)
   
 let linker=req.params.linker
 
-linker.replace(/slash/g, "/");
+linker=linker.replace(/slash/g, "/");
+  console.log(linker)
+  
   if(req.session.user&& req.session.user!='admin@admin.admin'){
           
-let cmp=bc.compare(linker,req.session.user)
+let cmp=await bc.compare(linker,req.session.user)
 if(cmp){
   await people.findOneAndUpdate({email:req.session.user},{verification:true})
   .then((d)=>d)
