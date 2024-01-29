@@ -713,6 +713,7 @@ people.findOneAndUpdate({email:'crazygrandpa246@gmail.com'},{verification:false}
 
 app.get('/verified/:linker',async(req,res)=>{  
   console.log("hi")
+  console.log(req.params)
   
 let linker=req.params.linker
 
