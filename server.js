@@ -707,9 +707,6 @@ app.get('/verification',async(req,res)=>{
     res.redirect('/home')
   }
 })
-people.findOneAndUpdate({email:'crazygrandpa246@gmail.com'},{verification:false})
-.then(()=>console.log("done"))
-.catch(()=>console.log("zab"))
 
 app.get('/verified/:linker',async(req,res)=>{  
   console.log("hi")
