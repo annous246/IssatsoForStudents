@@ -649,7 +649,7 @@ else{
 
 
 //sockets
-sockets(io,people,customttmodel,bc,process.env.PASS);
+sockets(io,people,timetablesmodel,customttmodel,bc,process.env.PASS);
 //******************** */
 
 //scheduling

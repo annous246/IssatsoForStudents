@@ -1,5 +1,5 @@
 
-let sockets=(io,people,customttmodel,bc,pass)=>{
+let sockets=(io,people,timetablesmodel,customttmodel,bc,pass)=>{
     io.on('connection',(socket)=>{
   
       socket.on('/add_task',async(data)=>{
