@@ -36,7 +36,7 @@ const server=http.createServer(app);
 const io=socketbuilder(server);
 
 setInterval(()=>{
-  http.get('https://issatso.onrender.com/', (res) => {
+  http.get('http://issatso.onrender.com/', (res) => {
    let data = '';
   
    res.on('data', (chunk) => {
