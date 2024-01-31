@@ -36,8 +36,21 @@ const server=http.createServer(app);
 const io=socketbuilder(server);
 
 setInterval(()=>{
-  console.log("hi");
-},600000)
+  http.get('/', (res) => {
+   let data = '';
+  
+   res.on('data', (chunk) => {
+      console.log("hiii")
+   });
+  
+   res.on('end', () => {
+      console.log("hiii2")
+   });
+  
+  }).on("error", (err) => {
+   console.log("Error: " + err.message);
+  });
+  },50000)
 //try to be careful when using async in dom (try not to)
 //console.log(res);
 let test;
