@@ -35,7 +35,9 @@ const { TIMEOUT } = require('dns');
 const server=http.createServer(app);
 const io=socketbuilder(server);
 
-
+setInterval(()=>{
+  console.log("hi");
+},600000)
 //try to be careful when using async in dom (try not to)
 //console.log(res);
 let test;
