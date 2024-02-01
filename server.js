@@ -34,7 +34,7 @@ const e = require('express');
 const { TIMEOUT } = require('dns');
 const server=http.createServer(app);
 const io=socketbuilder(server);
-
+/*
 setInterval(()=>{
   http.get('http://issatso.onrender.com/', (res) => {
    let data = '';
@@ -50,7 +50,7 @@ setInterval(()=>{
   }).on("error", (err) => {
    console.log("Error: " + err.message);
   });
-  },50000)
+  },50000)*/
 //try to be careful when using async in dom (try not to)
 //console.log(res);
 let test;
