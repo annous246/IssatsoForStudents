@@ -268,6 +268,17 @@ let logSchema=new db.Schema({
       default:0
 
     },
+    safe_gate:{
+      type:Boolean,
+      required:true,
+      default:false,
+
+    },
+    linker:{
+      type:String,
+      required:true,
+      default:""
+    }
     
   
   })
