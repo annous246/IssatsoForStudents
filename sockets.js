@@ -439,7 +439,7 @@ let sockets=(io,people,timetablesmodel,customttmodel,bc,pass,nm)=>{
           socket.emit("delay_updated")
         let encryption=await bc.hash(d,10)
          encryption=encryption.replace(/\//g, "slash");//backend error and security reasons
-        let link="http://localhost:3000/verified/"+encryption
+        let link="https://issatso.onrender.com/verified/"+encryption
         let lnkprep='<a src='+link+'>Verification Link</a>'
        // console.log(lnkprep)
         let html="<h2>Welcome To Issatso++</h2><p>Click the following link to verify your email: <br> <a href=" + link +">Verify My Account</a></p>"
@@ -502,7 +502,7 @@ let sockets=(io,people,timetablesmodel,customttmodel,bc,pass,nm)=>{
         .then((d)=>d)
         .catch(()=>console.log("erro setting mail"))
         encryption=encryption.replace(/\//g,'slash')
-        let link="http://localhost:3000/forget/"+encryption+"mailed"+email
+        let link="https://issatso.onrender.com/forget/"+encryption+"mailed"+email
         let html="<h1>Password Recovery</h1><br><p>Click To Recover Your Account : <br> <a href="+link+">Link</a> </p>";
         let bus=nm.createTransport({
           service:'gmail',
