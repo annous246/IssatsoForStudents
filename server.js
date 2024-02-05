@@ -13,6 +13,7 @@ const {login} =require('./login.js')
 const {register} =require('./register.js')
 const {errorChecker} =require('./general_functional_dependencies.js')
 const {ban,unban,temp_ban,temp_ban_AutoCkeck}=require('./ban_service')
+const {monday_switch,tuesday_switch,wednesday_switch,thursday_switch,friday_switch,saturday_switch}=require('./switch.js')
 
 const ex=require('express');
 const db=require('mongoose');
@@ -30,31 +31,47 @@ const res = require('express/lib/response');
 const { Console } = require('console');
 const { log } = require('util');
 const { release } = require('os');
-const e = require('express');
 const { TIMEOUT } = require('dns');
+let nm=require('nodemailer')
+
 const server=http.createServer(app);
 const io=socketbuilder(server);
-/*
-setInterval(()=>{
-  http.get('http://issatso.onrender.com/', (res) => {
-   let data = '';
-  
-   res.on('data', (chunk) => {
-      console.log("hiii")
-   });
-  
-   res.on('end', () => {
-      console.log("hiii2")
-   });
-  
-  }).on("error", (err) => {
-   console.log("Error: " + err.message);
-  });
-  },50000)*/
 //try to be careful when using async in dom (try not to)
 //console.log(res);
-let test;
+/*
+const cron = require('cron');
+const { spawn } = require('child_process');
+const path = require('path');
 
+const job = new cron.CronJob({
+ cronTime: '00 30 11 * * *', // This means 11:30:00 AM every day. Adjust as needed.
+ onTick: function() {
+    const child = spawn(process.execPath, [path.join(__dirname, 'yourScript.js')], {
+      detached: true,
+      stdio: 'ignore'
+    });
+
+    child.unref();
+    process.exit();
+ },
+ start: true,
+ timeZone: 'America/Los_Angeles' // Adjust as needed.
+});
+let test;
+function restartServer() {
+  const spawn = cp.spawn;
+  const args = process.argv.slice(1);
+  const execPath = args.shift();
+
+  const child = spawn(execPath, args, {
+      detached : true,
+      stdio: 'ignore'
+  });
+
+  child.unref();
+  process.exit();
+}
+setInterval(()=>{restartServer()},1000);*/
 let type=['COURS','TD','TP']
 let subject=['RESEAU','MATH','POO','GRAPHES','EXPLOITATION','CONCEPTION','FRANCAIS','GESTION','INTERNET','COMPILATION','ANGLAIS']//dont change order
 let cadency=["H","QA","QB","Z3","Z4"]
@@ -85,9 +102,33 @@ const timestamps={
     end:"18:40"
   },
 }
+
+/*
+setInterval(()=>{
+
+const options = {
+ hostname: 'localhost', // or your server's domain name
+ port: 3000, // your server's port
+ path: '/your-endpoint',
+ method: 'GET',
+ headers: {
+    'Cookie': 'session=abcd1234', // optional: add a cookie to mimic a client session
+    'User-Agent': 'My Custom User Agent' // optional: add a custom User-Agent
+ }
+};
+console.log(http)
+const req = http.request(options, (res) => {
+ let data = '';
+
+ res.on('data', (chunk) => {
+    console.log("hi")
+ });
+
+
+})},5000)*/
+
 let selection=0;
 // modeling part
-
 let logModel=new db.model('logModel',logSchema);
 let timetablesmodel=new db.model('timetables',timetableschema)
 let customttmodel=new db.model("custom timetable",customttschema)
@@ -653,6 +694,57 @@ else{
 
 
 
+    
+app.get('/verification',async(req,res)=>{
+
+  if(req.session.user&&req.session.user!='admin@admin.admin'){
+    let user =await people.findOne({email:req.session.user})
+    .then((d)=>d)
+    .catch((e)=>console.log("error verifying"))
+    if(user.verification){
+      res.redirect('/dashboard')
+    }
+    else{
+      //console.log(user)
+      res.render('verification.ejs',{email:req.session.user,time:user.verification_delay})
+    }
+
+  }
+  else if(req.session.user=='admin@admin.admin'){
+    res.redirect('/admin_dashboard')
+
+  }
+  else{
+    res.redirect('/home')
+  }
+})
+app.get('/verified/:linker',async(req,res)=>{  
+  console.log("hi")
+  
+let linker=req.params.linker
+
+linker.replace(/slash/g, "/");
+  if(req.session.user&& req.session.user!='admin@admin.admin'){
+          
+let cmp=bc.compare(linker,req.session.user)
+if(cmp){
+  await people.findOneAndUpdate({email:req.session.user},{verification:true})
+  .then((d)=>d)
+  .catch((e)=>console.log("error linking to verification"))
+  
+  res.redirect('/dashboard')
+
+}
+else{
+res.redirect('/home')
+}
+  }
+
+})
+
+
+
+
 //operational part
 
 
@@ -664,7 +756,7 @@ else{
 
 
 //sockets
-sockets(io,people,timetablesmodel,customttmodel,bc,process.env.PASS);
+sockets(io,people,timetablesmodel,customttmodel,bc,process.env.PASS,nm);
 //******************** */
 
 //scheduling
@@ -698,73 +790,92 @@ custom_save_sat(app,customttmodel,errorChecker);
 schedule_builder_sat(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people);
 
 /****************************************************************************************************************************************************************************** */
+monday_switch(app,timetablesmodel)
+tuesday_switch(app,timetablesmodel)
+wednesday_switch(app,timetablesmodel)
+thursday_switch(app,timetablesmodel)
+friday_switch(app,timetablesmodel)
+saturday_switch(app,timetablesmodel)
 
-app.get('/verification',async(req,res)=>{
 
-  if(req.session.user&&req.session.user!='admin@admin.admin'){
-    let user =await people.findOne({email:req.session.user})
-    .then((d)=>d)
-    .catch((e)=>console.log("error verifying"))
-    if(user.verification){
-      res.redirect('/dashboard')
-    }
-    else{
-      //console.log(user)
-      res.render('verification.ejs',{email:req.session.user,time:user.verification_delay})
-    }
-
-  }
-  else if(req.session.user=='admin@admin.admin'){
-    res.redirect('/admin_dashboard')
+app.get('/forgot',(req,res)=>{
+  if(!req.session.user){
+  res.render('forgot.ejs')
 
   }
   else{
-    res.redirect('/home')
+    res.redirect('/dashboard')
   }
 })
 
-app.get('/verified/:linker',async(req,res)=>{  
-  console.log("hi")
-  
-let linker=req.params.linker
+app.get('/forget/:linker',async(req,res)=>{
+  if( !req.session.user){
+  let now= parseInt(((new Date()).getTime())/1000);//get current time as soon
+  let link=req.params.linker
+  let thelink=  (link.replace(/slash/g,"/"));//link reset
+  thelink=await thelink.slice(0,(thelink.indexOf("mailed")))//clear mail
 
-linker=linker.replace(/slash/g, "/");
-  console.log(linker)
-  
-  console.log(req.session.user)
-  
-  if(req.session.user && req.session.user!='admin@admin.admin'){
-  console.log(req.session.user)
-          
-let cmp=await bc.compare(req.session.user,linker)
-    .then((dt)=>{console.log("verified succ");return dt;})
-    .catch(()=>console.log("error verifying"))
-  console.log(req.session.user)
-  console.log(cmp)
-if(cmp){
-  console.log(req.session.user)
-  await people.findOneAndUpdate({email:req.session.user},{verification:true})
-  .then((d)=>{console.log("updated");return d;})
-  .catch((e)=>console.log("error linking to verification"))
-  console.log(req.session.user)
-  
-  res.redirect('/dashboard')
-
-}
-    else{
-  console.log(req.session.user+" 2")
-      req.session.destroy()
-      res.redirect('/home')
-
-      
-    }
-  
+  let sender= await link.slice(link.indexOf("mailed")+6)//get sender
+  //check link expiration
+  let user=await people.findOne({email:sender})
+  .then((d)=>d)
+  .catch(()=>console.log("error getting user"))
+  if(!user||user.linker!=thelink){
+    messagee.msg="Error Occured"
+    res.redirect('/login')
   }
-else{
-res.redirect('/home')
-}
-  
+  else{
+  if(user.password_delay<now){
+    //too late
+    messagee.msg="Link Has Expired"
+    res.redirect('login.ejs')
+  }
+  else{
+    //safe gate IMPORTANT 
+    await people.findOneAndUpdate({email:sender},{safe_gate:true})
+    .then((d)=>d)
+    .catch(()=>console.log("error enabling safe gate"))    
+    //get you to pass reset page
+        res.render('reset.ejs',{email:sender});
+  }
 
+  }
+
+  }
+  else{
+    res.redirect('/dashboard')
+  }
+})
+
+app.post('/reset',async(req,res)=>{
+  let id=req.body.id
+  let p=req.body.password
+  let cp=req.body["second password"]
+  reset_user =await people.findOne({email:id})
+  .then((d)=>d)
+  .catch(()=>console.log("error getting reset user")) 
+  if(!req.session.user&& reset_user  && p && p.length>5 && p===cp){
+     if(reset_user.safe_gate){
+      //safe to reset
+      let encrypted=await bc.hash(p,10)
+      .then((d)=>d)
+      .catch(()=>console.log("error encrypting"))
+
+      await people.findOneAndUpdate({email:reset_user.email},{password:encrypted,safe_gate:false,password_delay:0})
+      .then((d)=>d)
+      .catch(()=>console.log("error restting password"))
+      messagee.msg='password reset successfully';
+      res.redirect('/login')
+     }
+     else{messagee.msg='Invalid Request';
+      res.redirect('/login')
+     }
+
+  }
+  else{messagee.msg='Error Occured During Reset';
+  res.redirect('/login')
+
+  }
 })
 
 //test*******************************************************************************************************************************************************************

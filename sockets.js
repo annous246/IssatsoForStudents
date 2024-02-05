@@ -1,5 +1,5 @@
 
-let sockets=(io,people,timetablesmodel,customttmodel,bc,pass)=>{
+let sockets=(io,people,timetablesmodel,customttmodel,bc,pass,nm)=>{
     io.on('connection',(socket)=>{
   
       socket.on('/add_task',async(data)=>{
@@ -438,17 +438,16 @@ let sockets=(io,people,timetablesmodel,customttmodel,bc,pass)=>{
     .catch((e)=>console.log("error emitting verification"))
           socket.emit("delay_updated")
         let encryption=await bc.hash(d,10)
-        console.log(encryption)
          encryption=encryption.replace(/\//g, "slash");//backend error and security reasons
-        let link="https://issatso.onrender.com/verified/"+encryption
+        let link="http://localhost:3000/verified/"+encryption
         let lnkprep='<a src='+link+'>Verification Link</a>'
-        console.log(encryption)
+       // console.log(lnkprep)
         let html="<h2>Welcome To Issatso++</h2><p>Click the following link to verify your email: <br> <a href=" + link +">Verify My Account</a></p>"
 
         //console.log(html)
 
 
-        let nm=require('nodemailer')
+        
         let t=nm.createTransport({
           service:'gmail',
           port:3000,
@@ -484,6 +483,64 @@ let sockets=(io,people,timetablesmodel,customttmodel,bc,pass)=>{
     }
 
 
+  })
+
+  socket.on('forgot',async(email)=>{
+    let user=await people.findOne({email:email})
+    .then((d)=>d)
+    .catch(()=>console.log("error getting user"))
+    if(user ){
+      let sendtime=parseInt(((new Date().getTime())/1000))
+      if(sendtime<300+user.password_delay){
+        socket.emit('forgot check',-600-sendtime+user.password_delay)
+      }
+      else {
+        let encryption=await bc.hash(email,10)
+        .then((d)=>d)
+        .catch(()=>console.log("error hashing"))
+        await people.findOneAndUpdate({email:email},{linker:encryption})
+        .then((d)=>d)
+        .catch(()=>console.log("erro setting mail"))
+        encryption=encryption.replace(/\//g,'slash')
+        let link="http://localhost:3000/forget/"+encryption+"mailed"+email
+        let html="<h1>Password Recovery</h1><br><p>Click To Recover Your Account : <br> <a href="+link+">Link</a> </p>";
+        let bus=nm.createTransport({
+          service:'gmail',
+          secure:true,
+          port:3000,
+          auth:{
+            user:'anasrabhi246@gmail.com',
+            pass:pass,
+          },
+          tls:{
+            rejectUnauthorized:false
+          }
+
+        })
+        let messageobject={
+          from:'<anasrabhi246@gmail.com>',
+          to:email,
+          subject:'Password Reset',
+          html:html
+
+        }
+        bus.sendMail(messageobject,(e,d)=>{
+          if(e){
+            console.log("error sending mail")
+          }
+          else console.log("mail sent successfully")
+        })
+        let user=await people.findOneAndUpdate({email:email},{password_delay:sendtime+300})
+        .then((d)=>d)
+        .catch(()=>console.log("error getting user"))
+      socket.emit('forgot check',2)
+
+      }
+        
+    }
+    else{
+      socket.emit('forgot check',0)
+    }
   })
   
   
