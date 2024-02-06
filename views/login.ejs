@@ -66,7 +66,9 @@
             background-color: rgb(83, 125, 189,1);
             border:none;
             border-radius: 0.2em;
+            width: 50%;
             transition: 0.5s;;
+
 
         }
         .sign:hover{
@@ -78,12 +80,33 @@
 
         }
         #filler{
-            padding: 2em;
+            padding: 1em;
             font-size: 0.7em;
+            margin-top: 1em;
+            border: solid black 0.08em;
+            transition: 0.2s all;
+        }
+        #filler:hover{
+            border: solid white 0.08em;
+            color: white;
+             background-color: black;
+            transition:0.2s all;
+
         }
         #msg{
             padding: 1em;
             margin: 1em;
+        }
+        .linker{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: 0.02s all;
+
         }
     </style>
     
@@ -96,8 +119,11 @@
         <button id="log" type="submit">Log In</button>
     </form>
     <p id="msg"><%=message.msg%></p>
-    <a href="register" class="sign">Sign Up</a></div>
+    <div class="linker">
+    <a href="register" class="sign">Sign Up</a>
     <a id="filler" href="forgot">Forgot Password</a>
-    <script src="/javascript/LogDOM.js" type="text/javascript"></script>
+    </div>
+
+    </div><script src="/javascript/LogDOM.js" type="text/javascript"></script>
 </body>
 </html>
