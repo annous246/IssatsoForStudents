@@ -67,7 +67,7 @@ function seanceCompare(s1,s2){
   
   
 
-let schedule_builder_mon=async(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people)=>{
+let schedule_builder_mon=async(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people,cache)=>{
     app.get('/generatemon',async(req,res)=>{
       if(req.session.user && req.session.user!="admin@admin.admin"){
            let user=await people.findOne({email:req.session.user})
@@ -76,8 +76,45 @@ let schedule_builder_mon=async(app,customttmodel,timetablesmodel,subject,type,ca
            if(user.verification){
             
       let q=(req.query['cadencyq'])
-      let z=(req.query['cadencyz'])
-        console.log(q)
+      let z=(req.query['cadencyz']) 
+      let ctt=await customttmodel.findOne({id:req.session.user})
+      .then((d)=>d)
+      .catch(()=>console.log("error pulling custom"))
+  
+      if(!ctt || ctt.length<1)res.redirect("/customtimetable")
+      else{
+        //console.log(q)
+        //check cache
+   let cdays= await cache.findOne({id:'monday'})
+   .then((d)=>d)
+   .catch(()=>console.log("error finding cache"))
+
+   
+   let days=[]
+   let result=[]
+
+   let emptyseance={
+     
+     seanceName:"",
+     class:"",
+     type:"",
+     period:"",
+     prof:"",
+     status:0
+   }
+
+   let sday=ctt.table.monday
+   //parsing****************************************
+   for(let k of sday){
+   k.seanceName=subject[ parseInt(k.seanceName)-1]
+   k.type=type[ parseInt(k.type)-1]
+  
+ 
+   } 
+   //produce****************************************
+   
+        
+    if(!cdays){
       let g11=await timetablesmodel.findOne({id:"A01G1"})
       .then((d)=>d)
       .catch(()=>console.log("error getting data"))
@@ -103,16 +140,9 @@ let schedule_builder_mon=async(app,customttmodel,timetablesmodel,subject,type,ca
       .then((d)=>d)
       .catch(()=>console.log("error getting data"))
   
-      let ctt=await customttmodel.findOne({id:req.session.user})
-      .then((d)=>d)
-      .catch(()=>console.log("error pulling custom"))
-  
-      if(!ctt || ctt.length<1)res.redirect("/customtimetable")
-      else{
+     
     //pull data 
     let allseances=[g11.table.monday,g12.table.monday,g21.table.monday,g22.table.monday,g31.table.monday,g32.table.monday,g41.table.monday,g42.table.monday]
-    let days=[]
-    let result=[]
     
     //***************************** */
     for(let grouptable of allseances){
@@ -125,48 +155,40 @@ let schedule_builder_mon=async(app,customttmodel,timetablesmodel,subject,type,ca
       }
     }
     //order of TP seances (exactly 2!)
-    let emptyseance={
+    
+      for(let a=0;a<8; a++){
+      for(let b=0;b<8; b++){
+        for(let c=0;c<8; c++){
+          for(let d=0;d<8; d++){
+            for(let e=0;e<8; e++){
+              for(let f=0;f<8; f++){
+      let day=[]
+      let vt=[a,b,c,d,e,f]
+      for(let it=0;it<6;it++){
+         if(allseances[vt[it]][it]&&allseances[vt[it]][it].status!=0)
+          day.push(allseances[vt[it]][it])
+              else
+          day.push(emptyseance)
       
-      seanceName:"",
-      class:"",
-      type:"",
-      period:"",
-      prof:"",
-      status:0
+         
+      }
+      if(inArray(day,days))continue
+      days.push(day)
+      }
+      }
+      }
+      }
+      }
+      }
+      let saver=await new cache({id:'monday',days:days})
+      await saver.save()
+      .then((d)=>d)
+      .catch(()=>console.log("error caching"))
+
     }
-    
-    let sday=ctt.table.monday
-    //parsing****************************************
-    for(let k of sday){
-    k.seanceName=subject[ parseInt(k.seanceName)-1]
-    k.type=type[ parseInt(k.type)-1]
-   
-  
-    } 
-    //produce****************************************
-    for(let a=0;a<8; a++){
-    for(let b=0;b<8; b++){
-      for(let c=0;c<8; c++){
-        for(let d=0;d<8; d++){
-          for(let e=0;e<8; e++){
-            for(let f=0;f<8; f++){
-    let day=[]
-    let vt=[a,b,c,d,e,f]
-    for(let it=0;it<6;it++){
-       if(allseances[vt[it]][it]&&allseances[vt[it]][it].status!=0)
-        day.push(allseances[vt[it]][it])
-            else
-        day.push(emptyseance)
-    
-       
-    }
-    if(inArray(day,days))continue
-    days.push(day)
-    }
-    }
-    }
-    }
-    }
+    else{
+      days=cdays.days;//get cache
+
     }
   
     //debug

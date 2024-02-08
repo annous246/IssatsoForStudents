@@ -6,7 +6,7 @@ const {custom_save_thu} =require('./custom_save/thursday.js')
 const {custom_save_tues} =require('./custom_save/tuesday.js')
 const {custom_save_wed} =require('./custom_save/wednesday.js')
 const {schedule_builder_fri,schedule_builder_mon,schedule_builder_sat,schedule_builder_thu,schedule_builder_tues,schedule_builder_wed} =require('./schedule_builder.js')
-const {logSchema,timetableschema,customttschema,userSchema} =require('./schemas.js')
+const {logSchema,timetableschema,customttschema,userSchema,cacheSchema} =require('./schemas.js')
 const {save_schedule} =require('./schedule_saver.js')
 const {double_save} =require('./double_saver.js')
 const {login} =require('./login.js')
@@ -133,6 +133,7 @@ let logModel=new db.model('logModel',logSchema);
 let timetablesmodel=new db.model('timetables',timetableschema)
 let customttmodel=new db.model("custom timetable",customttschema)
 let people=new db.model('users',userSchema)
+let cache=new db.model("cache",cacheSchema);
 //initial definition part
 
 
@@ -777,7 +778,7 @@ login(app,people,messagee,reinit,bc);
 //******************** */
 
 custom_save_mon(app,customttmodel,errorChecker);
-schedule_builder_mon(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people);
+schedule_builder_mon(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people,cache);
 custom_save_tues(app,customttmodel,errorChecker);
 schedule_builder_tues(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people);
 custom_save_wed(app,customttmodel,errorChecker);
@@ -797,6 +798,11 @@ thursday_switch(app,timetablesmodel)
 friday_switch(app,timetablesmodel)
 saturday_switch(app,timetablesmodel)
 
+/*
+  cache.findOneAndRemove({id:'monday'})
+.then((d)=>console.log("erased"))
+.catch(()=>console.log("error caching"))
+*/
 
 app.get('/forgot',(req,res)=>{
   if(!req.session.user){

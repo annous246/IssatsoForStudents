@@ -282,10 +282,24 @@ let logSchema=new db.Schema({
     
   
   })
+
+  let cacheSchema=new db.Schema({
+    id:{
+      type:String,
+      required:true,
+      default:""
+    },
+    days:{
+      type:[[Object]],
+      required:true,
+      default:[]
+    }
+  })
   
   exports.logSchema = logSchema
   exports.timetableschema = timetableschema
   exports.customttschema = customttschema
   exports.userSchema = userSchema
+  exports.cacheSchema = cacheSchema
   
   
