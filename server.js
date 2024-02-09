@@ -780,15 +780,15 @@ login(app,people,messagee,reinit,bc);
 custom_save_mon(app,customttmodel,errorChecker);
 schedule_builder_mon(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people,cache);
 custom_save_tues(app,customttmodel,errorChecker);
-schedule_builder_tues(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people);
+schedule_builder_tues(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people,cache);
 custom_save_wed(app,customttmodel,errorChecker);
-schedule_builder_wed(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people);
+schedule_builder_wed(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people,cache);
 custom_save_thu(app,customttmodel,errorChecker);
-schedule_builder_thu(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people);
+schedule_builder_thu(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people,cache);
 custom_save_fri(app,customttmodel,errorChecker);
-schedule_builder_fri(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people);
+schedule_builder_fri(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people,cache);
 custom_save_sat(app,customttmodel,errorChecker);
-schedule_builder_sat(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people);
+schedule_builder_sat(app,customttmodel,timetablesmodel,subject,type,cadency,timestamps,people,cache);
 
 /****************************************************************************************************************************************************************************** */
 monday_switch(app,timetablesmodel)
