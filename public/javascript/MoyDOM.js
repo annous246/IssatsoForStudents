@@ -7,7 +7,6 @@ function check(a){
         else if(k>20.00||k<0.00)return false;
     }return true;
 }
-socket=io();
 let form=document.getElementById('form');
 let notif=document.getElementById('notif');
 let btn=document.getElementById('btn');
