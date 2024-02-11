@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moyenne</title>
+</head>
+<style>
+    input::-webkit-inner-spin-button,input::-webkit-outer-spin-button{
+        display: none;
+        margin: 0;
+    }
+    .container{
+        border:0.08em solid black;
+        padding:1em;
+        margin:1em;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+
+        align-items: center;
+        text-align: center;
+    }
+    .spanner{
+        padding: 1em;
+        margin: 1em;
+    }
+    input{
+        padding: 1em;
+        text-align: center;
+        border: 0.08em black solid;
+    }
+    label{
+        padding: 0.72em;
+
+        margin: 1em;
+        border: 0.08em black solid;
+
+    }
+    #result{
+        text-align: center;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        border:black solid 0.08em;
+        margin: 2em;
+        padding: 1em;
+    }
+    #form{
+        align-items: center;
+        text-align: center;
+        display: block;
+
+    }
+    #btn{
+        padding: 1em;
+        background-color: rgba(0, 253, 148, 0.753);
+        border: 0.08em solid transparent;
+        color: rgb(8, 6, 6);
+        font-weight: bold;
+        border-radius: 0;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 1em;    
+            transition-duration: 0.2s;
+
+        
+    }
+    
+    #btn:hover{
+        padding: 1em;
+        background-color: black;
+        border: 0.08em solid rgba(0, 253, 148, 0.753);
+        border-radius: 1em;
+        color: rgba(0, 253, 148, 0.753);
+        transition-duration: 0.1s;
+        
+    }
+</style>
+<body>
+    <form id="form">
+        
+        <div class="container">
+            <h4>Base De Données</h4>
+            <div class="spanner">
+            <label>Examen</label>
+            <input type="number" id="bde" required min="0.00" max="20.00" step=".01"></div>
+            <div class="spanner"><label>DS</label>
+            <input type="number" id="bdds" required min="0.00" max="20.00" step=".01"></div>
+            
+            <div class="spanner">
+            <label>TP</label>
+            <input type="number" id="bdtp" required min="0.00" max="20.00" step=".01"></div>
+            </div>
+           
+        <div class="container">
+            <h4>Fondements Des Systemes d'Exploitation</h4>
+            <div class="spanner">
+            <label>Examen</label>
+            <input type="number" id="ee" required min="0.00" max="20.00" step=".01"></div>
+            <div class="spanner">
+            <label>DS</label>
+            <input type="number" id="eds" required min="0.00" max="20.00" step=".01"></div>
+            <div class="spanner">
+            <label>TP</label>
+            <input type="number" id="etp" required min="0.00" max="20.00" step=".01"></div>
+            </div>
+            
+        <div class="container">
+            <h4>Mathématiques discretes</h4>
+            <div class="spanner">
+            <label>Examen</label>
+            <input type="number" id="mde" required min="0.00" max="20.00" step=".01"></div>
+            <div class="spanner">
+            <label>DS</label>
+            <input type="number" id="mdds" required min="0.00" max="20.00" step=".01"></div>
+            </div>
+            
+        <div class="container">
+            <h4>Probabilité Et Statistiques</h4>
+            <div class="spanner">
+            <label>Examen</label>
+            <input type="number" id="pse" required min="0.00" max="20.00" step=".01"></div>
+            <div class="spanner">
+            <label>DS</label>
+            <input type="number" id="psds" required min="0.00" max="20.00" step=".01"></div>
+        </div>
+        
+        <div class="container">
+            <h4>Transmission de Données</h4>
+            <div class="spanner">
+            <label>Examen</label>
+            <input type="number" id="tde" required min="0.00" max="20.00" step=".01"></div>
+            <div class="spanner">
+            <label>DS</label>
+            <input type="number" id="tdds" required min="0.00" max="20.00" step=".01"></div>
+        </div>
+        
+        <div class="container">
+            <h4>Paradigmes de Programmation</h4>
+            <div class="spanner">
+            <label>Examen</label>
+            <input type="number" id="ppe" required min="0.00" max="20.00" step=".01"></div>
+            <div class="spanner">
+            <label>TP</label>
+            <input type="number" id="pptp" required min="0.00" max="20.00" step=".01"></div>
+        </div>
+        
+        <div class="container">
+            <h4>Algorithmique et Structures de Données</h4>
+            <div class="spanner">
+            <label>Examen</label>
+            <input type="number" id="asde" required min="0.00" max="20.00" step=".01"></div>
+            <div class="spanner">
+            <label>DS</label>
+            <input type="number" id="asdds" required min="0.00" max="20.00" step=".01"></div>
+        </div>
+        
+        <div class="container">
+            <h4>Architectures des Ordinateurs</h4>
+            <div class="spanner">
+            <label>Examen</label>
+            <input type="number" id="aoe" required min="0.00" max="20.00" step=".01"></div>
+            <div class="spanner">
+            <label>TP</label>
+            <input type="number" id="aotp" required min="0.00" max="20.00" step=".01"></div>
+        </div>
+
+        
+        <div class="container">
+            <h4>Francais</h4>
+            <div class="spanner">
+            <label>Examen</label>
+            <input type="number" id="fe" required min="0.00" max="20.00" step=".01"></div>
+            <div class="spanner">
+            <label>DS</label>
+            <input type="number" id="fds" required min="0.00" max="20.00" step=".01"></div>
+        </div>
+        
+        <div class="container">
+            <h4>Anglais</h4>
+            <div class="spanner">
+            <label>Examen</label>
+            <input type="number" id="ae" required min="0.00" max="20.00" step=".01"></div>
+            <div class="spanner">
+            <label>DS</label>
+            <input type="number" id="ads" required min="0.00" max="20.00" step=".01"></div>
+        </div>
+        
+        <div class="container">
+            <h4>Creation d'entreprises et innovation</h4>
+            <div class="spanner">
+            <label>Examen</label>
+            <input type="number" id="ceie" required min="0.00" max="20.00" step=".01"></div>
+            <div class="spanner">
+            <label>DS</label>
+            <input type="number" id="ceids" required min="0.00" max="20.00" step=".01"></div>
+        </div>
+        <p id="notif"></p>
+        <div id="result"><p>Moyenne</p><p id="field"></p></div>
+        <button type="submit" id="btn">Calculer</button>
+            
+    </form>
+    
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="MoyDOM.js"></script>
+</html>
