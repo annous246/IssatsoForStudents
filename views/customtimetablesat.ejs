@@ -223,12 +223,19 @@ nav:hover{
         background-color: rgba(0, 0, 0, 0.51);
         padding: 1em;
     }
-.cd{
-    width: 50%;
-    text-align: center;
-}
 @media screen and (max-width:570px){
     label{display: none;}
+}
+ol li{
+padding: 1em;
+}
+.guide{
+    border:black solid 0.08em;
+    padding: 1em;
+}
+.guide h3{
+    border:black solid 0.08em;
+    background-color: rgba(0, 255, 128, 0.514);
 }
 
 </style>
@@ -319,6 +326,13 @@ nav:hover{
 
 
 
+        <div class="guide"><h3>Guide</h3>
+            <ol>
+                <li>Save Schedule</li>
+                <li>Set Cadency</li>
+                <li>Generate</li>
+            </ol>
+        </div>
 
 
         <button id="Save-btn" type="submit">Save</button>
@@ -326,11 +340,11 @@ nav:hover{
     </form>
     
 <form method="get" action="/generatesat" id="Generate">
-    <select name="cadencyq" class="cd">
+    <select name="cadencyq">
         <option value="2">Qa</option>
         <option value="3">Qb</option>
     </select>
-    <select name="cadencyz" class="cd">
+    <select name="cadencyz">
         <option value="4">Z3</option>
         <option value="5">Z4</option>
     </select>

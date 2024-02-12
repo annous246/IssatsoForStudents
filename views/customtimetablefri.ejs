@@ -224,13 +224,23 @@ nav:hover{
         background-color: rgba(0, 0, 0, 0.51);
         padding: 1em;
     }
+@media screen and (max-width:570px){
+    label{display: none;}
+}
 .cd{
     width: 50%;
     text-align: center;
 }
-
-@media screen and (max-width:570px){
-    label{display: none;}
+ol li{
+padding: 1em;
+}
+.guide{
+    border:black solid 0.08em;
+    padding: 1em;
+}
+.guide h3{
+    border:black solid 0.08em;
+    background-color: rgba(0, 255, 128, 0.514);
 }
 </style>
 <body>
@@ -269,8 +279,8 @@ nav:hover{
                     
                     <input type="hidden" value="<%=val%>" name="mss<%=parseInt(v)%>">
 
-
-                    <label>Seance Subject</label>
+                    
+                    <label >Seance Subject</label>
                     <select  name="msn<%=parseInt(v)%>" >
                         
                         <option value="<%=parseInt(sn)%>"><%=sndropdown[parseInt(sn)-1]%></option>
@@ -320,12 +330,18 @@ nav:hover{
 
 
 
-
-
+ 
+        
+    <div class="guide"><h3>Guide</h3>
+        <ol>
+            <li>Save Schedule</li>
+            <li>Set Cadency</li>
+            <li>Generate</li>
+        </ol>
+    </div>
         <button id="Save-btn" type="submit">Save</button>
         <button   type="reset">Reset</button>
     </form>
-    
 <form id="Generate" method="get" action="/generatefri" >
     <select name="cadencyq" class="cd">
         <option value="2">Qa</option>
