@@ -187,16 +187,7 @@ let schedule_builder_mon=async(app,customttmodel,timetablesmodel,subject,type,ca
 
     }
     else{
-      days=cdays.days
-    for(let day of days){
-    let tpcount=1;
-      for(let seance of day){
-                 if(seance.status&&seance.type=="TP"&&(seance.period==q||seance.period==z||seance.period==1)){
-                  seance.count=((tpcount-1)%2)+1;
-                  tpcount++;
-                 }
-      }
-    };//get cache
+      days=cdays.days//get cache
 
     }
   
@@ -547,16 +538,7 @@ let schedule_builder_tues=async(app,customttmodel,timetablesmodel,subject,type,c
 
   }
   else{
-    days=cdays.days
-    for(let day of days){
-    let tpcount=1;
-      for(let seance of day){
-                 if(seance.status&&seance.type=="TP"&&(seance.period==q||seance.period==z||seance.period==1)){
-                  seance.count=((tpcount-1)%2)+1;
-                  tpcount++;
-                 }
-      }
-    };//get cache
+    days=cdays.days//get cache
 
   }
 
@@ -914,16 +896,7 @@ let schedule_builder_wed=async(app,customttmodel,timetablesmodel,subject,type,ca
 
   }
   else{
-    days=cdays.days
-    for(let day of days){
-    let tpcount=1;
-      for(let seance of day){
-                 if(seance.status&&seance.type=="TP"&&(seance.period==q||seance.period==z||seance.period==1)){
-                  seance.count=((tpcount-1)%2)+1;
-                  tpcount++;
-                 }
-      }
-    };//get cache
+    days=cdays.days//get cache
 
   }
 
@@ -1272,17 +1245,7 @@ let schedule_builder_thu=async(app,customttmodel,timetablesmodel,subject,type,ca
 
   }
   else{
-    days=cdays.days//get cache
-    for(let day of days){
-    let tpcount=1;
-      for(let seance of day){
-                 if(seance.status&&seance.type=="TP"&&(seance.period==q||seance.period==z||seance.period==1)){
-                  seance.count=((tpcount-1)%2)+1;
-                  tpcount++;
-                 }
-      }
-    }
-
+    days=cdays.days
   }
 
   //debug
@@ -1635,16 +1598,7 @@ let schedule_builder_fri=async(app,customttmodel,timetablesmodel,subject,type,ca
 
   }
   else{
-    days=cdays.days
-    for(let day of days){
-    let tpcount=1;
-      for(let seance of day){
-                 if(seance.status&&seance.type=="TP"&&(seance.period==q||seance.period==z||seance.period==1)){
-                  seance.count=((tpcount-1)%2)+1;
-                  tpcount++;
-                 }
-      }
-    };//get cache
+    days=cdays.days//get cache
 
   }
 
@@ -2002,16 +1956,7 @@ let schedule_builder_sat=async(app,customttmodel,timetablesmodel,subject,type,ca
 
   }
   else{
-    days=cdays.days
-    for(let day of days){
-    let tpcount=1;
-      for(let seance of day){
-                 if(seance.status&&seance.type=="TP"&&(seance.period==q||seance.period==z||seance.period==1)){
-                  seance.count=((tpcount-1)%2)+1;
-                  tpcount++;
-                 }
-      }
-    };//get cache
+    days=cdays.days//get cache
 
   }
 
