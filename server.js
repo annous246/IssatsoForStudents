@@ -888,7 +888,32 @@ app.post('/reset',async(req,res)=>{
 app.get('/moyenne',async(req,res)=>{
   res.render('moyenne.ejs')
 })
-
+app.get('/res_schedule',async(req,res)=>{
+  if(req.session.user=="admin@admin.admin"){
+    await cache.findOneAndRemove({id:'monday'})
+    .then((d)=>d)
+    .catch(()=>console.log("error resetting optimizer"))
+    await cache.findOneAndRemove({id:'tuesday'})
+    .then((d)=>d)
+    .catch(()=>console.log("error resetting optimizer"))
+    await cache.findOneAndRemove({id:'wednesday'})
+    .then((d)=>d)
+    .catch(()=>console.log("error resetting optimizer"))
+    await cache.findOneAndRemove({id:'friday'})
+    .then((d)=>d)
+    .catch(()=>console.log("error resetting optimizer"))
+    await cache.findOneAndRemove({id:'thursday'})
+    .then((d)=>d)
+    .catch(()=>console.log("error resetting optimizer"))
+    await cache.findOneAndRemove({id:'saturday'})
+    .then((d)=>d)
+    .catch(()=>console.log("error resetting optimizer"))
+    console.log("all resetted")
+  }
+  else{
+    res.redirect('/dashboard')
+  }
+})
 //test*******************************************************************************************************************************************************************
 
 /*
