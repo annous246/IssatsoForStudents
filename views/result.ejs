@@ -95,7 +95,13 @@ body{
 }
 .resp{
     display: none;
-}}
+}
+*{
+    padding: 0.5em;
+    margin: 0;
+}
+
+}
 p{
     display: inline-block;
     text-align: center;
@@ -165,7 +171,7 @@ nav:hover{
                 <span class="spanned resp"> <%=seance.prof%></span>
             <span class="spanned resp"> <%=seance.period%></span>
             <% if(seance.hasOwnProperty("count")){%>
-                <span class="spanned resp">Seance Count (TP):<%=seance.count%></span>
+                <span class="spanned">Seance Count (TP):<%=seance.count%></span>
 
             <%}%>
                 <span class="spanned resp">|<%=timestamps['s'+cn].begin%> - <%=timestamps['s'+cn].end%>|</span></div>
@@ -199,7 +205,7 @@ nav:hover{
                 <span class="spanned resp"> <%=seance.prof%></span>
             <span class="spanned resp"> <%=seance.period%></span>
             <% if(seance.hasOwnProperty("count")){%>
-                <span class="spanned resp">Seance Count (TP):<%=seance.count%></span>
+                <span class="spanned">Seance Count (TP):<%=seance.count%></span>
 
             <%}%>
                 <span class="spanned resp">|<%=timestamps['s'+cn].begin%> - <%=timestamps['s'+cn].end%>|</span></div><%}
@@ -245,7 +251,7 @@ nav:hover{
                 <span class="spanned resp"> <%=seance.prof%></span>
                 <span class="spanned"> <%=seance.period%></span>
                 <% if(seance.hasOwnProperty("count")){%>
-                    <span class="spanned resp">Seance Count (TP):<%=seance.count%></span>
+                    <span class="spanned">Seance Count (TP):<%=seance.count%></span>
 
                 <%}%>
                 <span class="spanned resp">|<%=timestamps['s'+cn].begin%> - <%=timestamps['s'+cn].end%>|</span></div><%}
