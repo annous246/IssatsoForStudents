@@ -1,5 +1,5 @@
 
-function monday_switch(app,timetablesmodel){app.get('/switch',async(req,res)=>{
+function monday_switch(app,timetablesmodel){app.get('/switchmon',async(req,res)=>{
     if(!req.session.user||req.session.user!="admin@admin.admin"){
       res.redirect('dashboard');
     }
@@ -266,7 +266,7 @@ function monday_switch(app,timetablesmodel){app.get('/switch',async(req,res)=>{
 
 
   
-function tuesday_switch(app,timetablesmodel){app.get('/switch',async(req,res)=>{
+function tuesday_switch(app,timetablesmodel){app.get('/switchtues',async(req,res)=>{
     if(!req.session.user||req.session.user!="admin@admin.admin"){
       res.redirect('dashboard');
     }
@@ -536,7 +536,7 @@ function tuesday_switch(app,timetablesmodel){app.get('/switch',async(req,res)=>{
 
 
   
-function wednesday_switch(app,timetablesmodel){app.get('/switch',async(req,res)=>{
+function wednesday_switch(app,timetablesmodel){app.get('/switchwed',async(req,res)=>{
     if(!req.session.user||req.session.user!="admin@admin.admin"){
       res.redirect('dashboard');
     }
@@ -807,7 +807,7 @@ function wednesday_switch(app,timetablesmodel){app.get('/switch',async(req,res)=
 
 
   
-function thursday_switch(app,timetablesmodel){app.get('/switch',async(req,res)=>{
+function thursday_switch(app,timetablesmodel){app.get('/switchthu',async(req,res)=>{
     if(!req.session.user||req.session.user!="admin@admin.admin"){
       res.redirect('dashboard');
     }
@@ -1070,7 +1070,7 @@ function thursday_switch(app,timetablesmodel){app.get('/switch',async(req,res)=>
 
 
   
-function friday_switch(app,timetablesmodel){app.get('/switch',async(req,res)=>{
+function friday_switch(app,timetablesmodel){app.get('/switchfri',async(req,res)=>{
     if(!req.session.user||req.session.user!="admin@admin.admin"){
       res.redirect('dashboard');
     }
@@ -1331,7 +1331,7 @@ function friday_switch(app,timetablesmodel){app.get('/switch',async(req,res)=>{
 
 
   
-function saturday_switch(app,timetablesmodel){app.get('/switch',async(req,res)=>{
+function saturday_switch(app,timetablesmodel){app.get('/switchsat',async(req,res)=>{
     if(!req.session.user||req.session.user!="admin@admin.admin"){
       res.redirect('dashboard');
     }

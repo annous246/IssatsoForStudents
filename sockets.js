@@ -439,7 +439,7 @@ let sockets=(io,people,timetablesmodel,customttmodel,bc,pass,nm)=>{
           socket.emit("delay_updated")
         let encryption=await bc.hash(d,10)
          encryption=encryption.replace(/\//g, "slash");//backend error and security reasons
-        let link="https://issatso.onrender.com/verified/"+encryption
+        let link="http://localhost:3000/verified/"+encryption
         let lnkprep='<a src='+link+'>Verification Link</a>'
        // console.log(lnkprep)
         let html="<h2>Welcome To Issatso++</h2><p>Click the following link to verify your email: <br> <a href=" + link +">Verify My Account</a></p>"
@@ -502,7 +502,7 @@ let sockets=(io,people,timetablesmodel,customttmodel,bc,pass,nm)=>{
         .then((d)=>d)
         .catch(()=>console.log("erro setting mail"))
         encryption=encryption.replace(/\//g,'slash')
-        let link="https://issatso.onrender.com/forget/"+encryption+"mailed"+email
+        let link="http://localhost:3000/forget/"+encryption+"mailed"+email
         let html="<h1>Password Recovery</h1><br><p>Click To Recover Your Account : <br> <a href="+link+">Link</a> </p>";
         let bus=nm.createTransport({
           service:'gmail',
@@ -541,6 +541,54 @@ let sockets=(io,people,timetablesmodel,customttmodel,bc,pass,nm)=>{
     else{
       socket.emit('forgot check',0)
     }
+  })
+
+  socket.on("getscheddata",async(d)=>{
+    let g11=await timetablesmodel.findOne({id:"A01G1"})
+    .then((d)=>d)
+    .catch(()=>console.log("error getting schedule for Live Tracker"))
+    let g12=await timetablesmodel.findOne({id:"A01G2"})
+    .then((d)=>d)
+    .catch(()=>console.log("error getting schedule for Live Tracker"))
+    
+    let g21=await timetablesmodel.findOne({id:"A02G1"})
+    .then((d)=>d)
+    .catch(()=>console.log("error getting schedule for Live Tracker"))
+    let g22=await timetablesmodel.findOne({id:"A02G2"})
+    .then((d)=>d)
+    .catch(()=>console.log("error getting schedule for Live Tracker"))
+    
+    let g31=await timetablesmodel.findOne({id:"A03G1"})
+    .then((d)=>d)
+    .catch(()=>console.log("error getting schedule for Live Tracker"))
+    let g32=await timetablesmodel.findOne({id:"A03G2"})
+    .then((d)=>d)
+    .catch(()=>console.log("error getting schedule for Live Tracker"))
+    
+    let g41=await timetablesmodel.findOne({id:"A04G1"})
+    .then((d)=>d)
+    .catch(()=>console.log("error getting schedule for Live Tracker"))
+    let g42=await timetablesmodel.findOne({id:"A04G2"})
+    .then((d)=>d)
+    .catch(()=>console.log("error getting schedule for Live Tracker"))
+    //specify day
+    g11=await g11.table[d];//we got the day [seances]
+    g12=await g12.table[d];//we got the day [seances]
+    
+    g21=await g21.table[d];//we got the day [seances]
+    g22=await g22.table[d];//we got the day [seances]
+    
+    g31=await g31.table[d];//we got the day [seances]
+    g32=await g32.table[d];//we got the day [seances]
+    
+    g41=await g41.table[d];//we got the day [seances]
+    g42=await g42.table[d];//we got the day [seances]
+
+    console.log("refaded")
+    socket.emit("schedreveived",{g11:g11,g12:g12,g41:g41,g42:g42,g31:g31,g32:g32,g21:g21,g22:g22});
+    
+
+
   })
   
   

@@ -59,9 +59,26 @@ button{
 <body>
     <h1>Welcome Admin !</h1>
     <a href="logout">Logout</a>
-    <a id="ul" href="switch">Switch</a>
-    <a id="ul" href="res_schedule">Reset Optimizer</a>
+    <form action='/switchmon' method="'get">
+        <button type="submit">m</button>
+    </form>
+    <form action='/switchtues' method="'get">
+        <button type="submit">t</button>
+    </form>
+    <form action='/switchwed' method="'get">
+        <button type="submit">w</button>
+    </form>
+    <form action='/switchthu' method="'get">
+        <button type="submit">th</button>
+    </form>
+    <form action='/switchfri' method="'get">
+        <button type="submit">f</button>
+    </form>
+    <form action='/switchsat' method="'get">
+        <button type="submit">s</button>
+    </form>
 </div>
+    <a id="ul" href="res_schedule">reset</a>
     <a id="ul" href="users_panel">Users Panel</a>
     <a id="ul" href="timetablesA01G1">timetablesA01G1</a>
     <a id="ul" href="timetablesA01G2">timetablesA01G2</a>
