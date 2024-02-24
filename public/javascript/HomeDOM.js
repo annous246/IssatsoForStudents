@@ -1,5 +1,5 @@
 
-function clock(){
+function clocked(){
     let hourspan=document.getElementById('hour')
     let minutespan=document.getElementById('minute')
     let secondspan=document.getElementById('second')
@@ -27,7 +27,7 @@ function clock(){
     secondspan.innerText=second;
 
     }
-    setInterval(clock,500);
+    setInterval(clocked,500);
 
 
 
