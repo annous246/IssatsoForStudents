@@ -258,7 +258,7 @@ if(daycnt){
             room.textContent="";
     
             }
-                else if(!(g[seancecount-1].status||(cdn!='h'&&cdn!=z&&cdn!=q))&&seancecount<=lastseancecount){seancecount++;ok=0}//skips empty seances
+                else if(((g[seancecount-1].status=="0")||(cdn!='h'&&cdn!=z&&cdn!=q))&&seancecount<=lastseancecount){seancecount++;ok=0}//skips empty seances
               
              else{//all in here
             let end=beginnings[seancecount-1]+seancelength;
