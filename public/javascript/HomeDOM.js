@@ -40,7 +40,7 @@ let socket=io()
 let daycnt=(new Date()).getDay();
 if(daycnt){
     let cadency=['h','qa','qb','z3','z4'];
-    let z='z4',q='qb';
+    let z='z3',q='qa';
     let day=['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
     let timing={
         's1':{begin:'8:30',end:'10:00'},//change them to pure seconds at once
@@ -258,7 +258,7 @@ if(daycnt){
             room.textContent="";
     
             }
-                else if(!(g[seancecount-1].status||(cdn!='h'&&cdn!=z&&cdn!=q)&&seancecount<lastseancecount)){seancecount++;ok=0}//skips empty seances
+                else if(!(g[seancecount-1].status||(cdn!='h'&&cdn!=z&&cdn!=q))&&seancecount<=lastseancecount){seancecount++;ok=0}//skips empty seances
               
              else{//all in here
             let end=beginnings[seancecount-1]+seancelength;
