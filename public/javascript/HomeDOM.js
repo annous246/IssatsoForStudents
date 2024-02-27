@@ -247,7 +247,9 @@ if(daycnt){
             
             let interval=setInterval(()=>{
                 
-               let cdn= cadency[[seancecount-1].period-1]
+           let cdn='p';
+           if(g[seancecount-1])cdn=cadency[parseInt(g[seancecount-1].period)-1]
+          // console.log(seancecount)
                 if(lastseancecount<seancecount){
                
                clearInterval(interval);//clearing interval
