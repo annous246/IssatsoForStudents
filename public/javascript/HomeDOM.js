@@ -232,12 +232,16 @@ if(daycnt){
         let lastseancecount=0;
         let seancecount=0;
         for(let k=0;k<g.length;k++){
-            if(g[k].status=="1"||g[k].status){
+            let cad=cadency[parseInt(g[k].period)];
+            if((g[k].status=="1")&&(cad=='h'||cad==q||cad==z)){
+                console.log(g[k]);
                 if(!seancecount)seancecount=k+1;
                 lastseancecount=k+1;
             }
         }
     
+let beginnings=[30600,36600,42600,49800,55800,61800,70000];
+let firstbegin=beginnings[seancecount-1];
             let today=new Date();//now time
             //pause
     
@@ -279,7 +283,7 @@ if(daycnt){
             else if(currenttime<begin){
                 //Still no class or  pause
                 
-                if(begin==30600){
+                if(begin==firstbegin){
                     //beginning of the day
                 let timeleft=begin-currenttime;
                 room.textContent="";
