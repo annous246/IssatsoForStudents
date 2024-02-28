@@ -230,14 +230,14 @@ if(daycnt){
         let tl=document.getElementById('tl');
         let clock=document.getElementById('tl');
         let lastseancecount=0;
+        let seancecount=0;
         for(let k=0;k<g.length;k++){
-            if(g[k].status){
-    
+            if(g[k].status=="1"||g[k].status){
+                if(!seancecount)seancecount=k+1;
                 lastseancecount=k+1;
             }
         }
     
-        let seancecount=1;
             let today=new Date();//now time
             //pause
     
