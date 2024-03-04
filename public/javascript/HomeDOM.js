@@ -40,7 +40,7 @@ let socket=io()
 let daycnt=(new Date()).getDay();
 if(daycnt){
     let cadency=['h','qa','qb','z3','z4'];
-    let z='z3',q='qa';
+    let z='z4',q='qb';
     let day=['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
     let timing={
         's1':{begin:'8:30',end:'10:00'},//change them to pure seconds at once
@@ -232,7 +232,7 @@ if(daycnt){
         let lastseancecount=0;
         let seancecount=0;
         for(let k=0;k<g.length;k++){
-            let cad=cadency[parseInt(g[k].period)];
+            let cad=cadency[parseInt(g[k].period)-1];
             if((g[k].status=="1")&&(cad=='h'||cad==q||cad==z)){
                 console.log(g[k]);
                 if(!seancecount)seancecount=k+1;
