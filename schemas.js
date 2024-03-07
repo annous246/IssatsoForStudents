@@ -156,30 +156,37 @@ let logSchema=new db.Schema({
         monday:{
           type:[customsschema],
           default:[],
+          required:true,
         },
         tuesday:{
           type:[customsschema],
           default:[],
+          required:true,
         },
         wednesday:{
           type:[customsschema],
           default:[],
+          required:true,
         },
-        thirsday:{
+        thursday:{
           type:[customsschema],
           default:[],
+          required:true,
         },
         friday:{
           type:[customsschema],
           default:[],
+          required:true,
         },
         saturday:{
           type:[customsschema],
           default:[],
+          required:true,
         },
         sunday:{
           type:[customsschema],
           default:[],
+          required:true,
         },
       }
     }
@@ -276,7 +283,7 @@ let logSchema=new db.Schema({
     },
     linker:{
       type:String,
-      required:true,
+      required:false,
       default:""
     }
     
