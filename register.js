@@ -62,11 +62,11 @@ const register=function(app,people,messagee,reinit,bc){
           
         
 
-
+       
 
       let usere=await new people({username:un,email:em,password:ps,age:parseInt(age),status:0})
       let message=""
-      //console.log(usere)
+     // console.log(usere)
       await usere.save()
       .then((d)=>{console.log("user saved");message="Your account is registered successfully"})
       .catch((e)=>{console.log(e);message="An Error Has Occured"})
