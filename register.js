@@ -25,7 +25,7 @@ const register=function(app,people,messagee,reinit,bc){
       .then((data)=>{dt=data})
       .catch(()=>{console.log("error while finding one")})
      if(em=="admin@admin.admin"){
-      messagee.msg=await"Wrong Email Format";
+      messagee.msg=await "Wrong Email Format";
       messagee.pw=await pass;
       messagee.cpw=await cpass;
       messagee.em=await em;
@@ -64,12 +64,13 @@ const register=function(app,people,messagee,reinit,bc){
 
 
 
-     
-      let usere=new people({username:un,email:em,password:ps,age:age,status:0})
+      let usere=await new people({username:un,email:em,password:ps,age:parseInt(age),status:0})
+      let message=""
+      //console.log(usere)
       await usere.save()
-      .then(()=>console.log("user saved"))
-      .catch(()=>console.log("error saving user"))
-      messagee.msg="Your account is registered successfully"
+      .then((d)=>{console.log("user saved");message="Your account is registered successfully"})
+      .catch((e)=>{console.log(e);message="An Error Has Occured"})
+      messagee.msg=message
       await res.render('login.ejs',{message:messagee});
       done(null);}
 
