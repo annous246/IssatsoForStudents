@@ -489,12 +489,13 @@ let sockets=(io,people,timetablesmodel,customttmodel,bc,pass,nm)=>{
     let user=await people.findOne({email:email})
     .then((d)=>d)
     .catch(()=>console.log("error getting user"))
-    if(user ){
+    if(user ){console.log("got")
       let sendtime=parseInt(((new Date().getTime())/1000))
       if(sendtime<300+user.password_delay){
+        console.log("wait")
         socket.emit('forgot check',-600-sendtime+user.password_delay)
       }
-      else {
+      else {console.log("ready")
         let encryption=await bc.hash(email,10)
         .then((d)=>d)
         .catch(()=>console.log("error hashing"))
