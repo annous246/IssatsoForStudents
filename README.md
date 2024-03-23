@@ -1,7 +1,7 @@
 # IssatsoForStudents
 **Services Provided By this website:**
-<br>  __-Public Services:__
-<br>   -App to calculate General Average Of The Semester
+<br>  &nbsp__-Public Services:__
+<br>   &nbsp&nbsp-App to calculate General Average Of The Semester
 <br>   -App to rate Professors of That Semester on 5 (Based On expertise , pedagogy and discipline)
 <br>  __-Services Requiring An Account__
 <br>   -The Main Service : Choosing a specific Custom schedule for the day 
