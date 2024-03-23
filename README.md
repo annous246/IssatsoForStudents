@@ -9,5 +9,5 @@
 <br>     &nbsp;&nbsp;&nbsp;&nbsp;1 - Exact Schedule which is the identical Desired Schedule
 <br>     &nbsp;&nbsp;&nbsp;&nbsp;2 - Semi-Exact Schedule which is the represents the same classes in the same time frames but in different orders
 <br>     &nbsp;&nbsp;&nbsp;&nbsp;3 - Similar Schedule which is the same desired classes but in different time frames
-<br>   &nbsp;&nbsp;&nbsp;*Todolist for Productivity increase
+<br>   &nbsp;&nbsp;&nbsp;*Todolist App for Productivity increase
 <br>&nbsp;..... (maybe some more services will be created in the future)
