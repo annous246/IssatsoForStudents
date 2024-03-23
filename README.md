@@ -1,9 +1,9 @@
 # IssatsoForStudents
-Services Provided By this website:
-<br>  -Public Services:
+**Services Provided By this website:**
+<br>  __-Public Services:__
 <br>   -App to calculate General Average Of The Semester
 <br>   -App to rate Professors of That Semester on 5 Points (Based On expertise , pedagogy and discipline)
-<br>  -Services Requiring An Account
+<br>  __-Services Requiring An Account__
 <br>   -The Main Service : Choosing a specific Custom schedule for the day 
 <br>    -choosing Classes At Specific Times -> This Service Provides all possible schedules under 3 types :
 <br>     1 - Exact Schedule which is the identical Wanted Schedule
