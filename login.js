@@ -8,11 +8,7 @@ const login=function(app,people,messagee,reinit,bc){
     let dt=await people.findOne({email:em})
     .then((data)=>{console.log("login email collected");return data;})
     .catch(()=>console.log("error in collecting login email"));
-   if(em=='admin@admin.admin'&&hps=='0000'){
-      req.session.user=await 'admin@admin.admin';
-     res.redirect('/admin_dashboard');
-   }
-   else if(dt){
+     if(dt){
        await console.log(dt.password);
     let authent=   await  bc.compare(hps,dt.password)
     .then((dt)=>{console.log("authentificated succ");return dt;})

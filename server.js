@@ -6,7 +6,7 @@ const {custom_save_thu} =require('./custom_save/thursday.js')
 const {custom_save_tues} =require('./custom_save/tuesday.js')
 const {custom_save_wed} =require('./custom_save/wednesday.js')
 const {schedule_builder_fri,schedule_builder_mon,schedule_builder_sat,schedule_builder_thu,schedule_builder_tues,schedule_builder_wed} =require('./schedule_builder.js')
-const {logSchema,timetableschema,customttschema,userSchema,cacheSchema} =require('./schemas.js')
+const {logSchema,timetableschema,customttschema,userSchema,cacheSchema,profSchema} =require('./schemas.js')
 const {save_schedule} =require('./schedule_saver.js')
 const {double_save} =require('./double_saver.js')
 const {login} =require('./login.js')
@@ -21,7 +21,6 @@ const bc=require('bcrypt');
 const bp=require('body-parser');
 const nocache = require('nocache');
 const session = require('express-session');
-const fs = require("fs");
 require('dotenv').config()
 const app=ex();
 const http=require('http');
@@ -75,6 +74,8 @@ setInterval(()=>{restartServer()},1000);*/
 let type=['COURS','TD','TP']
 let subject=['RESEAU','MATH','POO','GRAPHES','EXPLOITATION','CONCEPTION','FRANCAIS','GESTION','INTERNET','COMPILATION','ANGLAIS']//dont change order
 let cadency=["H","QA","QB","Z3","Z4"]
+let professors=["Saidane Mhamed","Zouari Wiem","Bhar Jamila","Zaalani Nadhem","Abdallah Abdelkader Iskander","Rouis Mouez","Khalfallah Sofiane","Guesmi Hattab","Bettaieb Mouna","Majdoub Manel","Hassine Hela","Weslati Jehene","Ben Najima Chayma","Dhoukar Aida","Tahri Randi","Hammami Souad","Ghribi Mayssa","Chtioui Houssemeddine","Naouar Fatiha"];
+const adminId=process.env.ADMINID
 const messagee={msg:"",em:"",un:"",pw:"",cpw:"",prime:false,points:0}
 const timestamps={
   s1:{
@@ -103,29 +104,6 @@ const timestamps={
   },
 }
 
-/*
-setInterval(()=>{
-
-const options = {
- hostname: 'localhost', // or your server's domain name
- port: 3000, // your server's port
- path: '/your-endpoint',
- method: 'GET',
- headers: {
-    'Cookie': 'session=abcd1234', // optional: add a cookie to mimic a client session
-    'User-Agent': 'My Custom User Agent' // optional: add a custom User-Agent
- }
-};
-console.log(http)
-const req = http.request(options, (res) => {
- let data = '';
-
- res.on('data', (chunk) => {
-    console.log("hi")
- });
-
-
-})},5000)*/
 
 let selection=0;
 // modeling part
@@ -134,6 +112,8 @@ let timetablesmodel=new db.model('timetables',timetableschema)
 let customttmodel=new db.model("custom timetable",customttschema)
 let people=new db.model('users',userSchema)
 let cache=new db.model("cache",cacheSchema);
+let profmodel=new db.model('profrate',profSchema);
+
 //initial definition part
 
 
@@ -188,8 +168,8 @@ let tobeback=(today,tobebackdate)=>{
 
 
 
-app.get("/",(req,res,done)=>{ if(!req.session.user)res.render("home.ejs",{message:messagee});else{
-  if(req.session.user=="admin@admin.admin"){
+app.get("/",(req,res,done)=>{ if(!req.session.user)res.redirect("/home");else{
+  if(req.session.user==adminId){
     res.redirect("/admin_dashboard");
 
   }
@@ -202,8 +182,30 @@ res.redirect("/dashboard");
 })
 
 
-app.get("/home",async(req,res,done)=>{ if(!req.session.user)res.render("home.ejs",{message:messagee});else{
-  if(req.session.user=="admin@admin.admin"){
+app.get("/home",async(req,res,done)=>{ 
+  let profs=[];
+  //we build a professor
+
+  for(let i=1;i<professors.length+1;i++){
+  let professor=await profmodel.findOne({id:i}).then((d)=>d).catch(()=>console.log("error loading ratings"))
+    let prof={}
+    let len=professor.expertise.length
+    prof.name=professors[i-1];
+    //console.log(professor)
+    prof.rating=professor.rating.toPrecision(2)
+    prof.expertise=professor.expertise.reduce((a,b)=>a+b)/parseFloat(len)
+    prof.discipline=professor.discipline.reduce((a,b)=>a+b)/parseFloat(len)
+    prof.pedagogy=professor.pedagogy.reduce((a,b)=>a+b)/parseFloat(len)
+    prof.expertise=prof.expertise.toPrecision(2)
+    prof.discipline=prof.discipline.toPrecision(2)
+    prof.pedagogy=prof.pedagogy.toPrecision(2)
+
+     
+    profs.push(prof)
+  }
+  //await console.log("done")
+  if(!req.session.user)res.render("home.ejs",{message:messagee,professors:profs});else{
+  if(req.session.user==adminId){
     res.redirect("/admin_dashboard");
 
   }
@@ -215,7 +217,7 @@ app.get("/home",async(req,res,done)=>{ if(!req.session.user)res.render("home.ejs
 
 app.get("/dashboard",async(req,res,done)=>{
   
-  if(req.session.user=='admin@admin.admin')res.redirect('/admin_dashboard')
+  if(req.session.user==adminId)res.redirect('/admin_dashboard')
   else if(req.session.user) {
 let user=await people.findOne({email:req.session.user})
 .then((data)=>data)
@@ -238,9 +240,9 @@ else{
 
 
  
-app.get("/admin_dashboard",async(req,res,done)=>{if(req.session.user=='admin@admin.admin') res.render("admin_dashboard.ejs",{message:messagee}); else { await req.session.destroy();res.redirect('/login.ejs')}})
-app.get("/register",(req,res,done)=>{if(req.session.user=='admin@admin.admin')res.redirect('/admin_dashboard'); else if(!req.session.user)res.render("register.ejs",{message:messagee});else res.redirect("/dashboard");})
-app.get("/login",async(req,res,done)=>{if(req.session.user=='admin@admin.admin')res.redirect('/admin_dashboard');else if(!req.session.user)res.render("login.ejs",{message:messagee});else{
+app.get("/admin_dashboard",async(req,res,done)=>{if(req.session.user==adminId) res.render("admin_dashboard.ejs",{message:messagee}); else { await req.session.destroy();res.redirect('/login.ejs')}})
+app.get("/register",(req,res,done)=>{if(req.session.user==adminId)res.redirect('/admin_dashboard'); else if(!req.session.user)res.render("register.ejs",{message:messagee});else res.redirect("/dashboard");})
+app.get("/login",async(req,res,done)=>{if(req.session.user==adminId)res.redirect('/admin_dashboard');else if(!req.session.user)res.render("login.ejs",{message:messagee});else{
   user=await people.findOne({email:req.session.user})
   .then((d)=>d)
   .catch(()=>console.log("error"))
@@ -258,7 +260,7 @@ app.get("/logout",async(req,res,done)=>{
   if(!req.session.user){
     res.redirect('/login');
   }
-  else{if(req.session.user!='admin@admin.admin'){
+  else{if(req.session.user!=adminId){
 
   
      let data = await people.findOne({email:req.session.user}).then((dt)=>dt).catch(()=>console.log("error searching"))
@@ -269,7 +271,7 @@ app.get("/logout",async(req,res,done)=>{
 
 
   app.get('/users_panel',async (req,res)=>{
-    if(req.session.user=='admin@admin.admin'){
+    if(req.session.user==adminId){
 
     let allu= await people.find()
     .then((dt)=> dt)
@@ -312,7 +314,7 @@ app.get("/logout",async(req,res,done)=>{
 
 app.get('/timetablesA01G1',async(req,res)=>{
   if(req.session.user){
-  if(req.session.user=="admin@admin.admin"){
+  if(req.session.user==adminId){
   let table=[]
   let tables=await timetablesmodel.findOne({id:"A01G1"})
   .then((data)=>data)
@@ -333,7 +335,7 @@ app.get('/timetablesA01G1',async(req,res)=>{
 })
 app.get('/timetablesA01G2',async(req,res)=>{
   if(req.session.user){
-  if(req.session.user=="admin@admin.admin"){
+  if(req.session.user==adminId){
 
   let table=[]
   let tables=await timetablesmodel.findOne({id:"A01G2"})
@@ -359,7 +361,7 @@ app.get('/timetablesA01G2',async(req,res)=>{
 
 app.get('/timetablesA02G1',async(req,res)=>{
   if(req.session.user){
-  if(req.session.user=="admin@admin.admin"){
+  if(req.session.user==adminId){
 
   let table=[]
   let tables=await timetablesmodel.findOne({id:"A02G1"})
@@ -380,7 +382,7 @@ app.get('/timetablesA02G1',async(req,res)=>{
   }})
 app.get('/timetablesA02G2',async(req,res)=>{
   if(req.session.user){
-  if(req.session.user=="admin@admin.admin"){
+  if(req.session.user==adminId){
 
   let table=[]
   let tables=await timetablesmodel.findOne({id:"A02G2"})
@@ -405,7 +407,7 @@ app.get('/timetablesA02G2',async(req,res)=>{
 
 app.get('/timetablesA03G1',async(req,res)=>{
   if(req.session.user){
-  if(req.session.user=="admin@admin.admin"){
+  if(req.session.user==adminId){
 
   let table=[]
   let tables=await timetablesmodel.findOne({id:"A03G1"})
@@ -426,7 +428,7 @@ app.get('/timetablesA03G1',async(req,res)=>{
   }})
 app.get('/timetablesA03G2',async(req,res)=>{
   if(req.session.user){
-  if(req.session.user=="admin@admin.admin"){
+  if(req.session.user==adminId){
 
   let table=[]
   let tables=await timetablesmodel.findOne({id:"A03G2"})
@@ -453,7 +455,7 @@ app.get('/timetablesA03G2',async(req,res)=>{
 
 app.get('/timetablesA04G1',async(req,res)=>{
   if(req.session.user){
-  if(req.session.user=="admin@admin.admin"){
+  if(req.session.user==adminId){
 
   let table=[]
   let tables=await timetablesmodel.findOne({id:"A04G1"})
@@ -474,7 +476,7 @@ app.get('/timetablesA04G1',async(req,res)=>{
   }})
 app.get('/timetablesA04G2',async(req,res)=>{
   if(req.session.user){
-  if(req.session.user=="admin@admin.admin"){
+  if(req.session.user==adminId){
 
   let table=[]
   let tables=await timetablesmodel.findOne({id:"A04G2"})
@@ -497,7 +499,7 @@ app.get('/timetablesA04G2',async(req,res)=>{
 
 app.get('/customtimetablemon',async(req,res)=>{
   if(req.session.user){
-if(req.session.user!="admin@admin.admin"){
+if(req.session.user!=adminId){
   let user=await people.findOne({email:req.session.user})
   .then((d)=>d)
   .catch(()=>console.log("error getting user"))
@@ -525,7 +527,7 @@ else{
 })
 app.get('/customtimetabletues',async(req,res)=>{
   if(req.session.user){
-if(req.session.user!="admin@admin.admin"){
+if(req.session.user!=adminId){
   let user=await people.findOne({email:req.session.user})
   .then((d)=>d)
   .catch(()=>console.log("error getting user"))
@@ -553,7 +555,7 @@ else{
 })
 app.get('/customtimetablewed',async(req,res)=>{
   if(req.session.user){
-if(req.session.user!="admin@admin.admin"){
+if(req.session.user!=adminId){
   let user=await people.findOne({email:req.session.user})
   .then((d)=>d)
   .catch(()=>console.log("error getting user"))
@@ -581,7 +583,7 @@ else{
 })
 app.get('/customtimetablethu',async(req,res)=>{
   if(req.session.user){
-if(req.session.user!="admin@admin.admin"){
+if(req.session.user!=adminId){
   let user=await people.findOne({email:req.session.user})
   .then((d)=>d)
   .catch(()=>console.log("error getting user"))
@@ -609,7 +611,7 @@ else{
 })
 app.get('/customtimetablefri',async(req,res)=>{
   if(req.session.user){
-if(req.session.user!="admin@admin.admin"){
+if(req.session.user!=adminId){
   let user=await people.findOne({email:req.session.user})
   .then((d)=>d)
   .catch(()=>console.log("error getting user"))
@@ -637,7 +639,7 @@ else{
 })
 app.get('/customtimetablesat',async(req,res)=>{
   if(req.session.user){
-if(req.session.user!="admin@admin.admin"){
+if(req.session.user!=adminId){
   let user=await people.findOne({email:req.session.user})
   .then((d)=>d)
   .catch(()=>console.log("error getting user"))
@@ -673,7 +675,7 @@ else{
 
 
 
-  app.get('/users_list.ejs',async (req,res)=>{if(req.session.user=='admin@admin.admin')res.redirect('/admin_dashboard')
+  app.get('/users_list.ejs',async (req,res)=>{if(req.session.user==adminId)res.redirect('/admin_dashboard')
     else if(req.session.user){
     let em= await req.session.user;
     console.log(em);
@@ -698,7 +700,7 @@ else{
     
 app.get('/verification',async(req,res)=>{
 
-  if(req.session.user&&req.session.user!='admin@admin.admin'){
+  if(req.session.user&&req.session.user!=adminId){
     let user =await people.findOne({email:req.session.user})
     .then((d)=>d)
     .catch((e)=>console.log("error verifying"))
@@ -711,7 +713,7 @@ app.get('/verification',async(req,res)=>{
     }
 
   }
-  else if(req.session.user=='admin@admin.admin'){
+  else if(req.session.user==adminId){
     res.redirect('/admin_dashboard')
 
   }
@@ -725,7 +727,7 @@ app.get('/verified/:linker',async(req,res)=>{
 let linker=req.params.linker
 
 linker.replace(/slash/g, "/");
-  if(req.session.user&& req.session.user!='admin@admin.admin'){
+  if(req.session.user&& req.session.user!=adminId){
           
 let cmp=bc.compare(linker,req.session.user)
 if(cmp){
@@ -889,7 +891,7 @@ app.get('/moyenne',async(req,res)=>{
   res.render('moyenne.ejs')
 })
 app.get('/res_schedule',async(req,res)=>{
-  if(req.session.user=="admin@admin.admin"){
+  if(req.session.user==adminId){
     await cache.findOneAndRemove({id:'monday'})
     .then((d)=>d)
     .catch(()=>console.log("error resetting optimizer"))
@@ -915,40 +917,56 @@ app.get('/res_schedule',async(req,res)=>{
   }
 })
 //test*******************************************************************************************************************************************************************
-
-/*
-let html="<h1>hello</h1>"
-let nm=require('nodemailer')
-let t=nm.createTransport({
-  service:'gmail',
-  port:3000,
-  secure:true,
-  auth:{
-    user:'anasrabhi246@gmail.com ',
-     pass:'ldny xfsq guwc pyjt'
-
-  },
-  tls:{
-    rejectUnauthorized:false
+app.post('/rate/:profNum',async(req,res)=>{
+  let profn=req.params.profNum;
+  let profid=parseInt(profn);
+  if(profid&&profid<=professors.length+1){
+    let prof=await profmodel.findOne({id:profid})
+    .then((d)=>d)
+    .catch(()=>console.log("error getting prof"))
+    if(prof){
+      let pedaval=0;
+      for(let inpnum=1;inpnum<6;inpnum++){
+       if(req.body[`pedagogy${inpnum}`]){
+        pedaval=parseInt(req.body[`pedagogy${inpnum}`]);break;
+       }
+      }
+      let discval=0;
+      for(let inpnum=1;inpnum<6;inpnum++){
+       if(req.body[`discipline${inpnum}`]){
+        discval=parseInt(req.body[`discipline${inpnum}`]);break;
+       }
+      }
+      let expval=0;
+      for(let inpnum=1;inpnum<6;inpnum++){
+       if(req.body[`expertise${inpnum}`]){
+        expval=parseInt(req.body[`expertise${inpnum}`]);break;
+       }
+      }
+     let rating =parseFloat((parseFloat(pedaval)
+     +parseFloat(discval)
+     +parseFloat(expval))/3)
+     prof.discipline.push(discval)
+     prof.expertise.push(expval)
+     prof.pedagogy.push(pedaval)
+     /*
+     console.log("old"+prof.rating)
+     console.log("number"+prof.pedagogy.length)
+     */
+     let newrating=rating
+    let numofrates=prof.pedagogy.length;
+     if(numofrates)
+      newrating=parseFloat((prof.rating*(numofrates-1)+rating)/parseFloat(parseFloat(numofrates)))
+    newrating=newrating.toPrecision();
+     console.log("the "+newrating)
+      await profmodel.findOneAndUpdate({id:profid},{rating:newrating,pedagogy:prof.pedagogy,expertise:prof.expertise,discipline:prof.discipline,rates:prof.rates})
+      .then((d)=>d)
+      .catch(()=>console.log("error getting prof"))
+    
+    }
+  
   }
-
-})
-let mo={from:'<anasrabhi246@gmail.com>',
-to:'xabev41d063@gmail.com',
-subject:'foff',
-html:html
-
-
-}
-t.sendMail(mo,(e,data)=>{
-  if(e){
-    console.log("fuck")
-  }
-  else{
-    console.log("ggwp")
-  }
-})
-
-*/
-
- 
+  res.redirect('/home');
+  
+  })
+  

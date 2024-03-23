@@ -1,1 +1,0 @@
-console.log("azd".substr(1,2))

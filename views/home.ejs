@@ -12,6 +12,8 @@
         padding:0;
         margin: 0;
         box-sizing: border-box;
+        user-select: none;
+    -webkit-tap-highlight-color: transparent;
     }
     #clock{
         background-color: rgba(40, 50, 98, 0.722);
@@ -330,9 +332,277 @@
             transition: 0.2s all;
 
         }
+        #ratescroll{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            border: 0.08em solid black;
+            border-radius: 1em;
+        }
+        .card{
+            border:0.08em solid black;
+            margin: 1em;
+            margin-right: 1.5em;
+            border-radius: 1em;
+        min-width:15em;
+        height:20em;
+        opacity: 100%;
+        transition: 0.2s all;
+        }
+        .prof{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: center;
+            text-align: center;
+        }
+        .pdp{
+            display: block;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 1em;
+            border: 0.08em solid black;
+            border-radius: 2em;
+            width: 5em;
+            height: 5em;
+            background-image: url("person.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position:center center ;
+
+
+        }
+        .rate{
+            transition: 0.2s all;
+        }
+        .rate:hover{
+            transition: 0.2s all;
+        }
+        .pname{
+            display: block;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 1em;
+            margin-top: 1em;
+            border-bottom: 0.08em solid black;
+
+        }
+        .more-rating{
+            margin-top: 1em;
+            border: none;
+        }
+        ::-webkit-scrollbar{
+            background-color: transparent;
+            display: none;
+        }
+        ::-webkit-scrollbar-thumb{
+            background-color: transparent;
+            display: none;
+        }
+        .more{
+            display: block;
+            transform: translateY(-18em);
+            background-color: red;
+        }
+        .rating{
+            position: absolute;
+            border: 0.08em solid black;
+            left: 0; 
+            right: 0; 
+            margin-left: auto; 
+            margin-right: auto; 
+            width: 25em;
+            height: auto;
+            z-index: 100;
+            display:none;
+            flex-direction: column;
+            text-align: center;
+            background-color: rgba(115, 115, 116, 0.544);
+            opacity: 0%;
+            transition: 0.2s all;
+        }
+        .pedagogy , .expertise , .discipline {
+            display: inline;
+        }
+        #ratingheader{
+            background-color: white;
+            padding: 0.3em;
+            border-radius: 2em;
+            border: 0.08em solid black;
+            width: 80%;
+        }
+        .header{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+        }
+        .closerating{
+            color: white;
+            border: 0.08em solid white;
+            width: 10%;
+            transition: 0.2s all;
+
+        }
+        .closerating:hover{
+            color: white;
+            border: 0.08em solid white;
+            background-color: rgba(243, 93, 93, 0.452);
+            width: 20%;
+            transition: 0.2s all;
+
+        }
+        .pedagogy input{
+            -webkit-appearance: none;
+            border: 0.08em solid black;
+            background-color: transparent;
+            border-radius: 1em;
+            width: 1em;
+            height: 1em;
+            margin-left: 0.5em;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .expertise input{
+            -webkit-appearance: none;
+            border: 0.08em solid black;
+            background-color: transparent;
+            border-radius: 1em;
+            width: 1em;
+            height: 1em;
+            margin-left: 0.5em;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .discipline input{
+            -webkit-appearance: none;
+            border: 0.08em solid black;
+            background-color: transparent;
+            border-radius: 1em;
+            width: 1em;
+            height: 1em;
+            margin-left: 0.5em;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        input:hover{
+           
+            transition: 0.2s;
+        }
+        .submit-rate{
+       cursor: pointer;
+       transition: 0.2s all;
+        }
+        .submit-rate:hover{
+            background-color: rgba(252, 98, 98, 0.39);
+       transition: 0.2s all;
+            
+        }
+        .saperate-rate{
+            background-color: white;
+            border: 0.08em solid black;
+            border-radius: 1em;
+            font-weight: bold;
+            margin-top: 0.8em;
+            padding: 0.5em;
+        }
+        #special {
+            margin: auto;
+            padding: 0.2em;
+            color: rgba(43, 255, 0, 0.664);
+            height: auto;
+            min-height:2em ;
+            transition: 0.2s all
+        }
+        #title-container {
+            margin: auto;
+            padding: 0.2em;
+            height: auto;
+            min-height:2em ;
+            transition: 0.2s all
+        }
+        
+        #special-number{
+            margin: auto;
+            padding: 0.2em;
+            color: rgba(43, 255, 0, 0.664);
+            height: auto;
+            min-height:2em ;
+            transition: 0.2s all;
+        }
+        #safe-wrap{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
     </style>
-    <h1>Home<div id="time">ISSATso++<img src="heart.png"></div><div id="clock"><span id="hour"></span>:<span id="minute"></span>:<span id="second"></div></h1>
+    <h1>Home<div id="time">ISSATso++<img src="heart.png"></div><div id="clock"><span id="hour"></span>:<span id="minute"></span>:<span id="second"></div>
+    <div id="safe-wrap"><span id="title-container">Coded In A Total Of</span><span id="special-number">19509</span><span id="special">Lines Of Code</span>
+   </div> </h1>
     <div>
+        <div id="ratescroll">
+
+<%for(let k=1;k<professors.length+1;k++){%>
+    <div class="card">
+       <div class="prof">
+           <div class="pdp"></div>
+           <div class="pname"><%=professors[k-1].name%> </div>
+       </div>
+       <div class="ratingbtns">
+           <button class="rate" id="rate-btn"><%=professors[k-1].rating%> Points</button>
+           <button class="more-rating">^</button>
+       </div>
+    </div>
+
+
+            <form action="/rate/<%=k%>" method="post" class="form">
+         <div class="rating">
+            <div class="header">
+            <h3 id="ratingheader">Rating Of Professor <%=professors[k-1].name%></h3>
+            <button class="closerating">X</button>
+            </div>
+            <div class="pedagogy">
+                <%
+                for(let k=1;k<6;k++){
+                    %><input name="pedagogy<%=k%>"  value="<%=k%>" type="checkbox"><%
+
+                }
+                %>
+                <span>Points</span>
+            </div>
+            <div class="discipline">
+                <%
+                for(let k=1;k<6;k++){
+                    %><input name="discipline<%=k%>"  value="<%=k%>" type="checkbox"><%
+
+                }
+                %>
+                <span>Points</span>
+            </div>
+            <div class="expertise">
+                <%
+                for(let k=1;k<6;k++){
+                    %><input name="expertise<%=k%>"  value="<%=k%>" type="checkbox"><%
+
+                }
+                %>
+                <span>Points</span>
+            </div>
+         <button type="submit" class="submit-rate">Rate</button>
+       
+            
+         </div>
+         
+    </form>
+    <%}%>
+         </div> 
         <div id="live-cnt">
     <div id="live-tracker">
         <div class="live-info">
@@ -358,6 +628,839 @@
    
 <script src="/socket.io/socket.io.js"></script>
 <script src="/javascript/HomeDOM.js" type="text/javascript"></script>
-</script>
+
+<script>
+    let rates=(document.getElementsByClassName('rate'));
+    let more=(document.getElementsByClassName('more-rating'));
+    let cards=(document.getElementsByClassName('card'));
+    let ratetable=[]
+    let nofp="<%=professors.length%>";
+    console.log(nofp)
+    
+    "<%for(let ind in professors){%>"
+            ratetable.push("<%=professors[ind].rating%>")
+    
+        "<%}%>"
+    for(let k in cards){
+        if(k=="length")break;
+        let card=cards[k];
+        let r=(Math.random()*100)*2
+        let g=(Math.random()*100)*2
+        let b=(Math.random()*100)*2
+        card.style.backgroundColor=`rgba(${r},${g},${b},0.212)`;
+    }
+    for(let k in rates){
+        let rate=rates[k]
+        rate.style.backgroundColor=""
+    rate.addEventListener('mouseover',(e)=>{
+        rate.style="background-color:black;";
+        
+        setTimeout(() => {
+        rate.style.color="white"
+        rate.textContent="Rate";
+            
+        }, 100);
+    })
+    rate.addEventListener('mouseout',(e)=>{
+        rate.style="background-color:transparent;";
+        rate.style.color="white"
+        setTimeout(() => {
+            let rating=ratetable[k]
+        rate.textContent=rating+" Points";
+            
+        }, 100);
+        setTimeout(()=>{rate.style.color="black"},200);
+    
+    
+    })
+    
+    }
+    </script>
+    <script type=""></script>
+    <script>
+        let distable=[];
+        let exptable=[];
+        let pedtable=[];
+        //in testing phase
+        "<%for(let ind in professors){%>"
+            distable.push("<%=professors[ind].discipline%>")
+            exptable.push("<%=professors[ind].expertise%>")
+            pedtable.push("<%=professors[ind].pedagogy%>")
+    
+        "<%}%>"
+    for(let k in more){
+        let mr=more[k]
+        mr.addEventListener('click',(e)=>{
+            e.preventDefault();
+            let card=(mr.parentElement).parentElement;
+            let savelements=card.children
+    
+            let p=[]
+            for(let child=0;child<savelements.length; child++){
+                
+          p.push((savelements[child]));
+    
+            }
+    
+    
+ card.style.transform=' rotate3d(0, 1, 0, 90deg)';
+ setTimeout(()=>{
+ card.style.transform=' rotate3d(0, 1, 0, 0)';},200)
+        
+        setTimeout(()=>{
+            let coloration=["rgba(247, 5, 5, 0.544)","rgba(247, 183, 5, 0.544)","rgba(5, 247, 134, 0.544)"];
+             let exp=exptable[k];
+            let disci=distable[k];
+            let peda=pedtable[k];
+            let s1=document.createElement('span');
+            let s2=document.createElement('span');
+            let s3=document.createElement('span');
+            s1.textContent=peda
+            s2.textContent=disci
+            s3.textContent=exp
+            s1.className="saperate-rate"
+            s2.className="saperate-rate"
+            s3.className="saperate-rate"
+
+            let morerate=document.createElement('div');
+            morerate.textContent="Pedagogy Rating";
+            let pin=0,ein=0,din=0;
+            switch(parseInt(peda)){
+                case 0:pin=0;break;
+                case 1:pin=0;break;
+                case 2:pin=1;break;
+                case 3:pin=1;break;
+                case 4:pin=2;break;
+                case 5:pin=2;break;
+            }
+            switch(parseInt(disci)){
+                case 0:din=0;break;
+                case 1:din=0;break;
+                case 2:din=1;break;
+                case 3:din=1;break;
+                case 4:din=2;break;
+                case 5:din=2;break;
+            }
+            switch(parseInt(exp)){
+                case 0:ein=0;break;
+                case 1:ein=0;break;
+                case 2:ein=1;break;
+                case 3:ein=1;break;
+                case 4:ein=2;break;
+                case 5:ein=2;break;
+            }
+            s1.style.backgroundColor=coloration[pin]
+            s2.style.backgroundColor=coloration[din]
+            s3.style.backgroundColor=coloration[ein]
+            console.log(s1)
+            console.log(pin)
+            morerate.appendChild(s1);
+            let pdd=document.createElement('div');
+            pdd.textContent="Discipline Rating";
+            pdd.appendChild(s2);
+            let ddd=document.createElement('div');
+            ddd.textContent="Expertise Rating";
+            ddd.appendChild(s3);
+           card.innerHTML="";
+            card.appendChild(morerate);
+            card.appendChild(pdd);
+            card.appendChild(ddd);
+        card.style.opacity="100%"
+        setTimeout(()=>{
+    
+            setTimeout(()=>{
+           card.innerHTML="";
+           for(let el in p){
+            card.appendChild(p[el]);
+           }
+    
+            },200)
+ card.style.transform=' rotate3d(0, 1, 0, -90deg)';
+ setTimeout(()=>{
+ card.style.transform=' rotate3d(0, 1, 0, 0)';},200)
+    
+    
+        },1500)
+        
+        },200)
+        })
+    }
+    
+    </script>
+    <script>
+    
+    
+        let ratebtns=document.getElementsByClassName('rate');
+        let ratepanel=document.getElementsByClassName('rating')
+        let body=document.querySelector('body')
+        let closebtns=document.getElementsByClassName('closerating')
+        
+       // <input name="pedagogy1" type="checkbox">
+    
+    
+       
+       //rates closes and rating panes
+       for(let k =0 ;k<ratebtns.length;k++){
+        let ratebtn=ratebtns[k];
+        let closebtn=closebtns[k];
+        let ratepane=ratepanel[k];
+        ratebtn.addEventListener('click',(e)=>{
+            e.preventDefault();
+            ratepane.style.display="flex";
+            //animate display
+            
+            setTimeout(()=>{
+            ratepane.style.opacity="100%";
+            
+            },50)
+        })
+        closebtn.addEventListener('click',(e)=>{
+            e.preventDefault();
+            ratepane.style.opacity="0%";
+            //animate display
+            
+            setTimeout(()=>{
+            ratepane.style.display="none";
+            
+            },200)
+        })
+       }
+       //*****************************
+       for(let count=0;count<nofp;count++){
+        
+        let p1=document.getElementsByName('pedagogy1')[count];
+        let p2=document.getElementsByName('pedagogy2')[count];
+        let p3=document.getElementsByName('pedagogy3')[count];
+        let p4=document.getElementsByName('pedagogy4')[count];
+        let p5=document.getElementsByName('pedagogy5')[count];
+       
+    
+    
+        p1.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!p1.checked)
+            p1.style.backgroundColor="rgba(255, 0, 0, 0.5)";
+        })
+        p1.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!p1.checked)
+            p1.style.backgroundColor="transparent";
+        })
+                
+        p2.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!p1.checked)
+            p1.style.backgroundColor="rgba(255, 136, 0, 0.5)";
+            if(!p2.checked)
+            p2.style.backgroundColor="rgba(255, 136, 0, 0.5)";
+        })
+        p2.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!p1.checked)
+            p1.style.backgroundColor="transparent";
+            if(!p2.checked)
+            p2.style.backgroundColor="transparent";
+        })
+    
+        
+        p3.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!p1.checked)
+            p1.style.backgroundColor="rgba(255, 238, 0, 0.5)";
+            if(!p2.checked)
+            p2.style.backgroundColor="rgba(255, 238, 0, 0.5)";
+            if(!p3.checked)
+            p3.style.backgroundColor="rgba(255, 238, 0, 0.5)";
+        })
+        p3.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!p1.checked)
+            p1.style.backgroundColor="transparent";
+            if(!p2.checked)
+            p2.style.backgroundColor="transparent";
+            if(!p3.checked)
+            p3.style.backgroundColor="transparent";
+        })
+    
+        
+        p4.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!p1.checked)
+            p1.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+            if(!p2.checked)
+            p2.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+            if(!p3.checked)
+            p3.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+            if(!p4.checked)
+            p4.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+        })
+        p4.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!p1.checked)
+            p1.style.backgroundColor="transparent";
+            if(!p2.checked)
+            p2.style.backgroundColor="transparent";
+            if(!p3.checked)
+            p3.style.backgroundColor="transparent";
+            if(!p4.checked)
+            p4.style.backgroundColor="transparent";
+        })
+    
+        
+        p5.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!p1.checked)
+            p1.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            if(!p2.checked)
+            p2.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            if(!p3.checked)
+            p3.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            if(!p4.checked)
+            p4.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            if(!p5.checked)
+            p5.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+        })
+        p5.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!p1.checked)
+            p1.style.backgroundColor="transparent";
+            if(!p2.checked)
+            p2.style.backgroundColor="transparent";
+            if(!p3.checked)
+            p3.style.backgroundColor="transparent";
+            if(!p4.checked)
+            p4.style.backgroundColor="transparent";
+            if(!p5.checked)
+            p5.style.backgroundColor="transparent";
+        })
+     p1.addEventListener('change',(e)=>{
+        if(p1.checked){
+    
+            p1.style.backgroundColor="rgba(255, 0, 0, 0.5)";
+            p2.style.backgroundColor="transparent";
+            p3.style.backgroundColor="transparent";
+            p4.style.backgroundColor="transparent";
+            p5.style.backgroundColor="transparent";
+            p2.checked=false;
+            p3.checked=false;
+            p4.checked=false;
+            p5.checked=false;
+    
+        }
+     })
+     
+     p2.addEventListener('change',(e)=>{
+        if(p2.checked){
+    
+            p2.style.backgroundColor="rgba(255, 136, 0, 0.5)";
+            p1.style.backgroundColor="transparent";
+            p3.style.backgroundColor="transparent";
+            p4.style.backgroundColor="transparent";
+            p5.style.backgroundColor="transparent";
+            p1.checked=false;
+            p3.checked=false;
+            p4.checked=false;
+            p5.checked=false;
+    
+        }
+     })
+     
+     p3.addEventListener('change',(e)=>{
+        if(p3.checked){
+    
+            p3.style.backgroundColor="rgba(255, 238, 0, 0.5)";
+            p2.style.backgroundColor="transparent";
+            p1.style.backgroundColor="transparent";
+            p4.style.backgroundColor="transparent";
+            p5.style.backgroundColor="transparent";
+            p2.checked=false;
+            p1.checked=false;
+            p4.checked=false;
+            p5.checked=false;
+    
+        }
+     })
+     
+     p4.addEventListener('change',(e)=>{
+        if(p4.checked){
+    
+            p4.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+            p2.style.backgroundColor="transparent";
+            p3.style.backgroundColor="transparent";
+            p1.style.backgroundColor="transparent";
+            p5.style.backgroundColor="transparent";
+            p2.checked=false;
+            p3.checked=false;
+            p1.checked=false;
+            p5.checked=false;
+    
+        }
+     })
+     
+     p5.addEventListener('change',(e)=>{
+        if(p5.checked){
+    
+            p5.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            p2.style.backgroundColor="transparent";
+            p3.style.backgroundColor="transparent";
+            p4.style.backgroundColor="transparent";
+            p1.style.backgroundColor="transparent";
+            p2.checked=false;
+            p3.checked=false;
+            p4.checked=false;
+            p1.checked=false;
+    
+        }
+     })
+    }
+     
+        
+    
+    </script>
+    
+    <script>
+        for(let count=0;count<nofp;count++){
+         
+        
+        let d1=document.getElementsByName('discipline1')[count];
+        let d2=document.getElementsByName('discipline2')[count];
+        let d3=document.getElementsByName('discipline3')[count];
+        let d4=document.getElementsByName('discipline4')[count];
+        let d5=document.getElementsByName('discipline5')[count];
+        
+        d1.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!d1.checked)
+            d1.style.backgroundColor="rgba(255, 0, 0, 0.5)";
+        })
+        d1.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!d1.checked)
+            d1.style.backgroundColor="transparent";
+        })
+                
+        d2.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!d1.checked)
+            d1.style.backgroundColor="rgba(255, 136, 0, 0.5)";
+            if(!d2.checked)
+            d2.style.backgroundColor="rgba(255, 136, 0, 0.5)";
+        })
+        d2.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!d1.checked)
+            d1.style.backgroundColor="transparent";
+            if(!d2.checked)
+            d2.style.backgroundColor="transparent";
+        })
+    
+        
+        d3.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!d1.checked)
+            d1.style.backgroundColor="rgba(255, 238, 0, 0.5)";
+            if(!d2.checked)
+            d2.style.backgroundColor="rgba(255, 238, 0, 0.5)";
+            if(!d3.checked)
+            d3.style.backgroundColor="rgba(255, 238, 0, 0.5)";
+        })
+        d3.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!d1.checked)
+            d1.style.backgroundColor="transparent";
+            if(!d2.checked)
+            d2.style.backgroundColor="transparent";
+            if(!d3.checked)
+            d3.style.backgroundColor="transparent";
+        })
+    
+        
+        d4.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!d1.checked)
+            d1.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+            if(!d2.checked)
+            d2.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+            if(!d3.checked)
+            d3.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+            if(!d4.checked)
+            d4.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+        })
+        d4.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!d1.checked)
+            d1.style.backgroundColor="transparent";
+            if(!d2.checked)
+            d2.style.backgroundColor="transparent";
+            if(!d3.checked)
+            d3.style.backgroundColor="transparent";
+            if(!d4.checked)
+            d4.style.backgroundColor="transparent";
+        })
+    
+        
+        d5.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!d1.checked)
+            d1.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            if(!d2.checked)
+            d2.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            if(!d3.checked)
+            d3.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            if(!d4.checked)
+            d4.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            if(!d5.checked)
+            d5.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+        })
+        d5.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!d1.checked)
+            d1.style.backgroundColor="transparent";
+            if(!d2.checked)
+            d2.style.backgroundColor="transparent";
+            if(!d3.checked)
+            d3.style.backgroundColor="transparent";
+            if(!d4.checked)
+            d4.style.backgroundColor="transparent";
+            if(!d5.checked)
+            d5.style.backgroundColor="transparent";
+        })
+     d1.addEventListener('change',(e)=>{
+        if(d1.checked){
+    
+            d1.style.backgroundColor="rgba(255, 0, 0, 0.5)";
+            d2.style.backgroundColor="transparent";
+            d3.style.backgroundColor="transparent";
+            d4.style.backgroundColor="transparent";
+            d5.style.backgroundColor="transparent";
+            d2.checked=false;
+            d3.checked=false;
+            d4.checked=false;
+            d5.checked=false;
+    
+        }
+     })
+     
+     d2.addEventListener('change',(e)=>{
+        if(d2.checked){
+    
+            d2.style.backgroundColor="rgba(255, 136, 0, 0.5)";
+            d1.style.backgroundColor="transparent";
+            d3.style.backgroundColor="transparent";
+            d4.style.backgroundColor="transparent";
+            d5.style.backgroundColor="transparent";
+            d1.checked=false;
+            d3.checked=false;
+            d4.checked=false;
+            d5.checked=false;
+    
+        }
+     })
+     
+     d3.addEventListener('change',(e)=>{
+        if(d3.checked){
+    
+            d3.style.backgroundColor="rgba(255, 238, 0, 0.5)";
+            d2.style.backgroundColor="transparent";
+            d1.style.backgroundColor="transparent";
+            d4.style.backgroundColor="transparent";
+            d5.style.backgroundColor="transparent";
+            d2.checked=false;
+            d1.checked=false;
+            d4.checked=false;
+            d5.checked=false;
+    
+        }
+     })
+     
+     d4.addEventListener('change',(e)=>{
+        if(d4.checked){
+    
+            d4.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+            d2.style.backgroundColor="transparent";
+            d3.style.backgroundColor="transparent";
+            d1.style.backgroundColor="transparent";
+            d5.style.backgroundColor="transparent";
+            d2.checked=false;
+            d3.checked=false;
+            d1.checked=false;
+            d5.checked=false;
+    
+        }
+     })
+     
+     d5.addEventListener('change',(e)=>{
+        if(d5.checked){
+    
+            d5.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            d2.style.backgroundColor="transparent";
+            d3.style.backgroundColor="transparent";
+            d4.style.backgroundColor="transparent";
+            d1.style.backgroundColor="transparent";
+            d2.checked=false;
+            d3.checked=false;
+            d4.checked=false;
+            d1.checked=false;
+    
+        }
+     })
+     }
+    </script>
+    
+    
+    <script>
+        for(let count=0;count<nofp;count++){
+        let e1=document.getElementsByName('expertise1')[count];
+        let e2=document.getElementsByName('expertise2')[count];
+        let e3=document.getElementsByName('expertise3')[count];
+        let e4=document.getElementsByName('expertise4')[count];
+        let e5=document.getElementsByName('expertise5')[count];
+        
+        e1.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!e1.checked)
+            e1.style.backgroundColor="rgba(255, 0, 0, 0.5)";
+        })
+        e1.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!e1.checked)
+            e1.style.backgroundColor="transparent";
+        })
+                
+        e2.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!e1.checked)
+            e1.style.backgroundColor="rgba(255, 136, 0, 0.5)";
+            if(!e2.checked)
+            e2.style.backgroundColor="rgba(255, 136, 0, 0.5)";
+        })
+        e2.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!e1.checked)
+            e1.style.backgroundColor="transparent";
+            if(!e2.checked)
+            e2.style.backgroundColor="transparent";
+        })
+    
+        
+        e3.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!e1.checked)
+            e1.style.backgroundColor="rgba(255, 238, 0, 0.5)";
+            if(!e2.checked)
+            e2.style.backgroundColor="rgba(255, 238, 0, 0.5)";
+            if(!e3.checked)
+            e3.style.backgroundColor="rgba(255, 238, 0, 0.5)";
+        })
+        e3.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!e1.checked)
+            e1.style.backgroundColor="transparent";
+            if(!e2.checked)
+            e2.style.backgroundColor="transparent";
+            if(!e3.checked)
+            e3.style.backgroundColor="transparent";
+        })
+    
+        
+        e4.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!e1.checked)
+            e1.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+            if(!e2.checked)
+            e2.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+            if(!e3.checked)
+            e3.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+            if(!e4.checked)
+            e4.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+        })
+        e4.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!e1.checked)
+            e1.style.backgroundColor="transparent";
+            if(!e2.checked)
+            e2.style.backgroundColor="transparent";
+            if(!e3.checked)
+            e3.style.backgroundColor="transparent";
+            if(!e4.checked)
+            e4.style.backgroundColor="transparent";
+        })
+    
+        
+        e5.addEventListener('mouseover',(e)=>{
+            e.preventDefault();
+            if(!e1.checked)
+            e1.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            if(!e2.checked)
+            e2.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            if(!e3.checked)
+            e3.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            if(!e4.checked)
+            e4.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            if(!e5.checked)
+            e5.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+        })
+        e5.addEventListener('mouseout',(e)=>{
+            e.preventDefault();
+            if(!e1.checked)
+            e1.style.backgroundColor="transparent";
+            if(!e2.checked)
+            e2.style.backgroundColor="transparent";
+            if(!e3.checked)
+            e3.style.backgroundColor="transparent";
+            if(!e4.checked)
+            e4.style.backgroundColor="transparent";
+            if(!e5.checked)
+            e5.style.backgroundColor="transparent";
+        })
+     e1.addEventListener('change',(e)=>{
+        if(e1.checked){
+    
+            e1.style.backgroundColor="rgba(255, 0, 0, 0.5)";
+            e2.style.backgroundColor="transparent";
+            e3.style.backgroundColor="transparent";
+            e4.style.backgroundColor="transparent";
+            e5.style.backgroundColor="transparent";
+            e2.checked=false;
+            e3.checked=false;
+            e4.checked=false;
+            e5.checked=false;
+    
+        }
+     })
+     
+     e2.addEventListener('change',(e)=>{
+        if(e2.checked){
+    
+            e2.style.backgroundColor="rgba(255, 136, 0, 0.5)";
+            e1.style.backgroundColor="transparent";
+            e3.style.backgroundColor="transparent";
+            e4.style.backgroundColor="transparent";
+            e5.style.backgroundColor="transparent";
+            e1.checked=false;
+            e3.checked=false;
+            e4.checked=false;
+            e5.checked=false;
+    
+        }
+     })
+     
+     e3.addEventListener('change',(e)=>{
+        if(e3.checked){
+    
+            e3.style.backgroundColor="rgba(255, 238, 0, 0.5)";
+            e2.style.backgroundColor="transparent";
+            e1.style.backgroundColor="transparent";
+            e4.style.backgroundColor="transparent";
+            e5.style.backgroundColor="transparent";
+            e2.checked=false;
+            e1.checked=false;
+            e4.checked=false;
+            e5.checked=false;
+    
+        }
+     })
+     
+     e4.addEventListener('change',(e)=>{
+        if(e4.checked){
+    
+            e4.style.backgroundColor="rgba(166, 255, 0, 0.5)";
+            e2.style.backgroundColor="transparent";
+            e3.style.backgroundColor="transparent";
+            e1.style.backgroundColor="transparent";
+            e5.style.backgroundColor="transparent";
+            e2.checked=false;
+            e3.checked=false;
+            e1.checked=false;
+            e5.checked=false;
+    
+        }
+     })
+     
+     e5.addEventListener('change',(e)=>{
+        if(e5.checked){
+    
+            e5.style.backgroundColor="rgba(60, 255, 0, 0.5)";
+            e2.style.backgroundColor="transparent";
+            e3.style.backgroundColor="transparent";
+            e4.style.backgroundColor="transparent";
+            e1.style.backgroundColor="transparent";
+            e2.checked=false;
+            e3.checked=false;
+            e4.checked=false;
+            e1.checked=false;
+    
+        }
+     })
+    }
+    </script>
+    <script>
+        //checker part
+        let forms=document.getElementsByClassName('form');
+        for(let form of forms){
+            form.addEventListener('submit',(e)=>{
+                e.preventDefault();
+                let childcontainer=form.children[0];
+                let pedaginput=childcontainer.children[1];
+                let discinput=childcontainer.children[2];
+                let expertinput=childcontainer.children[3];
+                let ok=0;
+                for(let pinp of pedaginput.children){
+                   if(pinp.checked){ok=1;
+                    
+                    break;}
+                }ok=0;
+                for(let pinp of expertinput.children){
+                   if(pinp.checked){ok=1;
+                    
+                    break;}
+                }ok=0;
+                for(let pinp of discinput.children){
+                   if(pinp.checked){ok=1;
+                    
+                    break;}
+                }
+                if(!ok){
+                    console.log("err")
+                }
+                else{
+                    form.submit();
+                }
+            })
+        }
+        //**********************
+    
+    </script>
+    <script>
+        "Coded In A Total Of 19509 Lines Of Code"
+        let specialContainer=document.getElementById('special');
+        let titleContainer=document.getElementById('title-container');
+        let specialNumber=document.getElementById('special-number');
+        specialNumber.textContent="18000"
+        titleContainer.textContent=""
+        specialContainer.textContent=""
+        function adderFunc(container,word,delay){
+                for(let i=1;i<=word.length;i++){
+                    setTimeout(()=>{
+                        container.textContent+=word[i-1]
+                    },delay*i)
+                }
+        }
+        let num=18900
+        let int=setInterval(()=>{num++
+            specialNumber.textContent=JSON.stringify(num);
+            
+            if(num==19147)clearInterval(int);
+        },10)
+
+        adderFunc(titleContainer,"Coded In A Total Of ",80)
+       
+        setTimeout(()=>
+        adderFunc(specialContainer," Lines Of Code",80),
+        200
+        )
+
+
+    </script>
 </body>
 </html>

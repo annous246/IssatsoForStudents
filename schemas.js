@@ -303,10 +303,45 @@ let logSchema=new db.Schema({
     }
   })
   
+  let profSchema=new db.Schema({
+    id:{
+      type:Number,
+      required:true,
+      default:0
+    },
+    rating:{
+      type:Number,
+      required:true,
+      default:5
+    },
+    rates:{
+      type:[String],
+      required:true,
+      default:["initial"]
+    },
+    pedagogy:{
+      type:[Number],
+      required:true,
+      default:[5]
+    },
+    discipline:{
+      type:[Number],
+      required:true,
+      default:[5]
+    },
+    expertise:{
+      type:[Number],
+      required:true,
+      default:[5]
+    },
+  })
+  
+  
   exports.logSchema = logSchema
   exports.timetableschema = timetableschema
   exports.customttschema = customttschema
   exports.userSchema = userSchema
   exports.cacheSchema = cacheSchema
+  exports.profSchema = profSchema
   
   
