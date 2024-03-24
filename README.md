@@ -11,5 +11,5 @@
 <br>     &nbsp;&nbsp;&nbsp;&nbsp;3 - Similar Schedule which is the same desired classes but in different time frames
 <br>   &nbsp;&nbsp;&nbsp;*Todolist App for Productivity increase
 <br>&nbsp;..... (maybe some more services will be created in the future)
+![screen-capture (13) (2)](https://github.com/annous246/IssatsoForStudents/assets/64448280/77161469-a203-40c4-9293-b4596497f069)
 
-![screen-capture (13)](https://github.com/annous246/IssatsoForStudents/assets/64448280/3eb900db-4deb-4f5d-8316-c5187a639508)
