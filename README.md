@@ -10,8 +10,8 @@
 <br>     &nbsp;&nbsp;&nbsp;&nbsp;2 - Semi-Exact Schedule which is the represents the same classes in the same time frames but in different orders
 <br>     &nbsp;&nbsp;&nbsp;&nbsp;3 - Similar Schedule which is the same desired classes but in different time frames
 <br>   &nbsp;&nbsp;&nbsp;*Todolist App for Productivity increase
-<br>&nbsp;..... (maybe some more services will be created in the future)
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Rating Demo**
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⬇️
+<br> &nbsp;..... (maybe some more services will be created in the future)
+<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Rating Demo**
+<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⬇️
 ![screen-capture (13) (2)](https://github.com/annous246/IssatsoForStudents/assets/64448280/77161469-a203-40c4-9293-b4596497f069)
 
