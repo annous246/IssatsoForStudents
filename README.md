@@ -1,8 +1,9 @@
 # IssatsoForStudents
 **Services Provided By this website:**
 <br>  &nbsp;__-Public Services:__
-<br>   &nbsp;&nbsp;*App to calculate General Average Of The Semester
-<br>   &nbsp;&nbsp;*App to rate Professors of That Semester on 5 (Based On expertise , pedagogy and discipline)
+<br>   &nbsp;&nbsp;*App to calculate Total Average Of The Semester
+<br>   &nbsp;&nbsp;*App to rate Professors of That Semester out of 5 (Based On expertise , pedagogy and discipline)
+<br>   &nbsp;&nbsp;*App to Spectate and Track Classes and breaks Live in Our Institute
 <br>  &nbsp;__-Services Requiring An Account__
 <br>   &nbsp;&nbsp;*The Main Service : Choosing a specific Custom schedule for the day 
 <br>    &nbsp;&nbsp;&nbsp;-choosing Classes At Specific Time Frames -> This Service Provides all possible schedules under 3 types :
